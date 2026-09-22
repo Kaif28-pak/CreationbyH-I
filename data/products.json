@@ -1,0 +1,58 @@
+{
+  "products": [
+    {
+      "title": "Themed Event Decor",
+      "category": "Themed Event Decor",
+      "description": "Aqeeqah, birthdays & baby showers with stunning backdrops and balloon garlands.",
+      "image": "assets/images/service_decor.jpg",
+      "video": "",
+      "featured": true,
+      "order": 1
+    },
+    {
+      "title": "Gift Hampers",
+      "category": "Gift Hampers",
+      "description": "Curated snack boxes and premium ribboned sets tailored for the recipient.",
+      "image": "assets/images/service_hamper.jpg",
+      "video": "",
+      "featured": true,
+      "order": 2
+    },
+    {
+      "title": "Floral Bouquets",
+      "category": "Floral Bouquets",
+      "description": "Fresh sunflower, red rose, and mixed arrangements wrapped in elegant kraft paper.",
+      "image": "assets/images/service_bouquet.jpg",
+      "video": "",
+      "featured": true,
+      "order": 3
+    },
+    {
+      "title": "Bridal Collections",
+      "category": "Bridal Collections",
+      "description": "Exclusive 'Bride to Be' pink gift sets with mini bottles and keepsakes.",
+      "image": "assets/images/service_bridal.jpg",
+      "video": "",
+      "featured": true,
+      "order": 4
+    },
+    {
+      "title": "Occasion Gifting",
+      "category": "Occasion Gifting",
+      "description": "Mother's Day, anniversaries, and birthdays paired with soft toys or balloons.",
+      "image": "assets/images/service_occasion.jpg",
+      "video": "",
+      "featured": true,
+      "order": 5
+    },
+    {
+      "title": "Personalized Decor",
+      "category": "Personalized Decor",
+      "description": "Custom name-based gifting and striking event signage (like our signature 'MUSA' decor).",
+      "image": "assets/images/service_decor.jpg",
+      "video": "",
+      "featured": true,
+      "order": 6
+    }
+  ]
+}

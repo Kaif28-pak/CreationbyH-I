@@ -1,0 +1,31 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: YOUR_CLOUD_NAME
+    api_key: YOUR_API_KEY
+
+publish_mode: simple
+
+collections:
+  - name: "products_collection"
+    label: "Products & Portfolio"
+    files:
+      - label: "Products List"
+        name: "products_list"
+        file: "data/products.json"
+        fields:
+          - label: "Products"
+            name: "products"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Category", name: "category", widget: "select", options: ["Themed Event Decor", "Gift Hampers", "Floral Bouquets", "Bridal Collections", "Occasion Gifting", "Personalized Decor"] }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Video (optional)", name: "video", widget: "file", required: false, hint: "Short MP4 clip, under ~15 seconds recommended." }
+              - { label: "Featured on homepage", name: "featured", widget: "boolean", default: false }
+              - { label: "Display order", name: "order", widget: "number", default: 1 }

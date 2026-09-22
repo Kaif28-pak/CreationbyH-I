@@ -7,6 +7,7 @@
     <!-- Elegant Fonts: Lora for headings, Montserrat for body -->
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
@@ -31,7 +32,7 @@
             </div>
             <p>From breathtaking Aqeeqah decor to personalized bridal gift sets, we turn your special moments into unforgettable memories in Karachi.</p>
             <div class="hero-buttons">
-                <a href="https://wa.me/923096708144" class="btn btn-primary" target="_blank">Book a Consultation</a>
+                <a href="https://wa.me/923096708144" class="btn wa-btn" target="_blank">Book a Consultation</a>
                 <a href="#gallery" class="btn btn-outline">See Our Work</a>
             </div>
         </div>
@@ -47,37 +48,8 @@
             <h2 class="reveal-left">Our Services</h2>
             <p class="reveal-right">Curated styling & gifting with a personal touch</p>
         </div>
-        <div class="services-grid">
-            <div class="service-card reveal">
-                <div class="service-img"><img src="assets/images/service_decor.jpg" alt="Themed Event Decor"></div>
-                <h3>Themed Event Decor</h3>
-                <p>Aqeeqah, birthdays & baby showers with stunning backdrops and balloon garlands.</p>
-            </div>
-            <div class="service-card reveal">
-                <div class="service-img"><img src="assets/images/service_hamper.jpg" alt="Gift Hampers"></div>
-                <h3>Gift Hampers</h3>
-                <p>Curated snack boxes and premium ribboned sets tailored for the recipient.</p>
-            </div>
-            <div class="service-card reveal">
-                <div class="service-img"><img src="assets/images/service_bouquet.jpg" alt="Floral Bouquets"></div>
-                <h3>Floral Bouquets</h3>
-                <p>Fresh sunflower, red rose, and mixed arrangements wrapped in elegant kraft paper.</p>
-            </div>
-            <div class="service-card reveal">
-                <div class="service-img"><img src="assets/images/service_bridal.jpg" alt="Bridal Collections"></div>
-                <h3>Bridal Collections</h3>
-                <p>Exclusive "Bride to Be" pink gift sets with mini bottles and keepsakes.</p>
-            </div>
-            <div class="service-card reveal">
-                <div class="service-img"><img src="assets/images/service_occasion.jpg" alt="Occasion Gifting"></div>
-                <h3>Occasion Gifting</h3>
-                <p>Mother's Day, anniversaries, and birthdays paired with soft toys or balloons.</p>
-            </div>
-            <div class="service-card reveal">
-                <div class="service-img"><img src="assets/images/service_decor.jpg" alt="Personalized Decor"></div>
-                <h3>Personalized Decor</h3>
-                <p>Custom name-based gifting and striking event signage (like our signature "MUSA" decor).</p>
-            </div>
+        <div class="services-grid" id="services-grid">
+            <!-- Dynamic content will be loaded here -->
         </div>
     </section>
 
@@ -87,24 +59,17 @@
             <h2 class="reveal-left">Signature Creations</h2>
             <p class="reveal-right">A glimpse into our artistic imagination</p>
         </div>
-        <div class="gallery-grid">
-            <!-- Using Unsplash placeholders that match your descriptions -->
-            <div class="gallery-item reveal">
-                <img src="assets/images/sunflower_bouquet.jpg" alt="Sunflower Bouquet">
-                <div class="gallery-overlay">Sunflower Bouquets</div>
-            </div>
-            <div class="gallery-item reveal">
-                <img src="assets/images/gift_hamper.jpg" alt="Gift Hampers">
-                <div class="gallery-overlay">Premium Gift Hampers</div>
-            </div>
-            <div class="gallery-item reveal">
-                <img src="assets/images/bridal_set.jpg" alt="Bridal Sets">
-                <div class="gallery-overlay">Bride to Be Sets</div>
-            </div>
-            <div class="gallery-item reveal">
-                <img src="assets/images/balloon_garland.jpg" alt="Balloon Decor">
-                <div class="gallery-overlay">Themed Balloon Garlands</div>
-            </div>
+        <div class="gallery-filters reveal" id="gallery-filters">
+            <button class="filter-btn active" data-filter="All">All</button>
+            <button class="filter-btn" data-filter="Themed Event Decor">Themed Event Decor</button>
+            <button class="filter-btn" data-filter="Gift Hampers">Gift Hampers</button>
+            <button class="filter-btn" data-filter="Floral Bouquets">Floral Bouquets</button>
+            <button class="filter-btn" data-filter="Bridal Collections">Bridal Collections</button>
+            <button class="filter-btn" data-filter="Occasion Gifting">Occasion Gifting</button>
+            <button class="filter-btn" data-filter="Personalized Decor">Personalized Decor</button>
+        </div>
+        <div class="gallery-grid" id="gallery-grid">
+            <!-- Dynamic content will be loaded here -->
         </div>
     </section>
 
@@ -145,7 +110,7 @@
                 <div class="brand-font logo-text" style="color: white;">Creations</div>
             </div>
             <p style="margin-top: 20px;">Artistic imagination for every occasion. Based in Karachi, delivering joy and aesthetic perfection.</p>
-            <a href="https://wa.me/923096708144" class="btn btn-primary" style="background: #25D366; color: white;">WhatsApp Us</a>
+            <a href="https://wa.me/923096708144" class="btn wa-btn">WhatsApp Us</a>
         </div>
         <div class="footer-links">
             <h4>Contact Details</h4>
@@ -190,6 +155,22 @@
                 revealOnScroll.observe(reveal);
             });
         });
+    </script>
+    
+    <!-- Dynamic Content Script -->
+    <script type="module" src="js/app.js"></script>
+
+    <!-- Netlify Identity Redirect logic -->
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
     </script>
 </body>
 </html>
