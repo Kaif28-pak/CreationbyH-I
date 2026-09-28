@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             card.className = 'service-card reveal active';
             card.innerHTML = `
                 <div class="service-img">
-                    <img src="${item.image || 'assets/images/service_decor.jpg'}" alt="${item.title}">
+                    <img src="${item.image || 'assets/images/category-flower-bouquet.jpg'}" alt="${item.title}">
                     ${videoTag}
                 </div>
                 <h3>${item.title}</h3>
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const div = document.createElement('div');
             div.className = 'gallery-item reveal active';
             div.innerHTML = `
-                <img src="${item.image || 'assets/images/sunflower_bouquet.jpg'}" alt="${item.title}">
+                <img src="${item.image || 'assets/images/category-flower-bouquet.jpg'}" alt="${item.title}">
                 ${videoTag}
                 <div class="gallery-overlay">
                     ${item.title}

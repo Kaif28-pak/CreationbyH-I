@@ -1,58 +1,67 @@
 {
   "products": [
     {
-      "title": "Themed Event Decor",
-      "category": "Themed Event Decor",
-      "description": "Aqeeqah, birthdays & baby showers with stunning backdrops and balloon garlands.",
-      "image": "assets/images/service_decor.jpg",
+      "title": "Flower Bouquet",
+      "category": "Flower Bouquet",
+      "description": "Beautiful, premium and elegant floral bouquets for every occasion.",
+      "image": "assets/images/category-flower-bouquet.jpg",
       "video": "",
       "featured": true,
       "order": 1
     },
     {
-      "title": "Gift Hampers",
-      "category": "Gift Hampers",
-      "description": "Curated snack boxes and premium ribboned sets tailored for the recipient.",
-      "image": "assets/images/service_hamper.jpg",
+      "title": "Cakes / Customized Cakes",
+      "category": "Cakes / Customized Cakes",
+      "description": "Beautiful custom designed fondant cakes with elegant decorations.",
+      "image": "assets/images/category-cakes-customized-cakes.jpg",
       "video": "",
       "featured": true,
       "order": 2
     },
     {
-      "title": "Floral Bouquets",
-      "category": "Floral Bouquets",
-      "description": "Fresh sunflower, red rose, and mixed arrangements wrapped in elegant kraft paper.",
-      "image": "assets/images/service_bouquet.jpg",
+      "title": "Baskets",
+      "category": "Baskets",
+      "description": "Elegant gift baskets filled with premium goodies and wrapped beautifully.",
+      "image": "assets/images/category-baskets.jpg",
       "video": "",
       "featured": true,
       "order": 3
     },
     {
-      "title": "Bridal Collections",
-      "category": "Bridal Collections",
-      "description": "Exclusive 'Bride to Be' pink gift sets with mini bottles and keepsakes.",
-      "image": "assets/images/service_bridal.jpg",
+      "title": "Balloon Boxes",
+      "category": "Balloon Boxes",
+      "description": "Transparent balloon boxes filled with colorful balloons for party decor.",
+      "image": "assets/images/category-balloon-boxes.jpg",
       "video": "",
       "featured": true,
       "order": 4
     },
     {
-      "title": "Occasion Gifting",
-      "category": "Occasion Gifting",
-      "description": "Mother's Day, anniversaries, and birthdays paired with soft toys or balloons.",
-      "image": "assets/images/service_occasion.jpg",
+      "title": "Crates",
+      "category": "Crates",
+      "description": "Premium wooden crates filled with luxury gifts and flowers.",
+      "image": "assets/images/category-crates.jpg",
       "video": "",
       "featured": true,
       "order": 5
     },
     {
-      "title": "Personalized Decor",
-      "category": "Personalized Decor",
-      "description": "Custom name-based gifting and striking event signage (like our signature 'MUSA' decor).",
-      "image": "assets/images/service_decor.jpg",
+      "title": "Frames",
+      "category": "Frames",
+      "description": "Elegant customized photo frames wrapped perfectly as a gift.",
+      "image": "assets/images/category-frames.jpg",
       "video": "",
       "featured": true,
       "order": 6
+    },
+    {
+      "title": "Customized Items",
+      "category": "Customized Items",
+      "description": "Personalized gifts like custom mugs, notebooks, pens and more.",
+      "image": "assets/images/category-customized-items.jpg",
+      "video": "",
+      "featured": true,
+      "order": 7
     }
   ]
 }

@@ -4,9 +4,13 @@ backend:
 
 media_library:
   name: cloudinary
+  output_filename_only: false
   config:
     cloud_name: YOUR_CLOUD_NAME
     api_key: YOUR_API_KEY
+    default_transformations:
+      - - fetch_format: auto
+        - quality: auto
 
 publish_mode: simple
 
@@ -23,7 +27,7 @@ collections:
             widget: "list"
             fields:
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Category", name: "category", widget: "select", options: ["Themed Event Decor", "Gift Hampers", "Floral Bouquets", "Bridal Collections", "Occasion Gifting", "Personalized Decor"] }
+              - { label: "Category", name: "category", widget: "select", options: ["Flower Bouquet", "Cakes / Customized Cakes", "Baskets", "Balloon Boxes", "Crates", "Frames", "Customized Items"] }
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Image", name: "image", widget: "image" }
               - { label: "Video (optional)", name: "video", widget: "file", required: false, hint: "Short MP4 clip, under ~15 seconds recommended." }

@@ -242,9 +242,11 @@ nav {
 }
 @media (max-width: 1024px) {
     .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .service-card:last-child:nth-child(7) { grid-column: 1 / -1; justify-self: center; width: 60%; }
 }
 @media (max-width: 768px) {
     .services-grid { grid-template-columns: 1fr; }
+    .service-card:last-child:nth-child(7) { grid-column: 1; width: 100%; }
 }
 
 .service-card {
@@ -255,6 +257,10 @@ nav {
     transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     cursor: pointer;
     border: 1px solid rgba(255,255,255,0.5);
+}
+/* Center the 7th item in a 3-column grid */
+.service-card:last-child:nth-child(7) {
+    grid-column: 2;
 }
 .service-card:hover {
     transition-duration: 0.4s !important;
@@ -284,8 +290,9 @@ nav {
 /* --- GALLERY SECTION --- */
 .gallery { padding: 80px 8%; background-color: var(--primary-pink); }
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
 }
 .gallery-item {
@@ -293,6 +300,8 @@ nav {
     overflow: hidden;
     position: relative;
     aspect-ratio: 4/5;
+    flex: 0 1 250px;
+    max-width: 250px;
 }
 .gallery-item img {
     width: 100%;
