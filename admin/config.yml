@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   branch: main
 
-site_url: https://hilarious-starlight-04d0a3.netlify.app
+site_url: https://creationbyh-i.netlify.app
 
 media_library:
   name: cloudinary
@@ -18,7 +18,7 @@ publish_mode: simple
 
 collections:
   - name: "products_collection"
-    label: "Products & Portfolio"
+    label: "Products We Are Offering"
     files:
       - label: "Flower Bouquets"
         name: "flower_bouquets"

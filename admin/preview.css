@@ -1,0 +1,26 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  padding: 20px;
+  color: #3A2B32;
+  background-color: #fafafa;
+  line-height: 1.6;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  display: block;
+  margin: 10px 0 20px 0;
+}
+div, span, p {
+  font-size: 16px;
+  margin-bottom: 8px;
+  word-wrap: break-word;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lora', serif;
+  color: #E399B6; /* Accent Pink */
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
