@@ -47,77 +47,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             color: var(--white);
             transform: translateY(-2px);
         }
-        .gallery-grid {
-            display: grid !important;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
-            gap: 30px !important;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .product-card {
-            background: var(--white);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            border: 1px solid rgba(227, 153, 182, 0.2);
-        }
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(227, 153, 182, 0.4);
-            border-color: var(--accent-pink);
-        }
-        .product-media {
+        .gallery-item {
             position: relative;
-            width: 100%;
-            padding-top: 100%; /* 1:1 Aspect Ratio */
-            overflow: hidden;
         }
-        .product-media img, .product-media video {
+        .gallery-item video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .product-card:hover .product-media img {
-            transform: scale(1.05);
-        }
-        .product-media video {
             opacity: 0;
-            z-index: 2;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
         }
-        .product-card:hover .product-media video {
+        .gallery-item:hover video {
             opacity: 1;
-        }
-        .product-content {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            text-align: left;
-        }
-        .product-title {
-            font-family: 'Lora', serif;
-            font-size: 1.25rem;
-            color: var(--text-dark);
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        .product-desc {
-            font-size: 0.95rem;
-            color: var(--text-light);
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-        .product-action {
-            margin-top: auto;
         }
         .service-card video {
             position: absolute;
@@ -148,32 +93,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let products = [];
 
-    const categories = [
-        { file: 'data/flower_bouquets.json', name: 'Flower Bouquet' },
-        { file: 'data/cakes.json', name: 'Cakes / Customized Cakes' },
-        { file: 'data/baskets.json', name: 'Baskets' },
-        { file: 'data/balloon_boxes.json', name: 'Balloon Boxes' },
-        { file: 'data/crates.json', name: 'Crates' },
-        { file: 'data/frames.json', name: 'Frames' },
-        { file: 'data/customized_items.json', name: 'Customized Items' }
-    ];
-
     try {
-        const fetchPromises = categories.map(async (cat) => {
-            try {
-                const response = await fetch(cat.file);
-                if (!response.ok) return [];
-                const data = await response.json();
-                let items = data.products ? data.products : (Array.isArray(data) ? data : []);
-                return items.map(item => ({ ...item, category: cat.name }));
-            } catch (e) {
-                return [];
-            }
-        });
-
-        const results = await Promise.all(fetchPromises);
-        products = results.flat();
-
+        const response = await fetch('data/products.json');
+        if (!response.ok) throw new Error('Failed to fetch data');
+        const data = await response.json();
+        
+        // Handle Decap CMS output format {"products": [...]} or raw array [...]
+        products = data.products ? data.products : (Array.isArray(data) ? data : []);
+        
         // Sort by order
         products.sort((a, b) => (a.order || 0) - (b.order || 0));
 
@@ -241,7 +168,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const filteredItems = filter === 'All' ? items : items.filter(p => p.category === filter);
         
         if (filteredItems.length === 0) {
-            galleryGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">Items coming soon to this category!</p>';
+            galleryGrid.innerHTML = '<p>No items found for this category.</p>';
             return;
         }
 
@@ -250,18 +177,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             const videoTag = item.video ? `<video src="${item.video}" loop muted playsinline></video>` : '';
 
             const div = document.createElement('div');
-            div.className = 'product-card reveal active';
+            div.className = 'gallery-item reveal active';
             div.innerHTML = `
-                <div class="product-media">
-                    <img src="${item.image || 'assets/images/category-flower-bouquet.jpg'}" alt="${item.title}">
-                    ${videoTag}
-                </div>
-                <div class="product-content">
-                    <div class="product-title">${item.title}</div>
-                    <div class="product-desc">${item.description || ''}</div>
-                    <div class="product-action">
-                        <a href="${waLink}" class="btn btn-primary" target="_blank" style="width: 100%; text-align: center; display: inline-block;">Inquire on WhatsApp</a>
-                    </div>
+                <img src="${item.image || 'assets/images/category-flower-bouquet.jpg'}" alt="${item.title}">
+                ${videoTag}
+                <div class="gallery-overlay">
+                    ${item.title}
+                    <a href="${waLink}" class="wa-btn" target="_blank" style="margin-top: 10px;">Inquire</a>
                 </div>
             `;
 
