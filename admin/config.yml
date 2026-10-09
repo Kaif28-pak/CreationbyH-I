@@ -2,12 +2,14 @@ backend:
   name: git-gateway
   branch: main
 
+site_url: https://hilarious-starlight-04d0a3.netlify.app
+
 media_library:
   name: cloudinary
   output_filename_only: false
   config:
-    cloud_name: YOUR_CLOUD_NAME
-    api_key: YOUR_API_KEY
+    cloud_name: "djjvgubrk"
+    api_key: "494837993291661"
     default_transformations:
       - - fetch_format: auto
         - quality: auto
@@ -18,18 +20,47 @@ collections:
   - name: "products_collection"
     label: "Products & Portfolio"
     files:
-      - label: "Products List"
-        name: "products_list"
-        file: "data/products.json"
-        fields:
+      - label: "Flower Bouquets"
+        name: "flower_bouquets"
+        file: "data/flower_bouquets.json"
+        fields: &product_list_fields
           - label: "Products"
             name: "products"
             widget: "list"
             fields:
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Category", name: "category", widget: "select", options: ["Flower Bouquet", "Cakes / Customized Cakes", "Baskets", "Balloon Boxes", "Crates", "Frames", "Customized Items"] }
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Image", name: "image", widget: "image" }
               - { label: "Video (optional)", name: "video", widget: "file", required: false, hint: "Short MP4 clip, under ~15 seconds recommended." }
               - { label: "Featured on homepage", name: "featured", widget: "boolean", default: false }
               - { label: "Display order", name: "order", widget: "number", default: 1 }
+
+      - label: "Cakes & Customized Cakes"
+        name: "cakes"
+        file: "data/cakes.json"
+        fields: *product_list_fields
+
+      - label: "Baskets"
+        name: "baskets"
+        file: "data/baskets.json"
+        fields: *product_list_fields
+
+      - label: "Balloon Boxes"
+        name: "balloon_boxes"
+        file: "data/balloon_boxes.json"
+        fields: *product_list_fields
+
+      - label: "Crates"
+        name: "crates"
+        file: "data/crates.json"
+        fields: *product_list_fields
+
+      - label: "Frames"
+        name: "frames"
+        file: "data/frames.json"
+        fields: *product_list_fields
+
+      - label: "Customized Items"
+        name: "customized_items"
+        file: "data/customized_items.json"
+        fields: *product_list_fields
