@@ -13,14 +13,20 @@
 
     <!-- Navigation -->
     <nav>
-        <div class="logo-container">
-            <div class="brand-font logo-text">Creations by</div>
+        <a href="index.html" class="logo-container" aria-label="Creations by H&I Home">
             <div class="logo-icon">H&I</div>
-        </div>
-        <ul class="nav-links">
+            <div class="brand-font logo-text">Creations by <span class="brand-sub">H&I</span></div>
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
             <li><a href="#services">Services</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li class="nav-cta-item"><a href="https://wa.me/923282276532?text=Hello%20Creations%20by%20H%26I,%20I%20would%20like%20to%20order!" class="nav-btn-order" target="_blank" rel="noopener">💬 WhatsApp Order</a></li>
         </ul>
     </nav>
 
@@ -158,6 +164,9 @@
         });
     </script>
     
+    <!-- Mobile Nav Script -->
+    <script src="js/nav.js"></script>
+
     <!-- Dynamic Content Script -->
     <script type="module" src="js/app.js"></script>
 

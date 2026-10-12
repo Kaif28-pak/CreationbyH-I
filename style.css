@@ -104,29 +104,35 @@ ul { list-style: none; }
 .gallery-grid .reveal:nth-child(4) { transition-delay: 0.45s; }
 
 /* --- NAVIGATION --- */
+/* --- NAVIGATION --- */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 8%;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    padding: 16px 8%;
+    background-color: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     position: fixed;
     width: 100%;
     top: 0;
+    left: 0;
     z-index: 1000;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.04);
     animation: slideInDown 0.8s ease-out;
 }
 .logo-container {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-    animation: slideInLeft 1s ease-out 0.3s both; /* Logo sliding animation */
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text-dark);
+    animation: slideInLeft 1s ease-out 0.3s both;
+    flex-shrink: 0;
 }
 .logo-icon {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     background: linear-gradient(135deg, var(--accent-pink), var(--primary-pink));
     border-radius: 50%;
     display: flex;
@@ -136,18 +142,61 @@ nav {
     font-family: 'Lora', serif;
     font-style: italic;
     font-size: 20px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(227, 153, 182, 0.35);
+    flex-shrink: 0;
 }
-.logo-text { font-size: 24px; font-weight: 600; color: var(--text-dark); }
+.logo-text { 
+    font-size: 22px; 
+    font-weight: 600; 
+    color: var(--text-dark); 
+    white-space: nowrap;
+    letter-spacing: -0.2px;
+}
+.logo-text .brand-sub {
+    color: var(--accent-pink);
+    font-style: italic;
+    font-weight: 700;
+}
 
-.nav-links { display: flex; gap: 30px; }
+.mobile-menu-btn {
+    display: none;
+}
+
+.nav-links { 
+    display: flex; 
+    align-items: center;
+    gap: 26px; 
+}
 .nav-links a {
     font-weight: 500;
-    font-size: 14px;
+    font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
+    color: var(--text-dark);
 }
 .nav-links a:hover { color: var(--accent-pink); }
+.nav-links .nav-cta-item .nav-btn-order {
+    background: var(--text-dark);
+    color: var(--white);
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: none;
+}
+.nav-links .nav-cta-item .nav-btn-order:hover {
+    background: #25D366;
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+}
 
 /* Button Styles with Smooth Hover */
 .btn {
@@ -1102,43 +1151,161 @@ html, body {
 
 /* Mobile Devices (<= 768px) */
 @media (max-width: 768px) {
-    /* Navigation Bar */
+    /* Header & Navigation Bar */
     nav {
-        padding: 10px 5%;
-        height: 62px;
+        padding: 0 5%;
+        height: 64px;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 2px 12px rgba(58, 43, 50, 0.08);
+        background-color: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: 0 2px 14px rgba(58, 43, 50, 0.08);
+        border-bottom: 1px solid rgba(227, 153, 182, 0.25);
     }
     .logo-container {
-        gap: 8px;
-    }
-    .logo-text {
-        font-size: 19px;
+        gap: 10px;
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        flex-shrink: 0;
     }
     .logo-icon {
-        width: 34px;
-        height: 34px;
+        width: 36px;
+        height: 36px;
         font-size: 16px;
+        flex-shrink: 0;
     }
-    .nav-links {
+    .logo-text {
+        font-size: 1.12rem;
+        font-weight: 600;
+        white-space: nowrap;
+        color: var(--text-dark);
+        line-height: 1.2;
+    }
+    .logo-text .brand-sub {
+        color: var(--accent-pink);
+        font-style: italic;
+    }
+
+    /* Mobile Hamburger Button */
+    .mobile-menu-btn {
         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        background: rgba(240, 206, 219, 0.45);
+        border: 1px solid rgba(227, 153, 182, 0.35);
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 0;
+        transition: all 0.25s ease;
+        flex-shrink: 0;
+    }
+    .mobile-menu-btn:hover, .mobile-menu-btn:active {
+        background: var(--accent-pink);
+    }
+    .mobile-menu-btn .bar {
+        width: 20px;
+        height: 2.2px;
+        background-color: var(--text-dark);
+        border-radius: 2px;
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .mobile-menu-btn:hover .bar, .mobile-menu-btn:active .bar {
+        background-color: var(--white);
+    }
+
+    /* Animated Hamburger to Cross 'X' */
+    .mobile-menu-btn.open {
+        background: var(--accent-pink);
+        border-color: var(--accent-pink);
+    }
+    .mobile-menu-btn.open .bar {
+        background-color: var(--white);
+    }
+    .mobile-menu-btn.open .bar:nth-child(1) {
+        transform: translateY(7.2px) rotate(45deg);
+    }
+    .mobile-menu-btn.open .bar:nth-child(2) {
+        opacity: 0;
+        transform: scale(0);
+    }
+    .mobile-menu-btn.open .bar:nth-child(3) {
+        transform: translateY(-7.2px) rotate(-45deg);
+    }
+
+    /* Mobile Drawer Menu (Slides Down from Header) */
+    .nav-links {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 18px 5% 24px;
         gap: 8px;
+        box-shadow: 0 20px 30px rgba(58, 43, 50, 0.12);
+        border-bottom: 3px solid var(--accent-pink);
+        transform: translateY(-130%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease, visibility 0.35s ease;
+        z-index: 999;
+    }
+    .nav-links.nav-active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    .nav-links li {
+        width: 100%;
     }
     .nav-links a {
-        font-size: 11px;
-        padding: 6px 12px;
-        border-radius: 20px;
-        background: rgba(240, 206, 219, 0.5);
-        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 13px 18px;
+        border-radius: 12px;
+        background: #FFF7F9;
+        font-size: 0.95rem;
         font-weight: 600;
         color: var(--text-dark);
-        transition: all 0.2s ease;
+        border: 1px solid rgba(227, 153, 182, 0.2);
+        letter-spacing: 0.3px;
+        text-transform: capitalize;
+        transition: all 0.25s ease;
     }
-    .nav-links a:hover {
+    .nav-links a:hover, .nav-links a:active {
         background: var(--accent-pink);
         color: var(--white);
+        transform: translateX(4px);
+    }
+    .nav-links .nav-cta-item {
+        margin-top: 6px;
+    }
+    .nav-links .nav-cta-item .nav-btn-order {
+        background: var(--text-dark);
+        color: var(--white);
+        justify-content: center;
+        padding: 14px 20px;
+        border-radius: 25px;
+        box-shadow: 0 4px 15px rgba(58, 43, 50, 0.2);
+        font-size: 0.95rem;
+    }
+    .nav-links .nav-cta-item .nav-btn-order:hover, 
+    .nav-links .nav-cta-item .nav-btn-order:active {
+        background: #25D366;
+        color: var(--white);
+        transform: translateY(-2px);
     }
 
     /* Hero Section */
@@ -1527,6 +1694,20 @@ html, body {
 
 /* Extra Small Phones (<= 480px) */
 @media (max-width: 480px) {
+    nav {
+        padding: 0 4%;
+    }
+    .logo-container {
+        gap: 8px;
+    }
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+    .logo-text {
+        font-size: 1.02rem;
+    }
     .hero-text h1 {
         font-size: 1.85rem;
     }
