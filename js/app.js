@@ -135,7 +135,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         items.forEach(item => {
-            const waLink = createWhatsAppLink(item.title);
+            const getCategoryId = (title) => {
+                const map = {
+                    'Flower Bouquet': 'flower_bouquets',
+                    'Cakes / Customized Cakes': 'cakes',
+                    'Baskets': 'baskets',
+                    'Balloon Boxes': 'balloon_boxes',
+                    'Crates': 'crates',
+                    'Frames': 'frames',
+                    'Customized Items': 'customized_items'
+                };
+                return map[title] || '';
+            };
+            
+            const categoryId = getCategoryId(item.title);
+            const pageLink = categoryId ? `products.html?id=${categoryId}` : '#';
+            
             const videoTag = item.video ? `<video src="${item.video}" loop muted playsinline></video>` : '';
             
             const card = document.createElement('div');
@@ -147,7 +162,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
-                <a href="${waLink}" class="wa-btn" target="_blank">Contact on WhatsApp</a>
+                <a href="${pageLink}" class="wa-btn">View Products</a>
             `;
             
             // Video hover logic for mobile / error fallback

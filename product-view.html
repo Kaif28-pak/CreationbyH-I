@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Creations by H&I</title>
+    <meta name="description" content="View details, high quality photos, and video showcase of our handcrafted creations.">
+    <!-- Elegant Fonts: Lora for headings, Montserrat for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-container">
+            <div class="brand-font logo-text">Creations by</div>
+            <div class="logo-icon">H&I</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#services">Categories</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Product View Section -->
+    <main class="product-view-main">
+        <div class="product-view-container">
+            
+            <!-- Top Navigation & Breadcrumbs -->
+            <div class="view-top-bar">
+                <div class="breadcrumb-nav">
+                    <a href="index.html">Home</a>
+                    <span>&rsaquo;</span>
+                    <a href="products.html" id="breadcrumb-category-link">Category</a>
+                    <span>&rsaquo;</span>
+                    <span id="breadcrumb-product-name">Product</span>
+                </div>
+                <a href="products.html" id="back-to-category-btn" class="back-link-btn">
+                    &larr; Back to Products
+                </a>
+            </div>
+
+            <!-- Dynamic Content Area -->
+            <div id="product-content-area">
+                <div class="loading-box">
+                    <div class="loading-spinner"></div>
+                    <p>Loading product details...</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Fullscreen Lightbox Modal -->
+    <div id="lightbox-modal" class="lightbox-modal" aria-hidden="true" role="dialog">
+        <button id="lightbox-close" class="lightbox-close-btn" aria-label="Close lightbox">&times;</button>
+        <div class="lightbox-content-wrap" id="lightbox-content">
+            <!-- Dynamic Lightbox Media -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-brand">
+            <div class="logo-container" style="animation: none;">
+                <div class="brand-font logo-text" style="color: white;">Creations</div>
+                <div class="logo-icon" style="background: var(--accent-pink);">H&I</div>
+            </div>
+            <p style="margin-top: 20px;">Artistic imagination for every occasion. Based in Karachi, delivering joy and aesthetic perfection.</p>
+            <a href="https://wa.me/923096708144" class="btn wa-btn" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#services">Categories</a></li>
+                <li><a href="index.html#gallery">Signature Gallery</a></li>
+                <li><a href="https://wa.me/923096708144" target="_blank" rel="noopener noreferrer">Custom Order</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Creations by H&I. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script src="js/product-view.js"></script>
+</body>
+</html>
