@@ -5,8 +5,12 @@ backend:
 site_url: https://creationbyh-i.netlify.app
 
 media_library:
-  name: cloudinary
+  name: cloudinary_upload
   output_filename_only: false
+  config:
+    cloud_name: "djjvgubrk"
+    api_key: "494837993291661"
+    upload_preset: "ml_default"
 
 publish_mode: simple
 
