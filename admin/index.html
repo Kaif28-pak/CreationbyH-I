@@ -7,9 +7,66 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+  <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
     CMS.registerPreviewStyle("preview.css");
+
+    // Cloudinary Direct Upload Widget (Uploads directly to Cloudinary from gallery without sign-in)
+    CMS.registerMediaLibrary({
+      name: "cloudinary",
+      init: async function({ options = {}, handleInsert } = {}) {
+        let uploadWidget = null;
+        return {
+          show: ({ allowMultiple = false } = {}) => {
+            uploadWidget = window.cloudinary.createUploadWidget(
+              {
+                cloudName: "djjvgubrk",
+                uploadPreset: "ml_default",
+                sources: ["local", "camera", "url"],
+                multiple: allowMultiple,
+                resourceType: "auto",
+                maxFileSize: 100000000,
+                clientAllowedFormats: ["png", "jpg", "jpeg", "webp", "gif", "mp4", "mov", "webm", "m4v"],
+                theme: "minimal",
+                styles: {
+                  palette: {
+                    window: "#FFFFFF",
+                    windowBorder: "#E399B6",
+                    tabIcon: "#3A2B32",
+                    menuIcons: "#5A616A",
+                    textDark: "#000000",
+                    textLight: "#FFFFFF",
+                    link: "#E399B6",
+                    action: "#3A2B32",
+                    inactiveTabIcon: "#E399B6",
+                    error: "#F44235",
+                    inProgress: "#E399B6",
+                    complete: "#20B832",
+                    sourceBg: "#FAFAFA"
+                  }
+                }
+              },
+              (error, result) => {
+                if (!error && result && result.event === "success") {
+                  handleInsert(result.info.secure_url);
+                  if (uploadWidget) {
+                    uploadWidget.close();
+                  }
+                }
+              }
+            );
+            uploadWidget.open();
+          },
+          hide: () => {
+            if (uploadWidget) {
+              uploadWidget.close();
+            }
+          },
+          enableStandalone: () => false
+        };
+      }
+    });
   </script>
   <script>
     if (window.netlifyIdentity) {
