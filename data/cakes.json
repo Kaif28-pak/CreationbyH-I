@@ -1,0 +1,11 @@
+{
+  "products": [
+    {
+      "featured": false,
+      "order": 1,
+      "title": "balloons",
+      "description": "efgefgergrev",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1791815521/22d3d3f8-1f52-455d-8b24-b1f5d74af8ba.jpg"
+    }
+  ]
+}
