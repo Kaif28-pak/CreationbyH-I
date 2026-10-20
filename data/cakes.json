@@ -1,3 +1,11 @@
 {
-  "products": []
+  "products": [
+    {
+      "featured": false,
+      "order": 1,
+      "title": "ytujytuyuy",
+      "description": "thtyju7ytjytj",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1792503664/2007a2b6-16d7-4929-873d-a745c1156f7f.jpg"
+    }
+  ]
 }
