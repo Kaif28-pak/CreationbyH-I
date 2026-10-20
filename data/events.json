@@ -1,0 +1,52 @@
+{
+  "events": [
+    {
+      "title": "Luxury Pastel Bridal Shower",
+      "category": "Bridal Shower",
+      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+      "image": "assets/images/category-flower-bouquet.jpg",
+      "description": "Bespoke pastel floral backdrop, neon bride-to-be signage, elegant seating, and luxury table styling in Karachi.",
+      "order": 1
+    },
+    {
+      "title": "Royal Floral Wedding Stage & Entry",
+      "category": "Wedding Event",
+      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+      "image": "assets/images/hero_showcase.jpg",
+      "description": "Opulent fresh floral arches, royal sofa arrangement, fairy light tunnels, and customized couple entry decor.",
+      "order": 2
+    },
+    {
+      "title": "Enchanted Garden Birthday Bash",
+      "category": "Birthday Event",
+      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+      "image": "assets/images/category-balloon-boxes.jpg",
+      "description": "Organic balloon garland installations, customized LED acrylic board, themed dessert table, and vibrant photo-props.",
+      "order": 3
+    },
+    {
+      "title": "Boho Chic Bridal Shower Soirée",
+      "category": "Bridal Shower",
+      "video": "",
+      "image": "assets/images/category-crates.jpg",
+      "description": "Earthy pampas grass florals, macrame backdrop, custom bridal favor crates, and cozy floor cushion setup.",
+      "order": 4
+    },
+    {
+      "title": "Candlelit Nikah & Reception Decor",
+      "category": "Wedding Event",
+      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+      "image": "assets/images/category-baskets.jpg",
+      "description": "Romantic floating candle centerpieces, rose petal pathway, custom mirror calligraphic welcome signs, and stage chandeliers.",
+      "order": 5
+    },
+    {
+      "title": "Golden Glam Milestone Birthday",
+      "category": "Birthday Event",
+      "video": "",
+      "image": "assets/images/category-cakes-customized-cakes.jpg",
+      "description": "Shimmering gold sequin wall, giant marquee illuminated numbers, customized dessert tablescape, and entrance arch.",
+      "order": 6
+    }
+  ]
+}

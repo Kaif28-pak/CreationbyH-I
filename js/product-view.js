@@ -46,8 +46,37 @@ document.addEventListener('DOMContentLoaded', async () => {
     backToCategoryBtn.innerHTML = `&larr; Back to ${categoryInfo.title}`;
 
     try {
-        const response = await fetch(`data/${categoryId}.json`);
-        if (!response.ok) {
+        let data = null;
+
+        // 1. Fetch with cache-busting and no-store
+        try {
+            const localResponse = await fetch(`data/${categoryId}.json?t=${Date.now()}`, {
+                cache: 'no-store',
+                headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
+            });
+            if (localResponse.ok) {
+                data = await localResponse.json();
+            }
+        } catch (localErr) {
+            console.warn('[ProductView] Local fetch failed, trying live GitHub fallback...', localErr);
+        }
+
+        // 2. Real-time GitHub fallback if local file is missing or failed
+        if (!data) {
+            try {
+                const ghResponse = await fetch(`https://raw.githubusercontent.com/Kaif28-pak/CreationbyH-I/main/data/${categoryId}.json?t=${Date.now()}`, {
+                    cache: 'no-store',
+                    headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
+                });
+                if (ghResponse.ok) {
+                    data = await ghResponse.json();
+                }
+            } catch (ghErr) {
+                console.warn('[ProductView] GitHub fallback also failed:', ghErr);
+            }
+        }
+
+        if (!data) {
             contentArea.innerHTML = `
                 <div class="error-box">
                     <p>Could not load products for this category. Coming soon!</p>
@@ -59,8 +88,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        const data = await response.json();
-        const products = data.products || [];
+        const rawProducts = data.products ? data.products : (Array.isArray(data) ? data : []);
+
+        // Strict filter: Exclude any deleted, empty, or blank items
+        const products = rawProducts.filter(p => {
+            if (!p || typeof p !== 'object') return false;
+            const hasTitle = p.title && typeof p.title === 'string' && p.title.trim().length > 0;
+            const hasMedia = (p.image && p.image.trim().length > 0) || (p.video && p.video.trim().length > 0);
+            return hasTitle && hasMedia;
+        });
 
         if (products.length === 0) {
             contentArea.innerHTML = `
@@ -75,7 +111,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // Sort by order if available
-        products.sort((a, b) => (a.order || 0) - (b.order || 0));
+        products.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
 
         // Determine current product index
         let currentIndex = 0;

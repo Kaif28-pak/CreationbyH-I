@@ -15,6 +15,31 @@ media_library:
 publish_mode: simple
 
 collections:
+  - name: "event_planner"
+    label: "Event Planner"
+    label_singular: "Event Item"
+    folder: "data/events"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    summary: "{{title}} — [{{category}}]"
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "Event Title (e.g. Luxury Pastel Bridal Shower)" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "Bridal Shower"
+          - "Wedding Event"
+          - "Birthday Event"
+        default: "Bridal Shower"
+        hint: "Select sub-category / event type"
+      - { label: "Video (Primary Content)", name: "video", widget: "file", required: false, hint: "Upload video clip (MP4 / WebM). This is the primary media displayed on the card." }
+      - { label: "Image (Secondary / Fallback)", name: "image", widget: "image", required: false, hint: "Upload fallback photo or video poster." }
+      - { label: "Description", name: "description", widget: "text", required: false, hint: "Short description of the event styling and decor." }
+      - { label: "Display Order", name: "order", widget: "number", default: 1, value_type: "int", required: false }
+
   - name: "products_collection"
     label: "Products We Are Offering"
     files:
