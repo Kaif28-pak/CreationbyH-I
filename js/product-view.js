@@ -48,36 +48,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         let data = null;
 
-        // 1. Fetch with cache-busting and no-store
+        // 1. Fetch live real-time data directly from GitHub Raw first
         try {
-            const localResponse = await fetch(`data/${categoryId}.json?t=${Date.now()}`, {
+            const ghResponse = await fetch(`https://raw.githubusercontent.com/Kaif28-pak/CreationbyH-I/main/data/${categoryId}.json?t=${Date.now()}`, {
                 cache: 'no-store',
                 headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
             });
-            if (localResponse.ok) {
-                data = await localResponse.json();
+            if (ghResponse.ok) {
+                const ghData = await ghResponse.json();
+                const ghProducts = (ghData && Array.isArray(ghData.products)) ? ghData.products : (Array.isArray(ghData) ? ghData : []);
+                if (ghProducts.length > 0) {
+                    data = ghData;
+                }
             }
-        } catch (localErr) {
-            console.warn('[ProductView] Local fetch failed, trying live GitHub fallback...', localErr);
+        } catch (ghErr) {
+            console.warn('[ProductView] Live GitHub fetch failed, attempting local fallback...', ghErr);
         }
 
-        // 2. Real-time GitHub fallback if local file is missing OR has 0 products
-        const localProducts = (data && Array.isArray(data.products)) ? data.products : (Array.isArray(data) ? data : []);
-        if (!data || localProducts.length === 0) {
+        // 2. Local file fallback if GitHub fetch didn't return data
+        if (!data) {
             try {
-                const ghResponse = await fetch(`https://raw.githubusercontent.com/Kaif28-pak/CreationbyH-I/main/data/${categoryId}.json?t=${Date.now()}`, {
+                const localResponse = await fetch(`data/${categoryId}.json?t=${Date.now()}`, {
                     cache: 'no-store',
                     headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
                 });
-                if (ghResponse.ok) {
-                    const ghData = await ghResponse.json();
-                    const ghProducts = (ghData && Array.isArray(ghData.products)) ? ghData.products : (Array.isArray(ghData) ? ghData : []);
-                    if (ghProducts.length > 0) {
-                        data = ghData;
-                    }
+                if (localResponse.ok) {
+                    data = await localResponse.json();
                 }
-            } catch (ghErr) {
-                console.warn('[ProductView] GitHub fallback also failed:', ghErr);
+            } catch (localErr) {
+                console.warn('[ProductView] Local fetch also failed:', localErr);
             }
         }
 
