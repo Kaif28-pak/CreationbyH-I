@@ -22,15 +22,3 @@
     Cache-Control = "no-cache, no-store, must-revalidate"
     Pragma = "no-cache"
     Expires = "0"
-
-[[redirects]]
-  from = "/.netlify/identity/*"
-  to = "https://creationbyh-i.netlify.app/.netlify/identity/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/.netlify/git/*"
-  to = "https://creationbyh-i.netlify.app/.netlify/git/:splat"
-  status = 200
-  force = true

@@ -8,11 +8,9 @@
   <!-- Netlify Identity Widget for Secure Admin Login -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
-    // Ensure Netlify Identity targets the production auth endpoint
+    // Initialize Netlify Identity dynamically for current custom domain
     if (window.netlifyIdentity) {
-      window.netlifyIdentity.init({
-        APIUrl: "https://creationbyh-i.netlify.app/.netlify/identity"
-      });
+      window.netlifyIdentity.init();
     }
     // Prevent Decap CMS from auto-initializing with default DAM OAuth
     window.CMS_MANUAL_INIT = true;
