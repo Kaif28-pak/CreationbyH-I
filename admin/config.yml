@@ -6,7 +6,7 @@ site_url: https://creationsbyhandi.shop
 display_url: https://creationsbyhandi.shop
 
 media_library:
-  name: cloudinary
+  name: cloudinary_direct
   output_filename_only: false
   config:
     cloud_name: "djjvgubrk"
@@ -43,9 +43,9 @@ collections:
   - name: "products_collection"
     label: "Products We Are Offering"
     files:
-      - label: "Flower Bouquets"
-        name: "flower_bouquets"
-        file: "data/flower_bouquets.json"
+      - label: "Homepage Services (7 Main Categories)"
+        name: "homepage_services"
+        file: "data/products.json"
         fields: &product_list_fields
           - label: "Products"
             name: "products"
@@ -55,8 +55,13 @@ collections:
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Image", name: "image", widget: "image" }
               - { label: "Video (optional)", name: "video", widget: "file", required: false, hint: "Short MP4 clip, under ~15 seconds recommended." }
-              - { label: "Featured on homepage", name: "featured", widget: "boolean", default: false }
+              - { label: "Featured on homepage", name: "featured", widget: "boolean", default: true }
               - { label: "Display order", name: "order", widget: "number", default: 1 }
+
+      - label: "Flower Bouquets"
+        name: "flower_bouquets"
+        file: "data/flower_bouquets.json"
+        fields: *product_list_fields
 
       - label: "Cakes & Customized Cakes"
         name: "cakes"

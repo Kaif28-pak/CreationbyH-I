@@ -1,43 +1,55 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager — Creations by H&I</title>
+  
+  <!-- Netlify Identity Widget for Secure Admin Login -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <!-- Stop Decap CMS from auto-initializing with default OAuth library -->
   <script>
+    // Ensure Netlify Identity targets the production auth endpoint
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.init({
+        APIUrl: "https://creationbyh-i.netlify.app/.netlify/identity"
+      });
+    }
+    // Prevent Decap CMS from auto-initializing with default DAM OAuth
     window.CMS_MANUAL_INIT = true;
   </script>
 </head>
 <body>
-  <!-- Cloudinary Official Upload Widget for PC and Mobile -->
+  <!-- Cloudinary Official Direct Upload Widget (Bypasses DAM login modal) -->
   <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
+
   <!-- Decap CMS Core -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <script>
+    // Register Preview Styles
     CMS.registerPreviewStyle("preview.css");
 
-    // Cloudinary Direct Upload Widget (Uploads directly to Cloudinary from PC & Mobile without login)
-    const cloudinaryUploadLib = {
-      name: "cloudinary_upload",
+    // Cloudinary Direct Upload Media Library (Local Gallery, Camera & Files)
+    const cloudinaryDirectLib = {
+      name: "cloudinary_direct",
       init: async function({ options = {}, handleInsert } = {}) {
         let uploadWidget = null;
         return {
           show: ({ allowMultiple = false } = {}) => {
             if (!window.cloudinary) {
-              alert("Cloudinary upload widget is loading, please try again in a moment.");
+              alert("Cloudinary upload widget is loading. Please check your internet connection.");
               return;
             }
+
             uploadWidget = window.cloudinary.createUploadWidget(
               {
                 cloudName: "djjvgubrk",
                 uploadPreset: "ml_default",
                 sources: ["local", "camera", "url"],
+                defaultSource: "local",
                 multiple: allowMultiple,
                 resourceType: "auto",
-                maxFileSize: 100000000, // 100MB
+                maxFileSize: 100000000, // 100 MB max for videos
                 clientAllowedFormats: ["png", "jpg", "jpeg", "webp", "gif", "mp4", "mov", "webm", "m4v"],
                 theme: "minimal",
                 styles: {
@@ -46,11 +58,11 @@
                     windowBorder: "#E399B6",
                     tabIcon: "#3A2B32",
                     menuIcons: "#5A616A",
-                    textDark: "#000000",
+                    textDark: "#1A1A1A",
                     textLight: "#FFFFFF",
-                    link: "#E399B6",
-                    action: "#3A2B32",
-                    inactiveTabIcon: "#E399B6",
+                    link: "#D87093",
+                    action: "#20B832",
+                    inactiveTabIcon: "#888888",
                     error: "#F44235",
                     inProgress: "#E399B6",
                     complete: "#20B832",
@@ -60,13 +72,16 @@
               },
               (error, result) => {
                 if (!error && result && result.event === "success") {
-                  handleInsert(result.info.secure_url);
+                  if (typeof handleInsert === "function") {
+                    handleInsert(result.info.secure_url);
+                  }
                   if (uploadWidget) {
                     uploadWidget.close();
                   }
                 }
               }
             );
+
             uploadWidget.open();
           },
           hide: () => {
@@ -79,25 +94,17 @@
       }
     };
 
-    // Register under both custom name and default name to ensure it takes complete precedence
-    CMS.registerMediaLibrary(cloudinaryUploadLib);
-    CMS.registerMediaLibrary({ ...cloudinaryUploadLib, name: "cloudinary" });
+    // Register custom direct media library
+    CMS.registerMediaLibrary(cloudinaryDirectLib);
 
     // Initialize Decap CMS with custom media library ready
     CMS.init();
-  </script>
 
-  <script>
+    // Netlify Identity Session Listener
     if (window.netlifyIdentity) {
-      window.netlifyIdentity.init({
-        APIUrl: "https://creationbyh-i.netlify.app/.netlify/identity"
-      });
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
+      window.netlifyIdentity.on("login", () => {
+        // Refresh page once logged in to load CMS dashboard
+        document.location.reload();
       });
     }
   </script>
