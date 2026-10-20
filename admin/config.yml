@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Kaif28-pak/CreationbyH-I
   branch: main
+  base_url: https://creationsbyhandi.shop
+  auth_endpoint: api/auth
 
 site_url: https://creationsbyhandi.shop
 display_url: https://creationsbyhandi.shop

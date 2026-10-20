@@ -4,14 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager — Creations by H&I</title>
-  
-  <!-- Netlify Identity Widget for Secure Admin Login -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
-    // Initialize Netlify Identity dynamically for current custom domain
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.init();
-    }
     // Prevent Decap CMS from auto-initializing with default DAM OAuth
     window.CMS_MANUAL_INIT = true;
   </script>
@@ -97,14 +90,6 @@
 
     // Initialize Decap CMS with custom media library ready
     CMS.init();
-
-    // Netlify Identity Session Listener
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("login", () => {
-        // Refresh page once logged in to load CMS dashboard
-        document.location.reload();
-      });
-    }
   </script>
 </body>
 </html>

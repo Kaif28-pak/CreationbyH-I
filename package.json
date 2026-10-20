@@ -1,0 +1,9 @@
+{
+  "name": "creationbyh-i",
+  "version": "1.0.0",
+  "description": "Creations by H&I - Artistic Imagination for Every Occasion",
+  "scripts": {
+    "build": "node scripts/build-events.js"
+  },
+  "dependencies": {}
+}
