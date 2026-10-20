@@ -2,14 +2,14 @@ backend:
   name: git-gateway
   branch: main
 
-site_url: https://creationbyh-i.netlify.app
+site_url: https://creationsbyhandi.shop
+display_url: https://creationsbyhandi.shop
 
 media_library:
   name: cloudinary
   output_filename_only: false
   config:
     cloud_name: "djjvgubrk"
-    api_key: "494837993291661"
     upload_preset: "ml_default"
 
 publish_mode: simple

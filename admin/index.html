@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Content Manager — Creations by H&I</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Stop Decap CMS from auto-initializing with default OAuth library -->
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
 </head>
 <body>
   <!-- Cloudinary Official Upload Widget for PC and Mobile -->
@@ -16,8 +20,8 @@
     CMS.registerPreviewStyle("preview.css");
 
     // Cloudinary Direct Upload Widget (Uploads directly to Cloudinary from PC & Mobile without login)
-    CMS.registerMediaLibrary({
-      name: "cloudinary",
+    const cloudinaryUploadLib = {
+      name: "cloudinary_upload",
       init: async function({ options = {}, handleInsert } = {}) {
         let uploadWidget = null;
         return {
@@ -73,7 +77,14 @@
           enableStandalone: () => false
         };
       }
-    });
+    };
+
+    // Register under both custom name and default name to ensure it takes complete precedence
+    CMS.registerMediaLibrary(cloudinaryUploadLib);
+    CMS.registerMediaLibrary({ ...cloudinaryUploadLib, name: "cloudinary" });
+
+    // Initialize Decap CMS with custom media library ready
+    CMS.init();
   </script>
 
   <script>
