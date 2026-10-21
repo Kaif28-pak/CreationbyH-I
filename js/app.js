@@ -347,6 +347,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     /**
+     * Render 3 skeleton placeholder cards during loading
+     */
+    function renderEventSkeletons() {
+        if (!eventPlannerGrid) return;
+        eventPlannerGrid.innerHTML = Array(3).fill(0).map(() => `
+            <div class="event-card event-card-skeleton" aria-hidden="true">
+                <div class="skeleton-box skeleton-media"></div>
+                <div class="skeleton-box skeleton-title"></div>
+                <div class="skeleton-box skeleton-desc"></div>
+                <div class="skeleton-box skeleton-btn"></div>
+            </div>
+        `).join('');
+    }
+
+    /**
      * Render the Event Planner cards filtered by category
      */
     function renderEventPlanner(items, filter = 'All') {
@@ -371,9 +386,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (filtered.length === 0) {
             eventPlannerGrid.innerHTML = `
-                <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: var(--text-light);">
-                    <p style="font-size: 1.1rem; margin-bottom: 10px;">No events currently listed under this filter.</p>
-                    <p style="font-size: 0.9rem;">New portfolio moments and video memories will be added soon via our admin panel!</p>
+                <div class="event-planner-empty">
+                    <h4>Abhi koi event section available nahi hai.</h4>
+                    <p>Naye portfolio moments aur styling jald hi add kiye jayenge!</p>
                 </div>
             `;
             return;
@@ -387,137 +402,79 @@ document.addEventListener('DOMContentLoaded', async () => {
             const detailUrl = `/events/${slug}`;
             const waLink = createEventWhatsAppLink(category, title);
 
-            // Collect all media items & videos
+            // Collect media items
             const mediaList = Array.isArray(eventItem.media) ? eventItem.media.filter(m => m.is_active !== false) : [];
             const videos = mediaList.filter(m => m.media_type === 'video');
             const photos = mediaList.filter(m => m.media_type === 'photo');
 
-            // Fallback for previous single video / videos list schema
-            const eventVideos = [];
-            if (videos.length > 0) {
-                videos.forEach((v, idx) => {
-                    eventVideos.push({
-                        type: 'video',
-                        src: v.file_url,
-                        title: `${title} - ${v.title || `Reel ${idx + 1}`}`,
-                        label: v.title || `Reel ${idx + 1}`
-                    });
-                });
-            } else if (eventItem.video) {
-                eventVideos.push({
-                    type: 'video',
-                    src: eventItem.video,
-                    title: `${title} - Highlight Reel`,
-                    label: 'Reel 1'
-                });
-            }
+            // Video check
+            const hasVideos = videos.length > 0 || !!eventItem.video;
 
-            const hasVideos = eventVideos.length > 0;
-            const primaryVideo = hasVideos ? eventVideos[0].src : null;
-            const coverImage = eventItem.cover_image || eventItem.image || (photos[0] ? photos[0].file_url : null);
-
+            // Summary pill count text
             let mediaBadgeText = '';
             if (videos.length > 0 && photos.length > 0) {
-                mediaBadgeText = `🎬 ${videos.length} Reels • 📷 ${photos.length} Photos`;
+                mediaBadgeText = `${videos.length} Reels · ${photos.length} Photos`;
             } else if (videos.length > 0) {
-                mediaBadgeText = `🎬 ${videos.length} Reels`;
+                mediaBadgeText = `${videos.length} ${videos.length === 1 ? 'Reel' : 'Reels'}`;
             } else if (photos.length > 0) {
-                mediaBadgeText = `📷 ${photos.length} Photos`;
+                mediaBadgeText = `${photos.length} ${photos.length === 1 ? 'Photo' : 'Photos'}`;
             } else {
-                mediaBadgeText = `✨ Event Section`;
+                mediaBadgeText = 'Coming Soon';
             }
 
-            // Media HTML (Clean poster image with animated play overlay)
-            const coverPoster = coverImage || 'assets/images/hero_showcase.jpg';
-            const mediaHtml = `
-                <img 
-                    src="${coverPoster}" 
-                    alt="${title}" 
-                    loading="lazy" 
-                    onerror="this.onerror=null; this.src='assets/images/hero_showcase.jpg';">
-                ${hasVideos ? `
-                    <div class="event-play-overlay" aria-hidden="true">
-                        <div class="event-play-circle">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
-                        <span class="event-play-text">▶ Watch Reel</span>
-                    </div>
-                ` : `
-                    <span class="event-zoom-badge">🔍 View Photo</span>
-                `}
-            `;
-
-            // Compact Reels Strip HTML if multiple videos exist
-            let reelsStripHtml = '';
-            if (eventVideos.length > 1) {
-                reelsStripHtml = `
-                    <div class="event-reels-strip">
-                        <div class="event-reels-strip-header">
-                            <span>🎬 All Video Reels (${eventVideos.length}):</span>
-                            <span class="strip-hint">Tap to watch</span>
-                        </div>
-                        <div class="event-reels-buttons">
-                            ${eventVideos.map((vid, idx) => `
-                                <button type="button" class="event-reel-btn ${idx === 0 ? 'active' : ''}" data-index="${idx}" aria-label="Play Reel ${idx + 1}">
-                                    <span class="reel-icon">▶</span>
-                                    <span class="reel-name">Reel ${idx + 1}</span>
-                                </button>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
+            // Preview image priority: cover_image -> photo -> video poster -> fallback
+            let coverPoster = '';
+            if (eventItem.cover_image && typeof eventItem.cover_image === 'string' && eventItem.cover_image.trim()) {
+                coverPoster = eventItem.cover_image.trim();
+            } else if (photos.length > 0 && photos[0].file_url) {
+                coverPoster = photos[0].file_url;
+            } else if (videos.length > 0 && (videos[0].thumbnail_url || videos[0].poster)) {
+                coverPoster = videos[0].thumbnail_url || videos[0].poster;
+            } else if (eventItem.image && typeof eventItem.image === 'string' && eventItem.image.trim()) {
+                coverPoster = eventItem.image.trim();
+            } else {
+                coverPoster = 'assets/images/hero_showcase.jpg';
             }
 
             const card = document.createElement('div');
             card.className = 'event-card reveal active';
+            card.setAttribute('role', 'article');
             card.innerHTML = `
-                <div class="event-media-wrap" title="${hasVideos ? 'Tap to watch full video reel' : 'Click to view photo'}">
-                    <span class="event-category-badge">${category}</span>
-                    <span class="event-media-badge">${mediaBadgeText}</span>
-                    ${mediaHtml}
+                <div class="event-media-wrap">
+                    <span class="event-dark-pill">${category}</span>
+                    <span class="event-count-pill">${mediaBadgeText}</span>
+                    <img 
+                        src="${coverPoster}" 
+                        alt="${title}" 
+                        loading="lazy" 
+                        onerror="this.onerror=null; this.src='assets/images/hero_showcase.jpg';">
+                    ${hasVideos ? `
+                        <div class="event-play-overlay" aria-hidden="true">
+                            <div class="event-play-circle" title="Watch Reels">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    ` : ''}
                 </div>
-                ${reelsStripHtml}
                 <div class="event-card-content">
-                    <h3>${title}</h3>
-                    <p>${description}</p>
+                    <h3 class="event-card-title">${title}</h3>
+                    <p class="event-card-desc">${description}</p>
                 </div>
                 <div class="event-card-actions">
-                    <a href="${detailUrl}" class="btn-event-view-reels" aria-label="View all media for ${title}">
-                        <span>View Gallery</span>
-                        <span class="arrow">&rarr;</span>
-                    </a>
-                    <a href="${waLink}" class="btn-event-wa" target="_blank" rel="noopener noreferrer" aria-label="Inquire about ${title} on WhatsApp">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                        <span>WhatsApp</span>
+                    <a href="${detailUrl}" class="btn-event-view-gallery">VIEW GALLERY</a>
+                    <a href="${waLink}" class="btn-event-wa-icon" target="_blank" rel="noopener noreferrer" aria-label="Inquire about ${title} on WhatsApp" title="Inquire on WhatsApp">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                     </a>
                 </div>
             `;
 
-            // Reel buttons click handlers
-            const reelBtns = card.querySelectorAll('.event-reel-btn');
-            reelBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const idx = parseInt(btn.getAttribute('data-index'), 10) || 0;
-                    reelBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    openLightbox('video', eventVideos[idx].src, eventVideos[idx].title, eventVideos, idx);
-                });
+            // Entire card click navigates to /events/[slug]
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('.btn-event-wa-icon')) {
+                    return;
+                }
+                window.location.href = detailUrl;
             });
-
-            // Media wrap click opens full video lightbox
-            const mediaWrap = card.querySelector('.event-media-wrap');
-            if (mediaWrap) {
-                mediaWrap.addEventListener('click', () => {
-                    if (hasVideos) {
-                        openLightbox('video', eventVideos[0].src, eventVideos[0].title, eventVideos, 0);
-                    } else {
-                        openLightbox('image', coverPoster, title);
-                    }
-                });
-            }
-
-
 
             eventPlannerGrid.appendChild(card);
         });
@@ -527,6 +484,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 3. INITIALIZE BOTH SECTIONS & FILTER LISTENERS
     // =========================================================================
     loadServices();
+    renderEventSkeletons();
 
     try {
         allEvents = await fetchEventPlannerData();
@@ -540,7 +498,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Failed to initialize Event Planner:', err);
         if (eventPlannerGrid) {
             eventPlannerGrid.innerHTML = `
-                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-light);">
+                <div class="event-planner-empty">
+                    <h4>Abhi koi event section available nahi hai.</h4>
                     <p>Unable to display Event Planner moments right now.</p>
                 </div>
             `;
