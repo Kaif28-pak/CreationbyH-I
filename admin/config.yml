@@ -38,7 +38,15 @@ collections:
           - "Birthday Event"
         default: "Bridal Shower"
         hint: "Select sub-category / event type"
-      - { label: "Video (Primary Content)", name: "video", widget: "file", required: false, hint: "Upload video clip (MP4 / WebM). This is the primary media displayed on the card." }
+      - { label: "Main Video / Reel (Cover)", name: "video", widget: "file", required: false, hint: "Primary video clip shown on the card cover." }
+      - label: "Event Videos & Reels (Multiple Videos)"
+        name: "videos"
+        widget: "list"
+        required: false
+        hint: "Add as many videos and reels as you want for this event!"
+        fields:
+          - { label: "Video File / Reel", name: "video", widget: "file" }
+          - { label: "Video Title / Caption (optional)", name: "title", widget: "string", required: false }
       - { label: "Image (Secondary / Fallback)", name: "image", widget: "image", required: false, hint: "Upload fallback photo or video poster." }
       - { label: "Description", name: "description", widget: "text", required: false, hint: "Short description of the event styling and decor." }
       - { label: "Display Order", name: "order", widget: "number", default: 1, value_type: "int", required: false }

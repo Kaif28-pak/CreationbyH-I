@@ -1250,6 +1250,135 @@ footer {
     background: black;
 }
 
+/* Lightbox Navigation Buttons (Prev/Next) */
+.lightbox-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: white;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 10002;
+    user-select: none;
+}
+.lightbox-prev-btn {
+    left: 25px;
+}
+.lightbox-next-btn {
+    right: 25px;
+}
+.lightbox-nav-btn:hover {
+    background: var(--accent-pink);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(227, 153, 182, 0.5);
+}
+.lightbox-caption {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(18, 12, 15, 0.85);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 10002;
+    text-align: center;
+    max-width: 90vw;
+    display: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+.lightbox-counter {
+    background: var(--accent-pink);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-right: 8px;
+}
+
+/* Event Multiple Video Reels Strip on Event Card */
+.event-reels-strip {
+    margin-top: -10px;
+    margin-bottom: 16px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(6px);
+    border-radius: 14px;
+    padding: 10px 12px;
+    border: 1px solid rgba(227, 153, 182, 0.3);
+}
+.event-reels-strip-header {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.event-reels-buttons {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-pink) transparent;
+}
+.event-reels-buttons::-webkit-scrollbar {
+    height: 4px;
+}
+.event-reels-buttons::-webkit-scrollbar-thumb {
+    background: var(--accent-pink);
+    border-radius: 4px;
+}
+.event-reel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: #ffffff;
+    color: var(--text-dark);
+    border: 1px solid rgba(227, 153, 182, 0.4);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+.event-reel-btn:hover {
+    background: var(--primary-pink);
+    border-color: var(--accent-pink);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(227, 153, 182, 0.3);
+}
+.event-reel-btn.active {
+    background: var(--accent-pink);
+    color: white;
+    border-color: var(--accent-pink);
+    box-shadow: 0 3px 10px rgba(227, 153, 182, 0.4);
+}
+.event-reel-btn .reel-icon {
+    font-size: 0.7rem;
+}
+
 /* Loading & Error States */
 .loading-box, .error-box {
     text-align: center;

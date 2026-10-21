@@ -9,30 +9,90 @@ document.addEventListener('DOMContentLoaded', async () => {
     const eventPlannerGrid = document.getElementById('event-planner-grid');
     const eventFilterBtns = document.querySelectorAll('.event-filter-btn');
 
-    // Lightbox Modal Elements
+    // Enhanced Lightbox with Multi-Video Playlist & Carousel Support
     const lightboxModal = document.getElementById('lightbox-modal');
     const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
     const lightboxContent = document.getElementById('lightbox-content');
+    const lightboxCaption = document.getElementById('lightbox-caption');
 
-    function openLightbox(type, src, altText) {
-        if (!lightboxModal || !lightboxContent) return;
+    let currentPlaylist = [];
+    let currentPlaylistIndex = 0;
+
+    function renderActiveLightboxItem() {
+        if (!lightboxContent || currentPlaylist.length === 0) return;
+        const item = currentPlaylist[currentPlaylistIndex];
         lightboxContent.innerHTML = '';
-        if (type === 'image') {
-            const img = document.createElement('img');
-            img.src = src;
-            img.alt = altText || 'Event Showcase';
-            lightboxContent.appendChild(img);
-        } else if (type === 'video') {
+
+        if (item.type === 'video') {
             const video = document.createElement('video');
-            video.src = src;
+            video.src = item.src;
             video.controls = true;
             video.autoplay = true;
             video.playsinline = true;
+            video.style.maxWidth = '100%';
+            video.style.maxHeight = '85vh';
+            video.style.borderRadius = '12px';
             lightboxContent.appendChild(video);
+        } else {
+            const img = document.createElement('img');
+            img.src = item.src;
+            img.alt = item.alt || 'Event Media';
+            lightboxContent.appendChild(img);
         }
+
+        if (lightboxCaption) {
+            if (currentPlaylist.length > 1) {
+                lightboxCaption.innerHTML = `<span class="lightbox-counter">🎬 ${currentPlaylistIndex + 1} of ${currentPlaylist.length}</span> <span class="lightbox-item-title">${item.title || item.alt || ''}</span>`;
+                lightboxCaption.style.display = 'block';
+            } else if (item.title || item.alt) {
+                lightboxCaption.innerHTML = `<span class="lightbox-item-title">${item.title || item.alt}</span>`;
+                lightboxCaption.style.display = 'block';
+            } else {
+                lightboxCaption.style.display = 'none';
+            }
+        }
+
+        if (lightboxPrev && lightboxNext) {
+            if (currentPlaylist.length > 1) {
+                lightboxPrev.style.display = 'flex';
+                lightboxNext.style.display = 'flex';
+            } else {
+                lightboxPrev.style.display = 'none';
+                lightboxNext.style.display = 'none';
+            }
+        }
+    }
+
+    function openLightbox(type, src, altText, playlist = [], startIndex = 0) {
+        if (!lightboxModal) return;
+
+        if (Array.isArray(playlist) && playlist.length > 0) {
+            currentPlaylist = playlist;
+            currentPlaylistIndex = Math.max(0, Math.min(startIndex, playlist.length - 1));
+        } else {
+            currentPlaylist = [{ type, src, alt: altText, title: altText }];
+            currentPlaylistIndex = 0;
+        }
+
+        renderActiveLightboxItem();
+
         lightboxModal.classList.add('active');
         lightboxModal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+    }
+
+    function prevLightboxItem() {
+        if (currentPlaylist.length <= 1) return;
+        currentPlaylistIndex = (currentPlaylistIndex - 1 + currentPlaylist.length) % currentPlaylist.length;
+        renderActiveLightboxItem();
+    }
+
+    function nextLightboxItem() {
+        if (currentPlaylist.length <= 1) return;
+        currentPlaylistIndex = (currentPlaylistIndex + 1) % currentPlaylist.length;
+        renderActiveLightboxItem();
     }
 
     function closeLightbox() {
@@ -40,10 +100,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         lightboxModal.classList.remove('active');
         lightboxModal.setAttribute('aria-hidden', 'true');
         lightboxContent.innerHTML = '';
+        currentPlaylist = [];
+        currentPlaylistIndex = 0;
         document.body.style.overflow = '';
     }
 
     if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxPrev) lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); prevLightboxItem(); });
+    if (lightboxNext) lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); nextLightboxItem(); });
+
     if (lightboxModal) {
         lightboxModal.addEventListener('click', (e) => {
             if (e.target === lightboxModal || e.target === lightboxClose) {
@@ -51,9 +116,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
+
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightboxModal && lightboxModal.classList.contains('active')) {
+        if (!lightboxModal || !lightboxModal.classList.contains('active')) return;
+        if (e.key === 'Escape') {
             closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+            prevLightboxItem();
+        } else if (e.key === 'ArrowRight') {
+            nextLightboxItem();
         }
     });
 
@@ -266,21 +337,54 @@ document.addEventListener('DOMContentLoaded', async () => {
             const title = eventItem.title || 'Special Event Celebration';
             const category = eventItem.category || 'Event';
             const description = eventItem.description || 'Custom crafted styling, ambient illumination, and bespoke floral decor.';
-            const videoUrl = (eventItem.video && eventItem.video.trim() !== '') ? eventItem.video.trim() : null;
             const imageUrl = (eventItem.image && eventItem.image.trim() !== '') ? eventItem.image.trim() : null;
             const waLink = createEventWhatsAppLink(category, title);
 
-            // Conditional Media Element (Video-first, image fallback)
+            // Collect all videos for this event into a playlist
+            const eventVideos = [];
+
+            // 1. Primary video
+            if (eventItem.video && typeof eventItem.video === 'string' && eventItem.video.trim() !== '') {
+                eventVideos.push({
+                    type: 'video',
+                    src: eventItem.video.trim(),
+                    title: `${title} - Cover Reel`,
+                    label: 'Reel 1'
+                });
+            }
+
+            // 2. Additional videos list
+            if (Array.isArray(eventItem.videos)) {
+                eventItem.videos.forEach((v, idx) => {
+                    if (!v) return;
+                    const vUrl = typeof v === 'string' ? v.trim() : (v.video ? v.video.trim() : (v.url ? v.url.trim() : ''));
+                    const vTitle = typeof v === 'object' && v.title ? v.title.trim() : (typeof v === 'object' && v.caption ? v.caption.trim() : `Reel ${eventVideos.length + 1}`);
+                    if (vUrl && !eventVideos.some(item => item.src === vUrl)) {
+                        eventVideos.push({
+                            type: 'video',
+                            src: vUrl,
+                            title: `${title} - ${vTitle}`,
+                            label: vTitle
+                        });
+                    }
+                });
+            }
+
+            const hasVideos = eventVideos.length > 0;
+            const primaryVideo = hasVideos ? eventVideos[0].src : null;
+
+            // Media HTML
             let mediaHtml = '';
             let mediaBadgeHtml = '';
 
-            if (videoUrl) {
-                // Video is primary content
+            if (hasVideos) {
                 const posterAttr = imageUrl ? `poster="${imageUrl}"` : '';
-                mediaBadgeHtml = `<span class="event-media-badge">🎬 Video</span>`;
+                const videoCountBadge = eventVideos.length > 1 ? `🎬 ${eventVideos.length} Reels` : `🎬 Video`;
+                mediaBadgeHtml = `<span class="event-media-badge">${videoCountBadge}</span>`;
                 mediaHtml = `
                     <video 
-                        src="${videoUrl}" 
+                        id="card-video-${eventItem.slug || Math.random().toString(36).substr(2, 6)}"
+                        src="${primaryVideo}" 
                         ${posterAttr} 
                         playsinline 
                         controls 
@@ -290,7 +394,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </video>
                 `;
             } else if (imageUrl) {
-                // Secondary fallback: Image only
                 mediaBadgeHtml = `<span class="event-media-badge" style="background: rgba(58, 43, 50, 0.75);">📷 Photo</span>`;
                 mediaHtml = `
                     <img 
@@ -300,7 +403,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                         onerror="this.onerror=null; this.src='assets/images/category-flower-bouquet.jpg';">
                 `;
             } else {
-                // Default placeholder
                 mediaHtml = `
                     <img 
                         src="assets/images/hero_showcase.jpg" 
@@ -309,17 +411,39 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
             }
 
+            // Reels Strip HTML if multiple videos exist
+            let reelsStripHtml = '';
+            if (eventVideos.length > 1) {
+                reelsStripHtml = `
+                    <div class="event-reels-strip">
+                        <div class="event-reels-strip-header">
+                            <span>🎬 All Video Reels (${eventVideos.length}):</span>
+                            <span style="font-size: 0.7rem; color: var(--accent-pink); font-weight: 600;">Tap to watch fullscreen</span>
+                        </div>
+                        <div class="event-reels-buttons">
+                            ${eventVideos.map((vid, idx) => `
+                                <button type="button" class="event-reel-btn ${idx === 0 ? 'active' : ''}" data-index="${idx}" aria-label="Play ${vid.label}">
+                                    <span class="reel-icon">▶</span>
+                                    <span class="reel-name">${vid.label}</span>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
             const card = document.createElement('div');
             card.className = 'event-card reveal active';
             card.innerHTML = `
-                <div class="event-media-wrap" title="${videoUrl ? 'Click ⛶ Fullscreen to expand' : 'Click to view full photo'}">
+                <div class="event-media-wrap" title="${hasVideos ? 'Tap ⛶ Fullscreen to expand' : 'Click to view full photo'}">
                     <span class="event-category-badge">${category}</span>
                     ${mediaBadgeHtml}
                     ${mediaHtml}
-                    ${videoUrl 
+                    ${hasVideos 
                         ? `<span class="event-zoom-badge" data-action="expand" style="pointer-events: auto;">⛶ Fullscreen</span>` 
                         : `<span class="event-zoom-badge">🔍 Tap to Zoom</span>`}
                 </div>
+                ${reelsStripHtml}
                 <div class="event-card-content">
                     <h3>${title}</h3>
                     <p>${description}</p>
@@ -330,49 +454,58 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </a>
             `;
 
-            // Smart Media Handling: Auto-fit for Vertical Reels (9:16) & Landscape (16:9)
-            const videoElement = card.querySelector('video');
-            if (videoElement) {
-                videoElement.addEventListener('loadedmetadata', () => {
-                    if (videoElement.videoWidth > videoElement.videoHeight) {
-                        videoElement.style.objectFit = 'contain';
+            // Video player management
+            const cardVideo = card.querySelector('video');
+            if (cardVideo) {
+                cardVideo.addEventListener('loadedmetadata', () => {
+                    if (cardVideo.videoWidth > cardVideo.videoHeight) {
+                        cardVideo.style.objectFit = 'contain';
                     } else {
-                        videoElement.style.objectFit = 'cover';
+                        cardVideo.style.objectFit = 'cover';
                     }
                 });
 
-                videoElement.addEventListener('play', () => {
+                cardVideo.addEventListener('play', () => {
                     const allVideos = document.querySelectorAll('.event-card video');
                     allVideos.forEach(v => {
-                        if (v !== videoElement && !v.paused) {
+                        if (v !== cardVideo && !v.paused) {
                             v.pause();
                         }
                     });
                 });
             }
 
-            const imgElement = card.querySelector('.event-media-wrap img');
-            if (imgElement) {
-                imgElement.addEventListener('load', () => {
-                    if (imgElement.naturalWidth > imgElement.naturalHeight * 1.25) {
-                        imgElement.style.objectFit = 'contain';
-                    } else {
-                        imgElement.style.objectFit = 'cover';
-                    }
-                });
-            }
+            // Reel buttons click handlers
+            const reelBtns = card.querySelectorAll('.event-reel-btn');
+            reelBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const idx = parseInt(btn.getAttribute('data-index'), 10) || 0;
+                    reelBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
 
-            // Lightbox Click Triggers
+                    // If user clicks reel button, directly open in Fullscreen Lightbox!
+                    openLightbox('video', eventVideos[idx].src, eventVideos[idx].title, eventVideos, idx);
+                });
+            });
+
+            // Media wrap Fullscreen click
             const mediaWrap = card.querySelector('.event-media-wrap');
             if (mediaWrap) {
-                if (videoUrl) {
+                if (hasVideos) {
                     const expandBtn = mediaWrap.querySelector('.event-zoom-badge[data-action="expand"]');
                     if (expandBtn) {
                         expandBtn.addEventListener('click', (e) => {
                             e.stopPropagation();
-                            openLightbox('video', videoUrl, title);
+                            openLightbox('video', eventVideos[0].src, eventVideos[0].title, eventVideos, 0);
                         });
                     }
+                    mediaWrap.addEventListener('click', (e) => {
+                        // If not clicking on native controls, open fullscreen
+                        if (e.target.tagName !== 'VIDEO') {
+                            openLightbox('video', eventVideos[0].src, eventVideos[0].title, eventVideos, 0);
+                        }
+                    });
                 } else {
                     mediaWrap.addEventListener('click', () => {
                         const targetSrc = imageUrl || 'assets/images/category-flower-bouquet.jpg';
