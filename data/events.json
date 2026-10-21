@@ -1,80 +1,246 @@
 {
+  "categories": [
+    {
+      "name": "Bridal Shower",
+      "slug": "bridal-shower",
+      "description": "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
+      "cover_image": "assets/images/category-crates.jpg",
+      "order": 1,
+      "is_active": true,
+      "media": [
+        {
+          "id": "bs-reel-1",
+          "title": "Boho Chic Floral Setup & Overview",
+          "description": "Full venue styling with earthy pampas grass, custom backdrop and luxury ambiance.",
+          "media_type": "video",
+          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+          "thumbnail_url": "assets/images/category-crates.jpg",
+          "order": 1,
+          "is_active": true
+        },
+        {
+          "id": "bs-photo-1",
+          "title": "Luxury Pastel Floral Arch & Neon Sign",
+          "description": "Handcrafted fresh floral arch with custom bride-to-be signage.",
+          "media_type": "photo",
+          "file_url": "assets/images/category-flower-bouquet.jpg",
+          "thumbnail_url": "assets/images/category-flower-bouquet.jpg",
+          "order": 2,
+          "is_active": true
+        },
+        {
+          "id": "bs-reel-2",
+          "title": "Intimate Dinner Table & Ambient Candles",
+          "description": "Romantic candlelit table styling with gold cutlery and personalized menus.",
+          "media_type": "video",
+          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+          "thumbnail_url": "assets/images/category-baskets.jpg",
+          "order": 3,
+          "is_active": true
+        },
+        {
+          "id": "bs-photo-2",
+          "title": "Bespoke Bridal Favor Gift Hampers",
+          "description": "Personalized wooden crates filled with scented candles and luxury souvenirs.",
+          "media_type": "photo",
+          "file_url": "assets/images/hero_showcase.jpg",
+          "thumbnail_url": "assets/images/hero_showcase.jpg",
+          "order": 4,
+          "is_active": true
+        }
+      ]
+    },
+    {
+      "name": "Wedding Event",
+      "slug": "wedding-event",
+      "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
+      "cover_image": "assets/images/hero_showcase.jpg",
+      "order": 2,
+      "is_active": true,
+      "media": [
+        {
+          "id": "we-reel-1",
+          "title": "Royal Stage & Fairy Light Tunnel Entrance",
+          "description": "Grand couple entrance decor with cascading fairy lights and fresh rose runners.",
+          "media_type": "video",
+          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+          "thumbnail_url": "assets/images/hero_showcase.jpg",
+          "order": 1,
+          "is_active": true
+        },
+        {
+          "id": "we-photo-1",
+          "title": "Floating Candle Mirror Pathway",
+          "description": "Romantic pathway with floating candles and calligraphic mirror welcome signs.",
+          "media_type": "photo",
+          "file_url": "assets/images/category-baskets.jpg",
+          "thumbnail_url": "assets/images/category-baskets.jpg",
+          "order": 2,
+          "is_active": true
+        },
+        {
+          "id": "we-reel-2",
+          "title": "Candlelit Nikah Stage Reveal",
+          "description": "Intimate Nikah decor with sheer drapery, chandeliers, and floral crescent arch.",
+          "media_type": "video",
+          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+          "thumbnail_url": "assets/images/category-crates.jpg",
+          "order": 3,
+          "is_active": true
+        }
+      ]
+    },
+    {
+      "name": "Birthday Event",
+      "slug": "birthday-event",
+      "description": "Enchanted balloon garlands, customized marquee letter lighting, themed backdrop installations, and dessert table styling.",
+      "cover_image": "assets/images/category-balloon-boxes.jpg",
+      "order": 3,
+      "is_active": true,
+      "media": [
+        {
+          "id": "bd-reel-1",
+          "title": "Enchanted Garden Balloon Installation",
+          "description": "Organic pastel balloon garland with fairy lights and custom name plaque.",
+          "media_type": "video",
+          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+          "thumbnail_url": "assets/images/category-balloon-boxes.jpg",
+          "order": 1,
+          "is_active": true
+        },
+        {
+          "id": "bd-photo-1",
+          "title": "Golden Glam Marquee Light Setup",
+          "description": "Light-up numbers, shimmer wall backdrop, and customized cake pedestal.",
+          "media_type": "photo",
+          "file_url": "assets/images/category-balloon-boxes.jpg",
+          "thumbnail_url": "assets/images/category-balloon-boxes.jpg",
+          "order": 2,
+          "is_active": true
+        }
+      ]
+    }
+  ],
   "events": [
     {
-      "title": "Luxury Pastel Bridal Shower",
-      "category": "Bridal Shower",
-      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-      "image": "assets/images/category-flower-bouquet.jpg",
-      "description": "Bespoke pastel floral backdrop, neon bride-to-be signage, elegant seating, and luxury table styling in Karachi.",
+      "name": "Bridal Shower",
+      "slug": "bridal-shower",
+      "description": "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
+      "cover_image": "assets/images/category-crates.jpg",
       "order": 1,
-      "slug": "luxury-pastel-bridal-shower"
-    },
-    {
-      "title": "Royal Floral Wedding Stage & Entry",
-      "category": "Wedding Event",
-      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-      "image": "assets/images/hero_showcase.jpg",
-      "description": "Opulent fresh floral arches, royal sofa arrangement, fairy light tunnels, and customized couple entry decor.",
-      "order": 2,
-      "slug": "royal-wedding-stage"
-    },
-    {
-      "title": "Enchanted Garden Birthday Bash",
-      "category": "Birthday Event",
-      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-      "image": "assets/images/category-balloon-boxes.jpg",
-      "description": "Organic balloon garland installations, customized LED acrylic board, themed dessert table, and vibrant photo-props.",
-      "order": 3,
-      "slug": "enchanted-birthday-bash"
-    },
-    {
-      "title": "Boho Chic Bridal Shower Soirée",
-      "category": "Bridal Shower",
-      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-      "videos": [
+      "is_active": true,
+      "media": [
         {
-          "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-          "title": "Reel 1: Full Venue Styling & Overview"
+          "id": "bs-reel-1",
+          "title": "Boho Chic Floral Setup & Overview",
+          "description": "Full venue styling with earthy pampas grass, custom backdrop and luxury ambiance.",
+          "media_type": "video",
+          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+          "thumbnail_url": "assets/images/category-crates.jpg",
+          "order": 1,
+          "is_active": true
         },
         {
-          "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-          "title": "Reel 2: Pampas Grass & Macrame Backdrop"
+          "id": "bs-photo-1",
+          "title": "Luxury Pastel Floral Arch & Neon Sign",
+          "description": "Handcrafted fresh floral arch with custom bride-to-be signage.",
+          "media_type": "photo",
+          "file_url": "assets/images/category-flower-bouquet.jpg",
+          "thumbnail_url": "assets/images/category-flower-bouquet.jpg",
+          "order": 2,
+          "is_active": true
         },
         {
-          "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-          "title": "Reel 3: Cozy Floor Cushion & Table Decor"
+          "id": "bs-reel-2",
+          "title": "Intimate Dinner Table & Ambient Candles",
+          "description": "Romantic candlelit table styling with gold cutlery and personalized menus.",
+          "media_type": "video",
+          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+          "thumbnail_url": "assets/images/category-baskets.jpg",
+          "order": 3,
+          "is_active": true
         },
         {
-          "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-          "title": "Reel 4: Bride Welcome & Lighting Moments"
-        },
-        {
-          "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-          "title": "Reel 5: Bridal Favors & Custom Crates"
+          "id": "bs-photo-2",
+          "title": "Bespoke Bridal Favor Gift Hampers",
+          "description": "Personalized wooden crates filled with scented candles and luxury souvenirs.",
+          "media_type": "photo",
+          "file_url": "assets/images/hero_showcase.jpg",
+          "thumbnail_url": "assets/images/hero_showcase.jpg",
+          "order": 4,
+          "is_active": true
         }
-      ],
-      "image": "assets/images/category-crates.jpg",
-      "description": "Earthy pampas grass florals, macrame backdrop, custom bridal favor crates, and cozy floor cushion setup.",
-      "order": 4,
-      "slug": "boho-bridal-shower-soiree"
+      ]
     },
     {
-      "title": "Candlelit Nikah & Reception Decor",
-      "category": "Wedding Event",
-      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-      "image": "assets/images/category-baskets.jpg",
-      "description": "Romantic floating candle centerpieces, rose petal pathway, custom mirror calligraphic welcome signs, and stage chandeliers.",
-      "order": 5,
-      "slug": "candlelit-wedding-reception"
+      "name": "Wedding Event",
+      "slug": "wedding-event",
+      "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
+      "cover_image": "assets/images/hero_showcase.jpg",
+      "order": 2,
+      "is_active": true,
+      "media": [
+        {
+          "id": "we-reel-1",
+          "title": "Royal Stage & Fairy Light Tunnel Entrance",
+          "description": "Grand couple entrance decor with cascading fairy lights and fresh rose runners.",
+          "media_type": "video",
+          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+          "thumbnail_url": "assets/images/hero_showcase.jpg",
+          "order": 1,
+          "is_active": true
+        },
+        {
+          "id": "we-photo-1",
+          "title": "Floating Candle Mirror Pathway",
+          "description": "Romantic pathway with floating candles and calligraphic mirror welcome signs.",
+          "media_type": "photo",
+          "file_url": "assets/images/category-baskets.jpg",
+          "thumbnail_url": "assets/images/category-baskets.jpg",
+          "order": 2,
+          "is_active": true
+        },
+        {
+          "id": "we-reel-2",
+          "title": "Candlelit Nikah Stage Reveal",
+          "description": "Intimate Nikah decor with sheer drapery, chandeliers, and floral crescent arch.",
+          "media_type": "video",
+          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+          "thumbnail_url": "assets/images/category-crates.jpg",
+          "order": 3,
+          "is_active": true
+        }
+      ]
     },
     {
-      "title": "Golden Glam Milestone Birthday",
-      "category": "Birthday Event",
-      "video": "",
-      "image": "assets/images/category-cakes-customized-cakes.jpg",
-      "description": "Shimmering gold sequin wall, giant marquee illuminated numbers, customized dessert tablescape, and entrance arch.",
-      "order": 6,
-      "slug": "golden-glam-birthday"
+      "name": "Birthday Event",
+      "slug": "birthday-event",
+      "description": "Enchanted balloon garlands, customized marquee letter lighting, themed backdrop installations, and dessert table styling.",
+      "cover_image": "assets/images/category-balloon-boxes.jpg",
+      "order": 3,
+      "is_active": true,
+      "media": [
+        {
+          "id": "bd-reel-1",
+          "title": "Enchanted Garden Balloon Installation",
+          "description": "Organic pastel balloon garland with fairy lights and custom name plaque.",
+          "media_type": "video",
+          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+          "thumbnail_url": "assets/images/category-balloon-boxes.jpg",
+          "order": 1,
+          "is_active": true
+        },
+        {
+          "id": "bd-photo-1",
+          "title": "Golden Glam Marquee Light Setup",
+          "description": "Light-up numbers, shimmer wall backdrop, and customized cake pedestal.",
+          "media_type": "photo",
+          "file_url": "assets/images/category-balloon-boxes.jpg",
+          "thumbnail_url": "assets/images/category-balloon-boxes.jpg",
+          "order": 2,
+          "is_active": true
+        }
+      ]
     }
   ]
 }

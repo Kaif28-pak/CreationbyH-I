@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Gallery & Showcase | Creations by H&I</title>
+    <meta name="description" content="Watch luxury bespoke event reels, video highlights, and styling photography for celebrations in Karachi.">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="event-detail-body">
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo-container" aria-label="Creations by H&I Home">
+            <div class="logo-icon">H&I</div>
+            <div class="brand-font logo-text">Creations by <span class="brand-sub">H&I</span></div>
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="/events">Events</a></li>
+            <li><a href="index.html#services">Categories</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li class="nav-cta-item">
+                <a href="https://wa.me/923282276532?text=Hello%20Creations%20by%20H%26I,%20I%20would%20like%20to%20inquire%20about%20event%20decor!" class="nav-btn-order" target="_blank" rel="noopener">
+                    💬 WhatsApp Order
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="event-detail-main">
+        <div class="event-detail-container">
+            
+            <!-- Breadcrumbs -->
+            <div class="view-top-bar">
+                <div class="breadcrumb-nav">
+                    <a href="index.html">Home</a>
+                    <span>&rsaquo;</span>
+                    <a href="/events">Events</a>
+                    <span>&rsaquo;</span>
+                    <span id="breadcrumb-event-name">Event Category</span>
+                </div>
+                <a href="/events" class="back-link-btn">
+                    &larr; All Events
+                </a>
+            </div>
+
+            <!-- Dynamic Header & Media Grid Area -->
+            <div id="event-detail-content">
+                <div class="loading-box">
+                    <div class="loading-spinner"></div>
+                    <p>Loading event showcase & video reels...</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FULLSCREEN VERTICAL REELS / MEDIA VIEWER (100vw x 100vh, TikTok / Instagram Style) -->
+    <div id="reels-viewer-overlay" class="reels-viewer-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Fullscreen Reel Viewer">
+        <!-- Top Controls Bar -->
+        <div class="reels-viewer-top-bar">
+            <div class="viewer-brand-badge">
+                <span class="brand-dot"></span>
+                <span id="viewer-event-label">Event Showcase</span>
+            </div>
+            <div class="viewer-top-controls">
+                <span class="reels-viewer-counter" id="viewer-counter">1 / 5</span>
+                <button type="button" id="viewer-sound-toggle" class="viewer-icon-btn" aria-label="Toggle Sound">
+                    <span class="sound-icon-muted">🔇</span>
+                    <span class="sound-icon-unmuted" style="display: none;">🔊</span>
+                </button>
+                <button type="button" id="viewer-close-btn" class="viewer-icon-btn close-btn" aria-label="Close Viewer">
+                    &times;
+                </button>
+            </div>
+        </div>
+
+        <!-- Vertical Snap Container for Swipe / Scroll -->
+        <div class="reels-vertical-slider" id="reels-vertical-slider">
+            <!-- Dynamic vertical slides injected by js/event-detail.js -->
+        </div>
+
+        <!-- Side Navigation Indicators / Desktop Controls -->
+        <div class="reels-side-controls">
+            <button type="button" id="viewer-prev-btn" class="viewer-side-arrow" aria-label="Previous Reel">&#9650;</button>
+            <div class="reels-scroll-hint">
+                <span>Swipe / Scroll</span>
+            </div>
+            <button type="button" id="viewer-next-btn" class="viewer-side-arrow" aria-label="Next Reel">&#9660;</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-brand">
+            <div class="logo-container" style="animation: none;">
+                <div class="brand-font logo-text" style="color: white;">Creations</div>
+                <div class="logo-icon" style="background: var(--accent-pink);">H&I</div>
+            </div>
+            <p style="margin-top: 20px;">Artistic imagination for every occasion. Based in Karachi, delivering joy and aesthetic perfection.</p>
+            <a href="https://wa.me/923282276532" class="btn wa-btn" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="/events">All Events</a></li>
+                <li><a href="index.html#services">Categories</a></li>
+                <li><a href="https://wa.me/923282276532" target="_blank" rel="noopener noreferrer">Custom Order</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Creations by H&I. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Logic Scripts -->
+    <script src="js/nav.js"></script>
+    <script src="js/event-detail.js"></script>
+</body>
+</html>

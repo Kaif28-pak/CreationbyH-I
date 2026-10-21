@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events Portfolio & Styling | Creations by H&I</title>
+    <meta name="description" content="Crafting magical memories with bespoke styling & cinematic ambiance in Karachi. Explore Bridal Shower, Wedding Event, and Birthday styling.">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo-container" aria-label="Creations by H&I Home">
+            <div class="logo-icon">H&I</div>
+            <div class="brand-font logo-text">Creations by <span class="brand-sub">H&I</span></div>
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="/events" class="active">Events</a></li>
+            <li><a href="index.html#services">Categories</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li class="nav-cta-item">
+                <a href="https://wa.me/923282276532?text=Hello%20Creations%20by%20H%26I,%20I%20would%20like%20to%20inquire%20about%20event%20decor!" class="nav-btn-order" target="_blank" rel="noopener">
+                    💬 WhatsApp Order
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Events Landing Page -->
+    <main class="events-hub-main">
+        <div class="events-hub-container">
+            
+            <!-- Breadcrumbs -->
+            <div class="view-top-bar">
+                <div class="breadcrumb-nav">
+                    <a href="index.html">Home</a>
+                    <span>&rsaquo;</span>
+                    <span id="breadcrumb-current">Events Portfolio</span>
+                </div>
+                <a href="index.html" class="back-link-btn">
+                    &larr; Back to Home
+                </a>
+            </div>
+
+            <!-- Hero Section -->
+            <header class="events-hub-hero">
+                <span class="hub-pill-badge">Bespoke Event Styling</span>
+                <h1 class="events-hub-title">Crafting magical memories with bespoke styling & cinematic ambiance</h1>
+                <p class="events-hub-subtitle">
+                    Explore our curated portfolio of luxury Bridal Showers, unforgettable Wedding stages, and vibrant Birthday celebrations across Karachi.
+                </p>
+            </header>
+
+            <!-- Dynamic Category Filter Tabs -->
+            <div class="events-hub-filters" id="events-hub-filters" role="tablist">
+                <button class="event-filter-btn active" data-filter="all" role="tab" aria-selected="true">All Events</button>
+                <!-- Dynamic tabs injected by js/events.js -->
+            </div>
+
+            <!-- Categories Grid -->
+            <div class="events-categories-grid" id="events-categories-grid">
+                <div class="loading-box">
+                    <div class="loading-spinner"></div>
+                    <p>Loading event sections...</p>
+                </div>
+            </div>
+
+            <!-- Custom Inquiry Banner -->
+            <section class="events-custom-banner">
+                <div class="banner-content">
+                    <h2>Planning a Custom Theme or Dream Setup?</h2>
+                    <p>From intimate home gatherings to grand banquet installations, our design team brings your imagination to life with bespoke details.</p>
+                    <a href="https://wa.me/923282276532?text=Hello%20Creations%20by%20H%26I,%20I%20would%20like%20to%20plan%20a%20custom%20event%20setup!" class="btn btn-primary" target="_blank" rel="noopener">
+                        💬 Book a Free Consultation on WhatsApp
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-brand">
+            <div class="logo-container" style="animation: none;">
+                <div class="brand-font logo-text" style="color: white;">Creations</div>
+                <div class="logo-icon" style="background: var(--accent-pink);">H&I</div>
+            </div>
+            <p style="margin-top: 20px;">Artistic imagination for every occasion. Based in Karachi, delivering joy and aesthetic perfection.</p>
+            <a href="https://wa.me/923282276532" class="btn wa-btn" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+        </div>
+        <div class="footer-links">
+            <h4>Event Sections</h4>
+            <ul id="footer-event-links">
+                <li><a href="/events/bridal-shower">Bridal Shower</a></li>
+                <li><a href="/events/wedding-event">Wedding Event</a></li>
+                <li><a href="/events/birthday-event">Birthday Event</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="/events">All Events</a></li>
+                <li><a href="index.html#services">Categories</a></li>
+                <li><a href="https://wa.me/923282276532" target="_blank" rel="noopener noreferrer">Custom Order</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Creations by H&I. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Logic Scripts -->
+    <script src="js/nav.js"></script>
+    <script src="js/events.js"></script>
+</body>
+</html>

@@ -23,7 +23,7 @@
         </button>
         <ul class="nav-links" id="navLinks">
             <li><a href="#services">Services</a></li>
-            <li><a href="#event-planner">Event Planner</a></li>
+            <li><a href="/events">Events</a></li>
             <li><a href="#contact">Contact</a></li>
             <li class="nav-cta-item"><a href="https://wa.me/923282276532?text=Hello%20Creations%20by%20H%26I,%20I%20would%20like%20to%20order!" class="nav-btn-order" target="_blank" rel="noopener">💬 WhatsApp Order</a></li>
         </ul>
@@ -38,7 +38,7 @@
             <p>From breathtaking Aqeeqah decor to personalized bridal gift sets, we turn your special moments into unforgettable memories in Karachi.</p>
             <div class="hero-buttons">
                 <a href="https://wa.me/923096708144" class="btn wa-btn" target="_blank">Book a Consultation</a>
-                <a href="#event-planner" class="btn btn-outline">Explore Events</a>
+                <a href="/events" class="btn btn-outline">Explore Events</a>
             </div>
         </div>
         <div class="hero-image">
@@ -58,20 +58,22 @@
         </div>
     </section>
 
-    <!-- Event Planner Section (Replaced Signature Creations) -->
+    <!-- Event Planner Section (Dynamic Categories from CMS) -->
     <section id="event-planner" class="event-planner-section">
         <div class="section-title">
             <h2 class="reveal-left">Event Planner</h2>
             <p class="reveal-right">Crafting magical memories with bespoke styling & cinematic ambiance</p>
         </div>
         <div class="event-filters reveal" id="event-filters">
-            <button class="event-filter-btn active" data-filter="All">All Events</button>
-            <button class="event-filter-btn" data-filter="Bridal Shower">Bridal Shower</button>
-            <button class="event-filter-btn" data-filter="Wedding Event">Wedding Event</button>
-            <button class="event-filter-btn" data-filter="Birthday Event">Birthday Event</button>
+            <!-- Dynamic Category Filter Tabs injected by js/app.js -->
         </div>
         <div class="event-planner-grid" id="event-planner-grid">
             <!-- Dynamic event cards will be loaded here -->
+        </div>
+        <div style="text-align: center; margin-top: 40px;" class="reveal">
+            <a href="/events" class="btn btn-primary" style="padding: 14px 34px; font-size: 1rem; border-radius: 30px;">
+                ✨ Explore All Event Categories & Full Reels Portfolio &rarr;
+            </a>
         </div>
     </section>
 

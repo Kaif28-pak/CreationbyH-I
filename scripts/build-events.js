@@ -26,8 +26,8 @@ try {
     // Sort by order ascending
     events.sort((a, b) => (Number(a.order) || 1) - (Number(b.order) || 1));
 
-    fs.writeFileSync(outputFile, JSON.stringify({ events }, null, 2), 'utf8');
-    console.log(`[build-events] Successfully compiled ${events.length} events into ${outputFile}`);
+    fs.writeFileSync(outputFile, JSON.stringify({ categories: events, events }, null, 2), 'utf8');
+    console.log(`[build-events] Successfully compiled ${events.length} categories into ${outputFile}`);
 } catch (error) {
     console.error('[build-events] Failed to build events:', error);
     process.exit(1);

@@ -18,38 +18,53 @@ media_library:
 publish_mode: simple
 
 collections:
-  - name: "event_planner"
-    label: "Event Planner"
-    label_singular: "Event Item"
+  - name: "event_categories"
+    label: "Event Sections & Media"
+    label_singular: "Event Section"
     folder: "data/events"
     create: true
     slug: "{{slug}}"
     extension: "json"
     format: "json"
-    summary: "{{title}} — [{{category}}]"
+    summary: "{{name}} — (Order: {{order}})"
     fields:
-      - { label: "Title", name: "title", widget: "string", hint: "Event Title (e.g. Luxury Pastel Bridal Shower)" }
-      - label: "Category"
-        name: "category"
-        widget: "select"
-        options:
-          - "Bridal Shower"
-          - "Wedding Event"
-          - "Birthday Event"
-        default: "Bridal Shower"
-        hint: "Select sub-category / event type"
-      - { label: "Main Video / Reel (Cover)", name: "video", widget: "file", required: false, hint: "Primary video clip shown on the card cover." }
-      - label: "Event Videos & Reels (Multiple Videos)"
-        name: "videos"
+      - { label: "Event Section Name", name: "name", widget: "string", hint: "e.g. Bridal Shower, Wedding Event, Birthday Event, Mehndi Event" }
+      - { label: "URL Slug", name: "slug", widget: "string", hint: "e.g. bridal-shower, wedding-event (used in /events/[slug])" }
+      - { label: "Short Description", name: "description", widget: "text", required: false, hint: "Describe the styling, decor, and ambiance." }
+      - { label: "Cover Image", name: "cover_image", widget: "image", required: false, hint: "Cover photo displayed on the /events landing page." }
+      - { label: "Display Order", name: "order", widget: "number", default: 1, value_type: "int", required: false }
+      - { label: "Is Active / Visible", name: "is_active", widget: "boolean", default: true }
+      - label: "Media Gallery (Reels & Photos)"
+        name: "media"
         widget: "list"
         required: false
-        hint: "Add as many videos and reels as you want for this event!"
+        hint: "Add as many Video Reels or Photos as you want for this event section!"
+        summary: "{{title}} — [{{media_type}}]"
         fields:
-          - { label: "Video File / Reel", name: "video", widget: "file" }
-          - { label: "Video Title / Caption (optional)", name: "title", widget: "string", required: false }
-      - { label: "Image (Secondary / Fallback)", name: "image", widget: "image", required: false, hint: "Upload fallback photo or video poster." }
-      - { label: "Description", name: "description", widget: "text", required: false, hint: "Short description of the event styling and decor." }
-      - { label: "Display Order", name: "order", widget: "number", default: 1, value_type: "int", required: false }
+          - { label: "Media Item Title", name: "title", widget: "string", hint: "e.g. Full Venue Styling & Overview" }
+          - { label: "Short Description (optional)", name: "description", widget: "string", required: false }
+          - label: "Media Type"
+            name: "media_type"
+            widget: "select"
+            options:
+              - "video"
+              - "photo"
+            default: "video"
+            hint: "Select whether this item is a vertical video reel or a photo"
+          - { label: "Video / Photo File", name: "file_url", widget: "file", hint: "Upload MP4/MOV reel or JPG/PNG/WEBP photo via Cloudinary" }
+          - { label: "Thumbnail / Poster (optional)", name: "thumbnail_url", widget: "image", required: false, hint: "Optional video poster thumbnail image" }
+          - { label: "Display Order", name: "order", widget: "number", default: 1, value_type: "int", required: false }
+          - { label: "Is Active", name: "is_active", widget: "boolean", default: true }
+
+  - name: "site_settings"
+    label: "Site & WhatsApp Settings"
+    files:
+      - label: "General Settings"
+        name: "general_settings"
+        file: "data/settings.json"
+        fields:
+          - { label: "WhatsApp Number", name: "whatsapp_number", widget: "string", default: "923282276532", hint: "International format without '+' e.g. 923282276532" }
+          - { label: "WhatsApp Inquiry Message Template", name: "whatsapp_template", widget: "text", default: "Hello Creations by H&I! I am viewing your {event_name} gallery. I loved '{media_title}' and would like to inquire about booking and pricing.", hint: "Use {event_name} and {media_title} placeholders" }
 
   - name: "products_collection"
     label: "Products We Are Offering"

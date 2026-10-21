@@ -2,7 +2,10 @@
   "buildCommand": "node scripts/build-events.js",
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/config.yml", "destination": "/admin/config.yml" }
+    { "source": "/config.yml", "destination": "/admin/config.yml" },
+    { "source": "/events", "destination": "/events.html" },
+    { "source": "/events/:slug", "destination": "/event-detail.html?slug=:slug" },
+    { "source": "/api/event-categories/:slug", "destination": "/api/event-categories?slug=:slug" }
   ],
   "headers": [
     {

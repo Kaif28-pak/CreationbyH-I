@@ -237,23 +237,34 @@ document.addEventListener('DOMContentLoaded', async () => {
      * Build WhatsApp URL with the exact requested pre-filled inquiry format:
      * "Hi, I am interested in this [Category: Bridal Shower - Event Title] service."
      */
-    function createEventWhatsAppLink(category, title) {
-        const cleanCategory = category ? category.trim() : 'Event Planner';
-        const cleanTitle = title ? title.trim() : 'Bespoke Setup';
-        const messageText = `Hi, I am interested in this [Category: ${cleanCategory} - ${cleanTitle}] service.`;
+    /**
+     * Build WhatsApp URL for event category
+     */
+    function createEventWhatsAppLink(categoryName, title) {
+        const cleanCategory = categoryName ? categoryName.trim() : 'Event Styling';
+        const cleanTitle = title ? title.trim() : cleanCategory;
+        const messageText = `Hello Creations by H&I! I am viewing your ${cleanCategory} portfolio. I would like to inquire about booking, pricing, and availability.`;
         return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(messageText)}`;
     }
 
     /**
-     * Fetch event items from Decap CMS data sources:
-     * 1. Precompiled data/events.json (generated automatically via build script)
-     * 2. Live GitHub API fallback for instant updates committed by Decap CMS
-     * 3. Static local fallback files
+     * Fetch event categories from public API / data sources:
      */
     async function fetchEventPlannerData() {
-        let events = [];
+        let categories = [];
 
-        // 1. Try compiled data/events.json with cache-busting
+        // 1. Try public API endpoint
+        try {
+            const apiRes = await fetch(`/api/event-categories?t=${Date.now()}`);
+            if (apiRes.ok) {
+                const data = await apiRes.json();
+                if (data && Array.isArray(data.categories) && data.categories.length > 0) {
+                    return data.categories;
+                }
+            }
+        } catch (e) {}
+
+        // 2. Try compiled data/events.json with cache-busting
         try {
             const res = await fetch(`data/events.json?t=${Date.now()}`, {
                 cache: 'no-store',
@@ -261,20 +272,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             if (res.ok) {
                 const data = await res.json();
-                if (data && Array.isArray(data.events) && data.events.length > 0) {
-                    data.events.forEach(item => {
-                        if (item && !item.slug && item.title) {
-                            item.slug = item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                        }
-                    });
-                    return data.events;
+                const list = data.categories || data.events;
+                if (data && Array.isArray(list) && list.length > 0) {
+                    return list;
                 }
             }
         } catch (err) {
             console.info('[EventPlanner] Local events.json fetch skipped/failed, attempting GitHub API sync...');
         }
 
-        // 2. Try GitHub API for repo Kaif28-pak/CreationbyH-I (live real-time files created by Decap CMS)
+        // 3. Try GitHub API for repo Kaif28-pak/CreationbyH-I
         try {
             const ghRes = await fetch(`https://api.github.com/repos/Kaif28-pak/CreationbyH-I/contents/data/events?t=${Date.now()}`, {
                 cache: 'no-store',
@@ -300,9 +307,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                             }
                         })
                     );
-                    events = fetchedItems.filter(Boolean);
-                    if (events.length > 0) {
-                        return events;
+                    categories = fetchedItems.filter(Boolean);
+                    if (categories.length > 0) {
+                        return categories;
                     }
                 }
             }
@@ -310,7 +317,33 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.warn('[EventPlanner] GitHub API fallback error:', err);
         }
 
-        return events;
+        return categories;
+    }
+
+    /**
+     * Render dynamic event filter tabs
+     */
+    function renderEventFilters(categories) {
+        const filterContainer = document.getElementById('event-filters');
+        if (!filterContainer) return;
+
+        let html = `<button class="event-filter-btn active" data-filter="All">All Events</button>`;
+        categories.forEach(cat => {
+            const name = cat.name || cat.title;
+            html += `<button class="event-filter-btn" data-filter="${cat.slug}">${name}</button>`;
+        });
+
+        filterContainer.innerHTML = html;
+
+        const btns = filterContainer.querySelectorAll('.event-filter-btn');
+        btns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                btns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter') || 'All';
+                renderEventPlanner(allEvents, currentFilter);
+            });
+        });
     }
 
     /**
@@ -323,21 +356,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Exclude deleted, blank, or null items
         const validItems = (items || []).filter(item => {
             if (!item || typeof item !== 'object') return false;
-            return item.title && typeof item.title === 'string' && item.title.trim().length > 0;
+            const name = item.name || item.title;
+            return name && typeof name === 'string' && name.trim().length > 0 && item.is_active !== false;
         });
 
         // Normalize filter comparison
         const filtered = filter === 'All'
             ? validItems
             : validItems.filter(item => {
-                if (!item.category) return false;
-                return item.category.trim().toLowerCase() === filter.trim().toLowerCase();
+                const slugMatch = item.slug && item.slug.toLowerCase() === filter.toLowerCase();
+                const nameMatch = (item.name || item.title || '').toLowerCase() === filter.toLowerCase();
+                return slugMatch || nameMatch;
             });
 
         if (filtered.length === 0) {
             eventPlannerGrid.innerHTML = `
                 <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: var(--text-light);">
-                    <p style="font-size: 1.1rem; margin-bottom: 10px;">No events currently listed under <strong>${filter}</strong>.</p>
+                    <p style="font-size: 1.1rem; margin-bottom: 10px;">No events currently listed under this filter.</p>
                     <p style="font-size: 0.9rem;">New portfolio moments and video memories will be added soon via our admin panel!</p>
                 </div>
             `;
@@ -345,56 +380,60 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         filtered.forEach((eventItem) => {
-            const title = eventItem.title || 'Special Event Celebration';
-            const category = eventItem.category || 'Event';
+            const title = eventItem.name || eventItem.title || 'Special Event Celebration';
+            const category = eventItem.name || eventItem.category || 'Event';
             const description = eventItem.description || 'Custom crafted styling, ambient illumination, and bespoke floral decor.';
-            const imageUrl = (eventItem.image && eventItem.image.trim() !== '') ? eventItem.image.trim() : null;
+            const slug = eventItem.slug || (title ? title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '');
+            const detailUrl = `/events/${slug}`;
             const waLink = createEventWhatsAppLink(category, title);
 
-            // Collect all videos for this event into a playlist
-            const eventVideos = [];
+            // Collect all media items & videos
+            const mediaList = Array.isArray(eventItem.media) ? eventItem.media.filter(m => m.is_active !== false) : [];
+            const videos = mediaList.filter(m => m.media_type === 'video');
+            const photos = mediaList.filter(m => m.media_type === 'photo');
 
-            // 1. Primary video
-            if (eventItem.video && typeof eventItem.video === 'string' && eventItem.video.trim() !== '') {
+            // Fallback for previous single video / videos list schema
+            const eventVideos = [];
+            if (videos.length > 0) {
+                videos.forEach((v, idx) => {
+                    eventVideos.push({
+                        type: 'video',
+                        src: v.file_url,
+                        title: `${title} - ${v.title || `Reel ${idx + 1}`}`,
+                        label: v.title || `Reel ${idx + 1}`
+                    });
+                });
+            } else if (eventItem.video) {
                 eventVideos.push({
                     type: 'video',
-                    src: eventItem.video.trim(),
-                    title: `${title} - Cover Reel`,
+                    src: eventItem.video,
+                    title: `${title} - Highlight Reel`,
                     label: 'Reel 1'
-                });
-            }
-
-            // 2. Additional videos list
-            if (Array.isArray(eventItem.videos)) {
-                eventItem.videos.forEach((v, idx) => {
-                    if (!v) return;
-                    const vUrl = typeof v === 'string' ? v.trim() : (v.video ? v.video.trim() : (v.url ? v.url.trim() : ''));
-                    const vTitle = typeof v === 'object' && v.title ? v.title.trim() : (typeof v === 'object' && v.caption ? v.caption.trim() : `Reel ${eventVideos.length + 1}`);
-                    if (vUrl && !eventVideos.some(item => item.src === vUrl)) {
-                        eventVideos.push({
-                            type: 'video',
-                            src: vUrl,
-                            title: `${title} - ${vTitle}`,
-                            label: vTitle
-                        });
-                    }
                 });
             }
 
             const hasVideos = eventVideos.length > 0;
             const primaryVideo = hasVideos ? eventVideos[0].src : null;
+            const coverImage = eventItem.cover_image || eventItem.image || (photos[0] ? photos[0].file_url : null);
+
+            let mediaBadgeText = '';
+            if (videos.length > 0 && photos.length > 0) {
+                mediaBadgeText = `🎬 ${videos.length} Reels • 📷 ${photos.length} Photos`;
+            } else if (videos.length > 0) {
+                mediaBadgeText = `🎬 ${videos.length} Reels`;
+            } else if (photos.length > 0) {
+                mediaBadgeText = `📷 ${photos.length} Photos`;
+            } else {
+                mediaBadgeText = `✨ Event Section`;
+            }
 
             // Media HTML
             let mediaHtml = '';
-            let mediaBadgeHtml = '';
-
             if (hasVideos) {
-                const posterAttr = imageUrl ? `poster="${imageUrl}"` : '';
-                const videoCountBadge = eventVideos.length > 1 ? `🎬 ${eventVideos.length} Reels` : `🎬 Video`;
-                mediaBadgeHtml = `<span class="event-media-badge">${videoCountBadge}</span>`;
+                const posterAttr = coverImage ? `poster="${coverImage}"` : '';
                 mediaHtml = `
                     <video 
-                        id="card-video-${eventItem.slug || Math.random().toString(36).substr(2, 6)}"
+                        id="card-video-${slug}"
                         src="${primaryVideo}" 
                         ${posterAttr} 
                         playsinline 
@@ -404,11 +443,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         Your browser does not support HTML5 video.
                     </video>
                 `;
-            } else if (imageUrl) {
-                mediaBadgeHtml = `<span class="event-media-badge" style="background: rgba(58, 43, 50, 0.75);">📷 Photo</span>`;
+            } else if (coverImage) {
                 mediaHtml = `
                     <img 
-                        src="${imageUrl}" 
+                        src="${coverImage}" 
                         alt="${title}" 
                         loading="lazy" 
                         onerror="this.onerror=null; this.src='assets/images/category-flower-bouquet.jpg';">
@@ -428,7 +466,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 reelsStripHtml = `
                     <div class="event-reels-strip">
                         <div class="event-reels-strip-header">
-                            <span>🎬 All Video Reels (${eventVideos.length}):</span>
+                            <span>🎬 Video Reels (${eventVideos.length}):</span>
                             <span style="font-size: 0.7rem; color: var(--accent-pink); font-weight: 600;">Tap to watch fullscreen</span>
                         </div>
                         <div class="event-reels-buttons">
@@ -443,15 +481,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
             }
 
-            const slug = eventItem.slug || (title ? title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '');
-            const eventViewUrl = `event-view.html?event=${slug}`;
-
             const card = document.createElement('div');
             card.className = 'event-card reveal active';
             card.innerHTML = `
                 <div class="event-media-wrap" title="${hasVideos ? 'Tap ⛶ Fullscreen to expand' : 'Click to view full photo'}">
                     <span class="event-category-badge">${category}</span>
-                    ${mediaBadgeHtml}
+                    <span class="event-media-badge">${mediaBadgeText}</span>
                     ${mediaHtml}
                     ${hasVideos 
                         ? `<span class="event-zoom-badge" data-action="expand" style="pointer-events: auto;">⛶ Fullscreen</span>` 
@@ -463,8 +498,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <p>${description}</p>
                 </div>
                 <div class="event-card-actions">
-                    <a href="${eventViewUrl}" class="btn-event-view-reels" aria-label="View all video reels for ${title}">
-                        <span>🎬 View All Reels (${eventVideos.length || 1})</span>
+                    <a href="${detailUrl}" class="btn-event-view-reels" aria-label="View all media for ${title}">
+                        <span>View Gallery & Reels</span>
                         <span>&rarr;</span>
                     </a>
                     <a href="${waLink}" class="btn-event-wa" target="_blank" rel="noopener noreferrer" aria-label="Inquire about ${title} on WhatsApp">
@@ -474,23 +509,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `;
 
-            // Video player management
+            // Card Video management
             const cardVideo = card.querySelector('video');
             if (cardVideo) {
-                cardVideo.addEventListener('loadedmetadata', () => {
-                    if (cardVideo.videoWidth > cardVideo.videoHeight) {
-                        cardVideo.style.objectFit = 'contain';
-                    } else {
-                        cardVideo.style.objectFit = 'cover';
-                    }
-                });
-
                 cardVideo.addEventListener('play', () => {
                     const allVideos = document.querySelectorAll('.event-card video');
                     allVideos.forEach(v => {
-                        if (v !== cardVideo && !v.paused) {
-                            v.pause();
-                        }
+                        if (v !== cardVideo && !v.paused) v.pause();
                     });
                 });
             }
@@ -503,13 +528,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const idx = parseInt(btn.getAttribute('data-index'), 10) || 0;
                     reelBtns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-
-                    // If user clicks reel button, directly open in Fullscreen Lightbox!
                     openLightbox('video', eventVideos[idx].src, eventVideos[idx].title, eventVideos, idx);
                 });
             });
 
-            // Media wrap Fullscreen click
+            // Media wrap click
             const mediaWrap = card.querySelector('.event-media-wrap');
             if (mediaWrap) {
                 if (hasVideos) {
@@ -521,14 +544,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                         });
                     }
                     mediaWrap.addEventListener('click', (e) => {
-                        // If not clicking on native controls, open fullscreen
                         if (e.target.tagName !== 'VIDEO') {
                             openLightbox('video', eventVideos[0].src, eventVideos[0].title, eventVideos, 0);
                         }
                     });
                 } else {
                     mediaWrap.addEventListener('click', () => {
-                        const targetSrc = imageUrl || 'assets/images/category-flower-bouquet.jpg';
+                        const targetSrc = coverImage || 'assets/images/category-flower-bouquet.jpg';
                         openLightbox('image', targetSrc, title);
                     });
                 }
@@ -549,22 +571,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Sort by order ascending
         allEvents.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
 
+        renderEventFilters(allEvents);
         renderEventPlanner(allEvents, currentFilter);
-
-        // Filter button click event listeners
-        eventFilterBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const selectedFilter = e.currentTarget.getAttribute('data-filter') || 'All';
-                currentFilter = selectedFilter;
-
-                // Update active button state
-                eventFilterBtns.forEach(b => b.classList.remove('active'));
-                e.currentTarget.classList.add('active');
-
-                // Render matching items
-                renderEventPlanner(allEvents, selectedFilter);
-            });
-        });
     } catch (err) {
         console.error('Failed to initialize Event Planner:', err);
         if (eventPlannerGrid) {
