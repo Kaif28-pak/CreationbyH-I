@@ -4,7 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager — Creations by H&I</title>
+  
+  <!-- Explicit Decap CMS Configuration URL -->
+  <link rel="cms-config-url" type="text/yaml" href="/admin/config.yml" />
+
   <script>
+    // Ensure trailing slash for clean relative asset resolution
+    if (window.location.pathname === '/admin') {
+      window.location.replace('/admin/' + window.location.hash);
+    }
     // Prevent Decap CMS from auto-initializing with default DAM OAuth
     window.CMS_MANUAL_INIT = true;
   </script>
@@ -88,8 +96,14 @@
     // Register custom direct media library
     CMS.registerMediaLibrary(cloudinaryDirectLib);
 
-    // Initialize Decap CMS with custom media library ready
-    CMS.init();
+    // Initialize Decap CMS dynamically with active domain origin for GitHub OAuth
+    CMS.init({
+      config: {
+        backend: {
+          base_url: window.location.origin
+        }
+      }
+    });
   </script>
 </body>
 </html>

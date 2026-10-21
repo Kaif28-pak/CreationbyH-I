@@ -1,6 +1,9 @@
 {
   "buildCommand": "node scripts/build-events.js",
   "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/config.yml", "destination": "/admin/config.yml" }
+  ],
   "headers": [
     {
       "source": "/admin/(.*)",
