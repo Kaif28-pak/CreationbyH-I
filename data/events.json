@@ -6,7 +6,8 @@
       "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
       "image": "assets/images/category-flower-bouquet.jpg",
       "description": "Bespoke pastel floral backdrop, neon bride-to-be signage, elegant seating, and luxury table styling in Karachi.",
-      "order": 1
+      "order": 1,
+      "slug": "luxury-pastel-bridal-shower"
     },
     {
       "title": "Royal Floral Wedding Stage & Entry",
@@ -14,7 +15,8 @@
       "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
       "image": "assets/images/hero_showcase.jpg",
       "description": "Opulent fresh floral arches, royal sofa arrangement, fairy light tunnels, and customized couple entry decor.",
-      "order": 2
+      "order": 2,
+      "slug": "royal-wedding-stage"
     },
     {
       "title": "Enchanted Garden Birthday Bash",
@@ -22,15 +24,39 @@
       "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
       "image": "assets/images/category-balloon-boxes.jpg",
       "description": "Organic balloon garland installations, customized LED acrylic board, themed dessert table, and vibrant photo-props.",
-      "order": 3
+      "order": 3,
+      "slug": "enchanted-birthday-bash"
     },
     {
       "title": "Boho Chic Bridal Shower Soirée",
       "category": "Bridal Shower",
-      "video": "",
+      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+      "videos": [
+        {
+          "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+          "title": "Reel 1: Full Venue Styling & Overview"
+        },
+        {
+          "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+          "title": "Reel 2: Pampas Grass & Macrame Backdrop"
+        },
+        {
+          "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+          "title": "Reel 3: Cozy Floor Cushion & Table Decor"
+        },
+        {
+          "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+          "title": "Reel 4: Bride Welcome & Lighting Moments"
+        },
+        {
+          "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+          "title": "Reel 5: Bridal Favors & Custom Crates"
+        }
+      ],
       "image": "assets/images/category-crates.jpg",
       "description": "Earthy pampas grass florals, macrame backdrop, custom bridal favor crates, and cozy floor cushion setup.",
-      "order": 4
+      "order": 4,
+      "slug": "boho-bridal-shower-soiree"
     },
     {
       "title": "Candlelit Nikah & Reception Decor",
@@ -38,7 +64,8 @@
       "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
       "image": "assets/images/category-baskets.jpg",
       "description": "Romantic floating candle centerpieces, rose petal pathway, custom mirror calligraphic welcome signs, and stage chandeliers.",
-      "order": 5
+      "order": 5,
+      "slug": "candlelit-wedding-reception"
     },
     {
       "title": "Golden Glam Milestone Birthday",
@@ -46,7 +73,8 @@
       "video": "",
       "image": "assets/images/category-cakes-customized-cakes.jpg",
       "description": "Shimmering gold sequin wall, giant marquee illuminated numbers, customized dessert tablescape, and entrance arch.",
-      "order": 6
+      "order": 6,
+      "slug": "golden-glam-birthday"
     }
   ]
 }

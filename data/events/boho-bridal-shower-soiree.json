@@ -2,6 +2,28 @@
   "title": "Boho Chic Bridal Shower Soirée",
   "category": "Bridal Shower",
   "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+  "videos": [
+    {
+      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+      "title": "Reel 1: Full Venue Styling & Overview"
+    },
+    {
+      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+      "title": "Reel 2: Pampas Grass & Macrame Backdrop"
+    },
+    {
+      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+      "title": "Reel 3: Cozy Floor Cushion & Table Decor"
+    },
+    {
+      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+      "title": "Reel 4: Bride Welcome & Lighting Moments"
+    },
+    {
+      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
+      "title": "Reel 5: Bridal Favors & Custom Crates"
+    }
+  ],
   "image": "assets/images/category-crates.jpg",
   "description": "Earthy pampas grass florals, macrame backdrop, custom bridal favor crates, and cozy floor cushion setup.",
   "order": 4

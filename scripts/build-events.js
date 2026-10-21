@@ -16,6 +16,7 @@ try {
         try {
             const raw = fs.readFileSync(path.join(eventsDir, file), 'utf8');
             const data = JSON.parse(raw);
+            data.slug = data.slug || file.replace(/\.json$/, '');
             events.push(data);
         } catch (err) {
             console.error(`Error reading ${file}:`, err);
