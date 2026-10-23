@@ -5,36 +5,5 @@
   "cover_image": "assets/images/hero_showcase.jpg",
   "order": 2,
   "is_active": true,
-  "media": [
-    {
-      "id": "we-reel-1",
-      "title": "Royal Stage & Fairy Light Tunnel Entrance",
-      "description": "Grand couple entrance decor with cascading fairy lights and fresh rose runners.",
-      "media_type": "video",
-      "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-      "thumbnail_url": "assets/images/hero_showcase.jpg",
-      "order": 1,
-      "is_active": true
-    },
-    {
-      "id": "we-photo-1",
-      "title": "Floating Candle Mirror Pathway",
-      "description": "Romantic pathway with floating candles and calligraphic mirror welcome signs.",
-      "media_type": "photo",
-      "file_url": "assets/images/category-baskets.jpg",
-      "thumbnail_url": "assets/images/category-baskets.jpg",
-      "order": 2,
-      "is_active": true
-    },
-    {
-      "id": "we-reel-2",
-      "title": "Candlelit Nikah Stage Reveal",
-      "description": "Intimate Nikah decor with sheer drapery, chandeliers, and floral crescent arch.",
-      "media_type": "video",
-      "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-      "thumbnail_url": "assets/images/category-crates.jpg",
-      "order": 3,
-      "is_active": true
-    }
-  ]
+  "media": []
 }
