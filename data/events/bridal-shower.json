@@ -5,14 +5,5 @@
   "cover_image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1792759624/Screenshot_2026-09-16_193537.png",
   "order": 1,
   "is_active": true,
-  "media": [
-    {
-      "media_type": "video",
-      "order": 1,
-      "is_active": true,
-      "title": "vfdgfbf",
-      "description": "dsgrggr",
-      "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1791548614/Screen_Recording_2026-08-11_194514.mp4"
-    }
-  ]
+  "media": []
 }
