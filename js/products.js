@@ -4,19 +4,72 @@ document.addEventListener('DOMContentLoaded', async () => {
     const categoryDesc = document.getElementById('category-desc');
     const breadcrumbCategory = document.getElementById('breadcrumb-category');
 
-    // Get the category ID from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const categoryId = urlParams.get('id');
+    // Get the category ID from URL query or path slug
+    function getCategoryIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('id')) return urlParams.get('id').trim();
+        if (urlParams.get('category')) return urlParams.get('category').trim();
 
-    // Map ID to readable titles
+        // Check path slug like /flower-bouquets-karachi
+        const path = window.location.pathname.replace(/^\/|\/$/g, '');
+        const slugMap = {
+            'flower-bouquets-karachi': 'flower_bouquets',
+            'customized-theme-cakes-karachi': 'cakes',
+            'gift-baskets-hampers-karachi': 'baskets',
+            'customized-balloon-boxes': 'balloon_boxes',
+            'wooden-gift-crates-pakistan': 'crates',
+            'personalized-photo-frames-gift': 'frames',
+            'personalized-gifts-pakistan': 'customized_items',
+            'wedding-trousseau-packing-karachi': 'trousseau_packing'
+        };
+        if (slugMap[path]) return slugMap[path];
+        return null;
+    }
+
+    const categoryId = getCategoryIdFromUrl();
+
+    // Map ID to comprehensive SEO titles and 150-250 words intro texts
     const categoryMap = {
-        'flower_bouquets': { title: 'Flower Bouquets', desc: 'Beautiful, premium and elegant floral bouquets for every occasion.' },
-        'cakes': { title: 'Cakes & Customized Cakes', desc: 'Beautiful custom designed fondant cakes with elegant decorations.' },
-        'baskets': { title: 'Baskets', desc: 'Elegant gift baskets filled with premium goodies and wrapped beautifully.' },
-        'balloon_boxes': { title: 'Balloon Boxes', desc: 'Transparent balloon boxes filled with colorful balloons for party decor.' },
-        'crates': { title: 'Crates', desc: 'Premium wooden crates filled with luxury gifts and flowers.' },
-        'frames': { title: 'Frames', desc: 'Elegant customized photo frames wrapped perfectly as a gift.' },
-        'customized_items': { title: 'Customized Items', desc: 'Personalized gifts like custom mugs, notebooks, pens and more.' }
+        'flower_bouquets': {
+            title: 'Fresh Flower Bouquets in Karachi',
+            metaTitle: 'Fresh Flower Bouquets Karachi | Roses & Floral Delivery',
+            desc: 'Surprise your loved ones with breathtaking, hand-tied fresh floral bouquets and imported rose arrangements handcrafted by Creations by H&I. Whether it\'s a romantic anniversary, a milestone birthday, Valentine\'s Day, or a luxury bridal shower surprise, our florists curate each bouquet using fresh baby\'s breath, pastel carnations, and velvety roses wrapped in Korean aesthetic sheets and satin ribbons. We provide prompt same-day and scheduled surprise flower delivery across Karachi, with customized gift basket combos sent to Lahore, Islamabad, and overseas families in Dubai and Jeddah.'
+        },
+        'cakes': {
+            title: 'Customized Theme Cakes in Karachi',
+            metaTitle: 'Customized Theme Cakes Karachi | Birthday & Wedding Cakes',
+            desc: 'Celebrate life’s sweetest moments with bespoke designer cakes from Creations by H&I. From pastel multi-tiered wedding cakes and floral bridal shower bento cakes to whimsical cartoon character birthday cakes and rich chocolate fudge creations, each cake is baked fresh with premium ingredients. Customized according to your preferred color palette, theme, and personalized cake topper messages, our artisan cakes bring your dream event vision to reality across Karachi.'
+        },
+        'baskets': {
+            title: 'Luxury Gift Baskets & Hampers in Pakistan',
+            metaTitle: 'Luxury Gift Baskets Karachi | Customized Gift Hampers Pakistan',
+            desc: 'Elevate your gifting experience with our signature luxury gift hampers and personalized baskets in Karachi. Designed for corporate celebrations, weddings, Eid festivities, and intimate surprises, our baskets are thoughtfully curated with premium branded chocolates (Godiva, Lindt, Ferrero Rocher), aromatic scented candles, designer body mists, personalized mugs, and fresh florals. We offer seamless door-to-door delivery across Karachi, Lahore, Islamabad, and international overseas ordering from Dubai (UAE) and Jeddah (KSA).'
+        },
+        'balloon_boxes': {
+            title: 'Customized Balloon Boxes for Birthdays & Celebrations',
+            metaTitle: 'Customized Balloon Boxes | Birthday & Proposal Surprise Gifts',
+            desc: 'Make every birthday, graduation, or proposal truly unforgettable with our customized transparent balloon boxes. Each acrylic box is filled with coordinated pastel balloons, delicate warm LED fairy lights, and customized vinyl lettering with your personal message. Conceal hidden gifts such as jewelry boxes, perfume bottles, or sweets inside the base for the ultimate interactive unboxing surprise. Available with Karachi delivery and nationwide hamper packing.'
+        },
+        'crates': {
+            title: 'Handcrafted Wooden Gift Crates in Pakistan',
+            metaTitle: 'Wooden Gift Crates Pakistan | Luxury Bespoke Gift Boxes',
+            desc: 'Add rustic charm and bespoke elegance to your gifts with our handcrafted wooden gift crates. Finished with smooth natural wooden tones, laser-engraved personal names, and satin bow accents, our crates are ideal for groomsmen favors, bridal trousseau hampers, baby birth announcements, and festive gifts. Each crate is custom-filled with your curated selection of luxury souvenirs, dry fruits, and branded delicacies.'
+        },
+        'frames': {
+            title: 'Personalized Photo Frames & Keepsake Gifts',
+            metaTitle: 'Personalized Photo Frames Pakistan | Custom Keepsake Gifts',
+            desc: 'Preserve your most cherished milestones with bespoke personalized photo frames by Creations by H&I. Featuring elegant gold borders, acrylic collage layouts, illuminated LED night lamps, and custom couple anniversary quotes, our photo frames make sentimental keepsakes for bedrooms, offices, and living rooms. Handcrafted with precision and carefully bubble-wrapped for safe delivery throughout Pakistan.'
+        },
+        'customized_items': {
+            title: 'Personalized Mugs, Pens & Custom Gifts in Pakistan',
+            metaTitle: 'Personalized Gifts Pakistan | Custom Mugs, Pens & Journals',
+            desc: 'Make daily moments special with personalized everyday accessories. Our customized collection features glossy ceramic name mugs, magic heat-sensitive color-changing mugs, luxury engraved metallic rollerball pens, and hardbound foil-stamped personal journals. Ideal for teachers\' day gifts, corporate brand giveaways, colleague farewells, and custom stationery sets delivered across Karachi and nationwide.'
+        },
+        'trousseau_packing': {
+            title: 'Wedding Trousseau Packing Services in Karachi',
+            metaTitle: 'Wedding Trousseau Packing Karachi | Shadi Saman & Dress Trays',
+            desc: 'Present your bridal wedding trousseau and shadi saman with unmatched royal grandeur. Creations by H&I specializes in luxury bridal trousseau packing in Karachi, including designer acrylic dress trays, embellished jewelry boxes, vanity hampers, floral suit wraps, and coordinate luggage styling. Whether preparing groom sherwani trays, bridal lehenga presentations, or sweet box hampers, we transform traditional wedding preparations into an aesthetic work of art.'
+        }
     };
 
     if (!categoryId || !categoryMap[categoryId]) {
@@ -24,19 +77,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div class="error-box">
                 <p>Please select a category from the home page.</p>
                 <div style="margin-top: 20px;">
-                    <a href="index.html#services" class="btn btn-primary">Browse Categories</a>
+                    <a href="/#services" class="btn btn-primary">Browse Categories</a>
                 </div>
             </div>
         `;
         return;
     }
 
-    categoryTitle.textContent = categoryMap[categoryId].title;
-    categoryDesc.textContent = categoryMap[categoryId].desc;
+    const currentCat = categoryMap[categoryId];
+    categoryTitle.textContent = currentCat.title;
+    categoryDesc.textContent = currentCat.desc;
     if (breadcrumbCategory) {
-        breadcrumbCategory.textContent = categoryMap[categoryId].title;
+        breadcrumbCategory.textContent = currentCat.title;
     }
-    document.title = `${categoryMap[categoryId].title} | Creations by H&I`;
+    document.title = `${currentCat.metaTitle || currentCat.title} | Creations by H&I`;
 
     try {
         let data = null;

@@ -1,0 +1,20 @@
+{
+  "products": [
+    {
+      "id": "ci-1",
+      "title": "Custom Name Ceramic Coffee Mug",
+      "description": "Premium 11oz glossy ceramic coffee mug customized with elegant gold-foil lettering, initials, or motivational quotes.",
+      "image": "assets/images/category-customized-items.jpg",
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": "ci-2",
+      "title": "Executive Leather Journal & Engraved Pen Set",
+      "description": "Faux-leather notebook with gold foil embossed name, paired with a matching matte black twist-action metal pen.",
+      "image": "assets/images/category-customized-items.jpg",
+      "featured": true,
+      "order": 2
+    }
+  ]
+}

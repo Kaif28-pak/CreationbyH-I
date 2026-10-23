@@ -1,18 +1,20 @@
 {
   "products": [
     {
-      "featured": false,
-      "order": 1,
-      "title": "cfghgfjnfgn",
-      "description": "fdghghyjy",
-      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1792503664/2007a2b6-16d7-4929-873d-a745c1156f7f.jpg"
+      "id": "fb-1",
+      "title": "Blushing Romance Rose Bouquet",
+      "description": "Hand-tied bouquet featuring fresh imported blush pink roses, gypsophila baby's breath, and eucalyptus greens wrapped in Korean waterproof aesthetic paper.",
+      "image": "assets/images/category-flower-bouquet.jpg",
+      "featured": true,
+      "order": 1
     },
     {
+      "id": "fb-2",
+      "title": "Pastel Luxe Mixed Floral Wrap",
+      "description": "Exquisite arrangement of pastel peach carnations, white chrysanthemums, and fresh roses finished with a luxury silk satin bow.",
+      "image": "assets/images/category-flower-bouquet.jpg",
       "featured": true,
-      "order": 1,
-      "title": "eteryr5thytrh",
-      "description": "ertgeryh65y",
-      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1792585172/Screenshot_2026-09-28_192701.png"
+      "order": 2
     }
   ]
 }

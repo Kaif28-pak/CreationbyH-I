@@ -37,3 +37,44 @@
   from = "/events/:slug"
   to = "/event-detail.html?slug=:slug"
   status = 200
+
+[[redirects]]
+  from = "/flower-bouquets-karachi"
+  to = "/products.html?id=flower_bouquets"
+  status = 200
+
+[[redirects]]
+  from = "/customized-theme-cakes-karachi"
+  to = "/products.html?id=cakes"
+  status = 200
+
+[[redirects]]
+  from = "/gift-baskets-hampers-karachi"
+  to = "/products.html?id=baskets"
+  status = 200
+
+[[redirects]]
+  from = "/customized-balloon-boxes"
+  to = "/products.html?id=balloon_boxes"
+  status = 200
+
+[[redirects]]
+  from = "/wooden-gift-crates-pakistan"
+  to = "/products.html?id=crates"
+  status = 200
+
+[[redirects]]
+  from = "/personalized-photo-frames-gift"
+  to = "/products.html?id=frames"
+  status = 200
+
+[[redirects]]
+  from = "/personalized-gifts-pakistan"
+  to = "/products.html?id=customized_items"
+  status = 200
+
+[[redirects]]
+  from = "/wedding-trousseau-packing-karachi"
+  to = "/products.html?id=trousseau_packing"
+  status = 200
+

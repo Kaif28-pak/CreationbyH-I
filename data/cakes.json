@@ -1,11 +1,20 @@
 {
   "products": [
     {
-      "featured": false,
-      "order": 1,
-      "title": "ytujytuyuy",
-      "description": "thtyju7ytjytj",
-      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1792503664/2007a2b6-16d7-4929-873d-a745c1156f7f.jpg"
+      "id": "ck-1",
+      "title": "Floral Elegance Birthday Theme Cake",
+      "description": "Custom 2-tier vanilla bean and Belgian chocolate fudge cake styled with handcrafted sugar florals, edible gold leaf, and personalized acrylic cake topper.",
+      "image": "assets/images/category-cakes-customized-cakes.jpg",
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": "ck-2",
+      "title": "Pastel Macaron Drip Cake",
+      "description": "Artisanal semi-naked drip cake decorated with French macarons, fresh strawberries, and customized happy birthday calligraphy.",
+      "image": "assets/images/category-cakes-customized-cakes.jpg",
+      "featured": true,
+      "order": 2
     }
   ]
 }

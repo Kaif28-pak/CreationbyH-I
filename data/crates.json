@@ -1,0 +1,20 @@
+{
+  "products": [
+    {
+      "id": "cr-1",
+      "title": "Rustic Luxe Wooden Gift Crate",
+      "description": "Handcrafted pine wood crate with burned wood finish, packed with artisanal treats, gourmet nuts, and customized wooden keepsake tag.",
+      "image": "assets/images/category-crates.jpg",
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": "cr-2",
+      "title": "Bridal Shower Favor Gift Crate",
+      "description": "Bespoke laser-cut wooden crate lined with satin, holding personalized scented candle, organic body scrub, and mini champagne flute.",
+      "image": "assets/images/category-crates.jpg",
+      "featured": true,
+      "order": 2
+    }
+  ]
+}

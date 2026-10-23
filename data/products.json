@@ -1,67 +1,84 @@
 {
   "products": [
     {
-      "title": "Flower Bouquet",
-      "category": "Flower Bouquet",
-      "description": "Beautiful, premium and elegant floral bouquets for every occasion.",
+      "title": "Fresh Flower Bouquets",
+      "category": "flower_bouquets",
+      "slug": "flower-bouquets-karachi",
+      "description": "Handcrafted luxury fresh flower bouquets and rose arrangements in Karachi with surprise delivery across Pakistan.",
       "image": "assets/images/category-flower-bouquet.jpg",
       "video": "",
       "featured": true,
       "order": 1
     },
     {
-      "title": "Cakes / Customized Cakes",
-      "category": "Cakes / Customized Cakes",
-      "description": "Beautiful custom designed fondant cakes with elegant decorations.",
+      "title": "Customized Theme Cakes",
+      "category": "cakes",
+      "slug": "customized-theme-cakes-karachi",
+      "description": "Bespoke fondant and buttercream theme cakes with artistic decorations for birthdays, bridal showers, and weddings.",
       "image": "assets/images/category-cakes-customized-cakes.jpg",
       "video": "",
       "featured": true,
       "order": 2
     },
     {
-      "title": "Baskets",
-      "category": "Baskets",
-      "description": "Elegant gift baskets filled with premium goodies and wrapped beautifully.",
+      "title": "Luxury Gift Baskets & Hampers",
+      "category": "baskets",
+      "slug": "gift-baskets-hampers-karachi",
+      "description": "Premium customized gift baskets with your favourite branded products. Delivery in Karachi, Lahore, Islamabad, Dubai and Jeddah.",
       "image": "assets/images/category-baskets.jpg",
       "video": "",
       "featured": true,
       "order": 3
     },
     {
-      "title": "Balloon Boxes",
-      "category": "Balloon Boxes",
-      "description": "Transparent balloon boxes filled with colorful balloons for party decor.",
+      "title": "Customized Balloon Boxes",
+      "category": "balloon_boxes",
+      "slug": "customized-balloon-boxes",
+      "description": "Personalized transparent balloon boxes with custom name vinyl, mini balloons, and surprise gifts for special milestones.",
       "image": "assets/images/category-balloon-boxes.jpg",
       "video": "",
       "featured": true,
       "order": 4
     },
     {
-      "title": "Crates",
-      "category": "Crates",
-      "description": "Premium wooden crates filled with luxury gifts and flowers.",
+      "title": "Wooden Gift Crates",
+      "category": "crates",
+      "slug": "wooden-gift-crates-pakistan",
+      "description": "Handcrafted wooden gift crates packed with imported chocolates, perfumes, fresh florals, and personalized souvenirs.",
       "image": "assets/images/category-crates.jpg",
       "video": "",
       "featured": true,
       "order": 5
     },
     {
-      "title": "Frames",
-      "category": "Frames",
-      "description": "Elegant customized photo frames wrapped perfectly as a gift.",
+      "title": "Personalized Photo Frames",
+      "category": "frames",
+      "slug": "personalized-photo-frames-gift",
+      "description": "Timeless personalized photo frames and customized romantic anniversary gifts wrapped with aesthetic elegance.",
       "image": "assets/images/category-frames.jpg",
       "video": "",
       "featured": true,
       "order": 6
     },
     {
-      "title": "Customized Items",
-      "category": "Customized Items",
-      "description": "Personalized gifts like custom mugs, notebooks, pens and more.",
+      "title": "Personalized Mugs, Pens & Notebooks",
+      "category": "customized_items",
+      "slug": "personalized-gifts-pakistan",
+      "description": "Custom engraved corporate giveaways, personalized ceramic mugs, foil-stamped notebooks, and executive gift sets.",
       "image": "assets/images/category-customized-items.jpg",
       "video": "",
       "featured": true,
       "order": 7
+    },
+    {
+      "title": "Wedding Trousseau Packing",
+      "category": "trousseau_packing",
+      "slug": "wedding-trousseau-packing-karachi",
+      "description": "Luxury bridal trousseau packing, shadi kapre and saman packing, acrylic trays, and designer luggage presentation in Karachi.",
+      "image": "assets/images/wedding-trousseau-packing-karachi.jpg",
+      "video": "",
+      "featured": true,
+      "order": 8
     }
   ]
 }

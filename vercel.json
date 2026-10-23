@@ -5,7 +5,15 @@
     { "source": "/config.yml", "destination": "/admin/config.yml" },
     { "source": "/events", "destination": "/events.html" },
     { "source": "/events/:slug", "destination": "/event-detail.html?slug=:slug" },
-    { "source": "/api/event-categories/:slug", "destination": "/api/event-categories?slug=:slug" }
+    { "source": "/api/event-categories/:slug", "destination": "/api/event-categories?slug=:slug" },
+    { "source": "/flower-bouquets-karachi", "destination": "/products.html?id=flower_bouquets" },
+    { "source": "/customized-theme-cakes-karachi", "destination": "/products.html?id=cakes" },
+    { "source": "/gift-baskets-hampers-karachi", "destination": "/products.html?id=baskets" },
+    { "source": "/customized-balloon-boxes", "destination": "/products.html?id=balloon_boxes" },
+    { "source": "/wooden-gift-crates-pakistan", "destination": "/products.html?id=crates" },
+    { "source": "/personalized-photo-frames-gift", "destination": "/products.html?id=frames" },
+    { "source": "/personalized-gifts-pakistan", "destination": "/products.html?id=customized_items" },
+    { "source": "/wedding-trousseau-packing-karachi", "destination": "/products.html?id=trousseau_packing" }
   ],
   "headers": [
     {
