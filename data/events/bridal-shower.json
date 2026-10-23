@@ -2,7 +2,7 @@
   "name": "Bridal Shower",
   "slug": "bridal-shower",
   "description": "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
-  "cover_image": "assets/images/category-crates.jpg",
+  "cover_image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1792759624/Screenshot_2026-09-16_193537.png",
   "order": 1,
   "is_active": true,
   "media": [
