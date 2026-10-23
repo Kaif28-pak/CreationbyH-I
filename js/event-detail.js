@@ -56,6 +56,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     /**
+     * Ensure media paths are root-relative or valid absolute URLs
+     */
+    function normalizeMediaUrl(url) {
+        if (!url || typeof url !== 'string') return '';
+        const trimmed = url.trim();
+        if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('/') || trimmed.startsWith('data:')) {
+            return trimmed;
+        }
+        return `/${trimmed}`;
+    }
+
+    /**
      * Fetch category data with multi-tier fallback
      */
     async function fetchCategory(slug) {
@@ -72,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // 2. Direct local category file
         try {
-            const res = await fetch(`data/events/${slug}.json?t=${Date.now()}`);
+            const res = await fetch(`/data/events/${slug}.json?t=${Date.now()}`);
             if (res.ok) {
                 const data = await res.json();
                 if (data && data.name) return data;
@@ -90,7 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // 4. Compiled events.json search
         try {
-            const res = await fetch(`data/events.json?t=${Date.now()}`);
+            const res = await fetch(`/data/events.json?t=${Date.now()}`);
             if (res.ok) {
                 const data = await res.json();
                 const list = data.categories || data.events || [];
@@ -123,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         currentCategory = cat;
         const name = cat.name || 'Event Celebration';
         const description = cat.description || 'Custom crafted styling, ambient illumination, floral decor, and bespoke ambiance.';
-        const coverImg = cat.cover_image || 'assets/images/hero_showcase.jpg';
+        const coverImg = normalizeMediaUrl(cat.cover_image) || '/assets/images/hero_showcase.jpg';
 
         if (breadcrumbEventName) breadcrumbEventName.textContent = name;
         document.title = `${name} | Event Portfolio & Reels | Creations by H&I`;
@@ -178,7 +190,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div class="event-media-grid" id="event-media-grid">
                         ${mediaItems.map((item, index) => {
                             const isVideo = item.media_type === 'video';
-                            const poster = item.thumbnail_url || (isVideo ? '' : item.file_url) || 'assets/images/hero_showcase.jpg';
+                            const fileUrl = normalizeMediaUrl(item.file_url);
+                            const poster = normalizeMediaUrl(item.thumbnail_url) || (isVideo ? '' : fileUrl) || '/assets/images/hero_showcase.jpg';
                             const waItemLink = createWaLink(name, item.title);
 
                             return `
@@ -191,7 +204,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                         
                                         ${isVideo ? `
                                             <video 
-                                                src="${item.file_url}" 
+                                                src="${fileUrl}" 
                                                 ${poster ? `poster="${poster}"` : ''} 
                                                 muted 
                                                 playsinline 
@@ -202,10 +215,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                                             </div>
                                         ` : `
                                             <img 
-                                                src="${item.file_url}" 
+                                                src="${fileUrl}" 
                                                 alt="${item.title}" 
                                                 loading="lazy" 
-                                                onerror="this.onerror=null; this.src='assets/images/hero_showcase.jpg';">
+                                                onerror="this.onerror=null; this.src='/assets/images/hero_showcase.jpg';">
                                             <div class="media-zoom-icon" aria-hidden="true">
                                                 <span>🔍</span>
                                             </div>
@@ -271,6 +284,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         mediaItems.forEach((item, index) => {
             const isVideo = item.media_type === 'video';
+            const fileUrl = normalizeMediaUrl(item.file_url);
+            const poster = normalizeMediaUrl(item.thumbnail_url);
             const slide = document.createElement('div');
             slide.className = 'reel-vertical-slide';
             slide.setAttribute('data-index', index);
@@ -283,8 +298,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     ${isVideo ? `
                         <video 
                             id="viewer-video-${index}"
-                            src="${item.file_url}" 
-                            ${item.thumbnail_url ? `poster="${item.thumbnail_url}"` : ''}
+                            src="${fileUrl}" 
+                            ${poster ? `poster="${poster}"` : ''}
                             playsinline 
                             loop 
                             preload="none"
@@ -296,7 +311,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <div class="slide-progress-bar"><div class="progress-fill"></div></div>
                     ` : `
                         <div class="slide-photo-wrap">
-                            <img src="${item.file_url}" alt="${item.title}" loading="lazy">
+                            <img src="${fileUrl}" alt="${item.title}" loading="lazy">
                         </div>
                     `}
                 </div>
@@ -422,6 +437,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!mediaItems || mediaItems.length === 0) return;
         activeSlideIndex = Math.max(0, Math.min(index, mediaItems.length - 1));
 
+        overlay.style.display = 'block';
         overlay.classList.add('active');
         overlay.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -454,6 +470,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         overlay.classList.remove('active');
         overlay.setAttribute('aria-hidden', 'true');
+        overlay.style.display = 'none';
         document.body.style.overflow = '';
 
         // Clean URL query

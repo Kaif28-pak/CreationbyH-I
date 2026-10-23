@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
     <title>Product Details | Creations by H&I</title>
     <meta name="description" content="View details, high quality photos, and video showcase of our handcrafted creations.">
     <!-- Elegant Fonts: Lora for headings, Montserrat for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
     <!-- Navigation -->
     <nav>
-        <a href="index.html" class="logo-container" aria-label="Creations by H&I Home">
+        <a href="/" class="logo-container" aria-label="Creations by H&I Home">
             <div class="logo-icon">H&I</div>
             <div class="brand-font logo-text">Creations by <span class="brand-sub">H&I</span></div>
         </a>
@@ -23,9 +26,10 @@
             <span class="bar"></span>
         </button>
         <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#services">Categories</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/events">Events</a></li>
+            <li><a href="/#services">Categories</a></li>
+            <li><a href="/#contact">Contact</a></li>
             <li class="nav-cta-item"><a href="https://wa.me/923282276532?text=Hello%20Creations%20by%20H%26I,%20I%20would%20like%20to%20order!" class="nav-btn-order" target="_blank" rel="noopener">💬 WhatsApp Order</a></li>
         </ul>
     </nav>
@@ -80,10 +84,11 @@
         <div class="footer-links">
             <h4>Quick Links</h4>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#services">Categories</a></li>
-                <li><a href="index.html#gallery">Signature Gallery</a></li>
-                <li><a href="https://wa.me/923096708144" target="_blank" rel="noopener noreferrer">Custom Order</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/events">Events</a></li>
+                <li><a href="/#services">Categories</a></li>
+                <li><a href="/#gallery">Signature Gallery</a></li>
+                <li><a href="https://wa.me/923282276532" target="_blank" rel="noopener noreferrer">Custom Order</a></li>
             </ul>
         </div>
         <div class="footer-bottom">
@@ -92,7 +97,7 @@
     </footer>
 
     <!-- Logic Scripts -->
-    <script src="js/nav.js"></script>
-    <script src="js/product-view.js"></script>
+    <script src="/js/nav.js"></script>
+    <script src="/js/product-view.js"></script>
 </body>
 </html>

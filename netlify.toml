@@ -22,3 +22,18 @@
     Cache-Control = "no-cache, no-store, must-revalidate"
     Pragma = "no-cache"
     Expires = "0"
+
+[[redirects]]
+  from = "/config.yml"
+  to = "/admin/config.yml"
+  status = 200
+
+[[redirects]]
+  from = "/events"
+  to = "/events.html"
+  status = 200
+
+[[redirects]]
+  from = "/events/:slug"
+  to = "/event-detail.html?slug=:slug"
+  status = 200

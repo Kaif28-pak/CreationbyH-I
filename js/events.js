@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // 2. Try compiled data/events.json
         try {
-            const staticRes = await fetch(`data/events.json?t=${Date.now()}`);
+            const staticRes = await fetch(`/data/events.json?t=${Date.now()}`);
             if (staticRes.ok) {
                 const data = await staticRes.json();
                 const list = data.categories || data.events;
