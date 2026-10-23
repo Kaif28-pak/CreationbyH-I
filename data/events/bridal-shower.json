@@ -2,49 +2,17 @@
   "name": "Bridal Shower",
   "slug": "bridal-shower",
   "description": "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
-  "cover_image": "assets/images/category-crates.jpg",
+  "cover_image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1792759624/Screenshot_2026-09-16_193537.png",
   "order": 1,
   "is_active": true,
   "media": [
     {
-      "id": "bs-reel-1",
-      "title": "Boho Chic Floral Setup & Overview",
-      "description": "Full venue styling with earthy pampas grass, custom backdrop and luxury ambiance.",
       "media_type": "video",
-      "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-      "thumbnail_url": "assets/images/category-crates.jpg",
       "order": 1,
-      "is_active": true
-    },
-    {
-      "id": "bs-photo-1",
-      "title": "Luxury Pastel Floral Arch & Neon Sign",
-      "description": "Handcrafted fresh floral arch with custom bride-to-be signage.",
-      "media_type": "photo",
-      "file_url": "assets/images/category-flower-bouquet.jpg",
-      "thumbnail_url": "assets/images/category-flower-bouquet.jpg",
-      "order": 2,
-      "is_active": true
-    },
-    {
-      "id": "bs-reel-2",
-      "title": "Intimate Dinner Table & Ambient Candles",
-      "description": "Romantic candlelit table styling with gold cutlery and personalized menus.",
-      "media_type": "video",
-      "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-      "thumbnail_url": "assets/images/category-baskets.jpg",
-      "order": 3,
-      "is_active": true
-    },
-    {
-      "id": "bs-photo-2",
-      "title": "Bespoke Bridal Favor Gift Hampers",
-      "description": "Personalized wooden crates filled with scented candles and luxury souvenirs.",
-      "media_type": "photo",
-      "file_url": "assets/images/hero_showcase.jpg",
-      "thumbnail_url": "assets/images/hero_showcase.jpg",
-      "order": 4,
-      "is_active": true
+      "is_active": true,
+      "title": "vfdgfbf",
+      "description": "dsgrggr",
+      "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1791548614/Screen_Recording_2026-08-11_194514.mp4"
     }
   ]
 }
