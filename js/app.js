@@ -218,25 +218,38 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function loadFeaturedProducts() {
         if (!featuredGrid) return;
 
-        const categoriesToFetch = ['baskets', 'flower_bouquets', 'cakes', 'balloon_boxes', 'crates', 'trousseau_packing'];
-        const featuredItems = [];
+        let featuredItems = [];
 
-        for (const catId of categoriesToFetch) {
+        // 1. Try Firebase Firestore
+        if (window.CreationsFirebase && window.CreationsFirebase.isConfigured()) {
             try {
-                const res = await fetch(`data/${catId}.json?t=${Date.now()}`, { cache: 'no-store' });
-                if (res.ok) {
-                    const data = await res.json();
-                    const prods = data.products || (Array.isArray(data) ? data : []);
-                    const matched = prods.find(p => p.featured && p.active !== false);
-                    if (matched) {
-                        matched.categoryId = catId;
-                        featuredItems.push(matched);
-                    }
+                const fbFeatured = await window.CreationsFirebase.getFeaturedProducts();
+                if (fbFeatured && fbFeatured.length > 0) {
+                    featuredItems = fbFeatured;
                 }
-            } catch (e) {
-                // Ignore individual category fetch failures
+            } catch (fbErr) {
+                console.warn('[App] Firebase featured fallback:', fbErr);
             }
-            if (featuredItems.length >= 6) break;
+        }
+
+        // 2. Local fallback if empty
+        if (featuredItems.length === 0) {
+            const categoriesToFetch = ['baskets', 'flower_bouquets', 'cakes', 'balloon_boxes', 'crates', 'trousseau_packing'];
+            for (const catId of categoriesToFetch) {
+                try {
+                    const res = await fetch(`data/${catId}.json?t=${Date.now()}`, { cache: 'no-store' });
+                    if (res.ok) {
+                        const data = await res.json();
+                        const prods = data.products || (Array.isArray(data) ? data : []);
+                        const matched = prods.find(p => p.featured && p.active !== false);
+                        if (matched) {
+                            matched.categoryId = catId;
+                            featuredItems.push(matched);
+                        }
+                    }
+                } catch (e) {}
+                if (featuredItems.length >= 6) break;
+            }
         }
 
         renderFeatured(featuredItems);
@@ -252,7 +265,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         items.forEach((product, idx) => {
-            const detailUrl = `product-view.html?category=${product.categoryId || 'baskets'}&id=${idx}`;
+            const docId = product.id && !product.id.startsWith('local_') ? product.id : idx;
+            const detailUrl = `product-view.html?category=${product.categoryId || product.category || 'baskets'}&id=${docId}`;
             const encodedTitle = encodeURIComponent(`Hi! I want to order "${product.title}" from your website.`);
             const waLink = `https://wa.me/${WA_PHONE}?text=${encodedTitle}`;
             const fallbackImg = 'assets/images/category-baskets.jpg';

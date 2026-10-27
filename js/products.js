@@ -108,41 +108,49 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        let data = null;
+        let rawProducts = [];
 
-        // 1. Fetch live real-time data directly from GitHub Raw first (bypasses build delay)
-        try {
-            const ghResponse = await fetch(`https://raw.githubusercontent.com/Kaif28-pak/CreationbyH-I/main/data/${categoryId}.json?t=${Date.now()}`, {
-                cache: 'no-store',
-                headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
-            });
-            if (ghResponse.ok) {
-                const ghData = await ghResponse.json();
-                const ghProducts = (ghData && Array.isArray(ghData.products)) ? ghData.products : (Array.isArray(ghData) ? ghData : []);
-                if (ghProducts.length > 0) {
-                    data = ghData;
+        // 1. Fetch live from Cloud Firestore if configured
+        if (window.CreationsFirebase && window.CreationsFirebase.isConfigured()) {
+            try {
+                const fbProducts = await window.CreationsFirebase.getProductsByCategory(categoryId);
+                if (fbProducts && fbProducts.length > 0) {
+                    rawProducts = fbProducts;
+                    console.log(`[Products] Loaded ${rawProducts.length} items from Cloud Firestore.`);
                 }
+            } catch (fbErr) {
+                console.warn('[Products] Firebase fetch fallback:', fbErr);
             }
-        } catch (ghErr) {
-            console.debug('[Products] GitHub fetch fallback...');
         }
 
-        // 2. Local file fallback
-        if (!data) {
+        // 2. Local JSON fallback
+        if (rawProducts.length === 0) {
             try {
                 const localResponse = await fetch(`data/${categoryId}.json?t=${Date.now()}`, {
                     cache: 'no-store',
                     headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
                 });
                 if (localResponse.ok) {
-                    data = await localResponse.json();
+                    const localData = await localResponse.json();
+                    rawProducts = (localData && localData.products) ? localData.products : (Array.isArray(localData) ? localData : []);
                 }
             } catch (localErr) {
                 console.warn('[Products] Local fetch fallback...');
             }
         }
 
-        const rawProducts = (data && data.products) ? data.products : (Array.isArray(data) ? data : []);
+        // 3. GitHub Raw fallback
+        if (rawProducts.length === 0) {
+            try {
+                const ghResponse = await fetch(`https://raw.githubusercontent.com/Kaif28-pak/CreationbyH-I/main/data/${categoryId}.json?t=${Date.now()}`, {
+                    cache: 'no-store'
+                });
+                if (ghResponse.ok) {
+                    const ghData = await ghResponse.json();
+                    rawProducts = (ghData && ghData.products) ? ghData.products : (Array.isArray(ghData) ? ghData : []);
+                }
+            } catch (ghErr) {}
+        }
 
         // Filter active products with titles
         const products = rawProducts.filter(p => {
@@ -170,7 +178,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         productsGrid.innerHTML = '';
 
         products.forEach((product, index) => {
-            const detailUrl = `product-view.html?category=${categoryId}&id=${index}`;
+            const docIdentifier = product.id && !product.id.startsWith('local_') ? product.id : index;
+            const detailUrl = `product-view.html?category=${categoryId}&id=${docIdentifier}`;
             const encodedTitle = encodeURIComponent(`Hi! I want to order "${product.title}" from ${currentCat.title} on your website.`);
             const waLink = `https://wa.me/${WA_PHONE}?text=${encodedTitle}`;
             
@@ -204,7 +213,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <a href="${detailUrl}" style="text-decoration: none; color: inherit;">
                         <h3 class="product-title">${product.title}</h3>
                     </a>
-                    <p class="product-desc">${product.description || 'Artistic creation handcrafted with perfection.'}</p>
+                    <p class="product-desc">${product.description || product.shortDescription || 'Artistic creation handcrafted with perfection.'}</p>
                     <div class="product-card-actions">
                         <a href="${detailUrl}" class="btn-card-view">View Details</a>
                         <a href="${waLink}" class="btn-card-wa" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a>
