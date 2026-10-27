@@ -4,13 +4,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const categoryDesc = document.getElementById('category-desc');
     const breadcrumbCategory = document.getElementById('breadcrumb-category');
 
-    // Get the category ID from URL query or path slug
+    const WA_PHONE = '923096708144';
+
+    // Get category ID from URL query or path slug
     function getCategoryIdFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('id')) return urlParams.get('id').trim();
         if (urlParams.get('category')) return urlParams.get('category').trim();
 
-        // Check path slug like /flower-bouquets-karachi
         const path = window.location.pathname.replace(/^\/|\/$/g, '');
         const slugMap = {
             'flower-bouquets-karachi': 'flower_bouquets',
@@ -28,56 +29,64 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const categoryId = getCategoryIdFromUrl();
 
-    // Map ID to comprehensive SEO titles and 150-250 words intro texts
+    // Human-Friendly, 40-60 Word Category Intros with Single Primary Keyword
     const categoryMap = {
         'flower_bouquets': {
             title: 'Fresh Flower Bouquets in Karachi',
-            metaTitle: 'Fresh Flower Bouquets Karachi | Roses & Floral Delivery',
-            desc: 'Surprise your loved ones with breathtaking, hand-tied fresh floral bouquets and imported rose arrangements handcrafted by Creations by H&I. Whether it\'s a romantic anniversary, a milestone birthday, Valentine\'s Day, or a luxury bridal shower surprise, our florists curate each bouquet using fresh baby\'s breath, pastel carnations, and velvety roses wrapped in Korean aesthetic sheets and satin ribbons. We provide prompt same-day and scheduled surprise flower delivery across Karachi, with customized gift basket combos sent to Lahore, Islamabad, and overseas families in Dubai and Jeddah.'
+            metaTitle: 'Fresh Flower Bouquets Karachi | Creations by H&I',
+            metaDesc: 'Hand-tied fresh flower bouquets and imported rose arrangements in Karachi. Same-day surprise delivery. Order on WhatsApp!',
+            desc: 'Surprise your loved ones in Karachi with hand-tied fresh flower bouquets. Our florists arrange velvety roses, lilies, and baby’s breath wrapped in pastel Korean paper and satin ribbons. Ideal for birthdays, anniversaries, and bridal showers, with prompt doorstep delivery across Karachi and personalized hamper combos.'
         },
         'cakes': {
             title: 'Customized Theme Cakes in Karachi',
-            metaTitle: 'Customized Theme Cakes Karachi | Birthday & Wedding Cakes',
-            desc: 'Celebrate life’s sweetest moments with bespoke designer cakes from Creations by H&I. From pastel multi-tiered wedding cakes and floral bridal shower bento cakes to whimsical cartoon character birthday cakes and rich chocolate fudge creations, each cake is baked fresh with premium ingredients. Customized according to your preferred color palette, theme, and personalized cake topper messages, our artisan cakes bring your dream event vision to reality across Karachi.'
+            metaTitle: 'Customized Theme Cakes Karachi | Creations by H&I',
+            metaDesc: 'Bespoke fondant and buttercream theme cakes in Karachi for birthdays, weddings, and bridal showers. Chat on WhatsApp to order!',
+            desc: 'Celebrate special milestones with handcrafted theme cakes in Karachi. From whimsical birthday designs and elegant bridal shower bento cakes to multi-tier wedding cakes, each creation is baked fresh with premium chocolate fudge or vanilla flavors. Custom cake toppers and personal messages are designed on WhatsApp.'
         },
         'baskets': {
-            title: 'Luxury Gift Baskets & Hampers in Pakistan',
-            metaTitle: 'Luxury Gift Baskets Karachi | Customized Gift Hampers Pakistan',
-            desc: 'Elevate your gifting experience with our signature luxury gift hampers and personalized baskets in Karachi. Designed for corporate celebrations, weddings, Eid festivities, and intimate surprises, our baskets are thoughtfully curated with premium branded chocolates (Godiva, Lindt, Ferrero Rocher), aromatic scented candles, designer body mists, personalized mugs, and fresh florals. We offer seamless door-to-door delivery across Karachi, Lahore, Islamabad, and international overseas ordering from Dubai (UAE) and Jeddah (KSA).'
+            title: 'Luxury Gift Baskets & Hampers in Karachi',
+            metaTitle: 'Custom Gift Baskets Karachi | Creations by H&I',
+            metaDesc: 'Curated gift baskets in Karachi with Godiva chocolates, perfumes & fresh flowers. Surprise delivery to Lahore, Islamabad & Gulf.',
+            desc: 'Send heartfelt love with customized gift baskets in Karachi. We curate luxury gift hampers featuring chocolates from Godiva or Lindt, scented candles, fresh flowers, and personal keepsakes. Perfect for birthdays, weddings, Eid, and overseas surprises sent from Dubai and Jeddah to families across Pakistan.'
         },
         'balloon_boxes': {
-            title: 'Customized Balloon Boxes for Birthdays & Celebrations',
-            metaTitle: 'Customized Balloon Boxes | Birthday & Proposal Surprise Gifts',
-            desc: 'Make every birthday, graduation, or proposal truly unforgettable with our customized transparent balloon boxes. Each acrylic box is filled with coordinated pastel balloons, delicate warm LED fairy lights, and customized vinyl lettering with your personal message. Conceal hidden gifts such as jewelry boxes, perfume bottles, or sweets inside the base for the ultimate interactive unboxing surprise. Available with Karachi delivery and nationwide hamper packing.'
+            title: 'Customized Balloon Boxes in Karachi',
+            metaTitle: 'Custom Balloon Boxes Karachi | Creations by H&I',
+            metaDesc: 'Transparent balloon boxes with LED lights, mini balloons, and personalized name vinyl. Delivery in Karachi and nationwide.',
+            desc: 'Make celebrations unforgettable with our customized balloon boxes. Each transparent display box features color-coordinated mini balloons, warm LED fairy lights, and personalized vinyl lettering. Add hidden gifts like perfumes, chocolates, or jewelry inside for an interactive surprise delivery in Karachi and courier gifts nationwide.'
         },
         'crates': {
             title: 'Handcrafted Wooden Gift Crates in Pakistan',
-            metaTitle: 'Wooden Gift Crates Pakistan | Luxury Bespoke Gift Boxes',
-            desc: 'Add rustic charm and bespoke elegance to your gifts with our handcrafted wooden gift crates. Finished with smooth natural wooden tones, laser-engraved personal names, and satin bow accents, our crates are ideal for groomsmen favors, bridal trousseau hampers, baby birth announcements, and festive gifts. Each crate is custom-filled with your curated selection of luxury souvenirs, dry fruits, and branded delicacies.'
+            metaTitle: 'Wooden Gift Crates Pakistan | Creations by H&I',
+            metaDesc: 'Handcrafted wooden gift crates engraved with custom names. Packed with gourmet treats and dry fruits. Order on WhatsApp!',
+            desc: 'Add rustic elegance to your gifting with handcrafted wooden gift crates in Pakistan. Each pine wood crate is custom-engraved with names or wedding dates and packed with artisanal goodies, perfumes, dry fruits, and florals. A timeless choice for groomsmen gifts, corporate hampers, and family celebrations.'
         },
         'frames': {
-            title: 'Personalized Photo Frames & Keepsake Gifts',
-            metaTitle: 'Personalized Photo Frames Pakistan | Custom Keepsake Gifts',
-            desc: 'Preserve your most cherished milestones with bespoke personalized photo frames by Creations by H&I. Featuring elegant gold borders, acrylic collage layouts, illuminated LED night lamps, and custom couple anniversary quotes, our photo frames make sentimental keepsakes for bedrooms, offices, and living rooms. Handcrafted with precision and carefully bubble-wrapped for safe delivery throughout Pakistan.'
+            title: 'Personalized Photo Frames in Karachi',
+            metaTitle: 'Photo Frames & Gifts Karachi | Creations by H&I',
+            metaDesc: 'Custom LED acrylic photo plaques and gold border keepsake frames in Karachi. Safe delivery across Pakistan. Order on WhatsApp!',
+            desc: 'Preserve cherished memories with personalized photo frames in Karachi. Our collection includes illuminated acrylic LED photo frames, couple anniversary plaques, and classic gold-bordered keepsakes customized with your favorite photographs and personal messages. Safely packaged for surprise gift delivery across Karachi, Lahore, and Islamabad.'
         },
         'customized_items': {
-            title: 'Personalized Mugs, Pens & Custom Gifts in Pakistan',
-            metaTitle: 'Personalized Gifts Pakistan | Custom Mugs, Pens & Journals',
-            desc: 'Make daily moments special with personalized everyday accessories. Our customized collection features glossy ceramic name mugs, magic heat-sensitive color-changing mugs, luxury engraved metallic rollerball pens, and hardbound foil-stamped personal journals. Ideal for teachers\' day gifts, corporate brand giveaways, colleague farewells, and custom stationery sets delivered across Karachi and nationwide.'
+            title: 'Personalized Mugs, Pens & Gifts in Pakistan',
+            metaTitle: 'Personalized Gifts Pakistan | Creations by H&I',
+            metaDesc: 'Custom ceramic mugs, engraved metal pens, and executive notebooks in Karachi. Corporate and personal gifts delivered nationwide.',
+            desc: 'Add a personal touch to everyday essentials with customized gifts in Pakistan. We customize ceramic coffee mugs, executive engraved metal pens, and hardbound foil-stamped notebooks with your recipient\'s name or logo. Thoughtful keepsakes for birthdays, corporate appreciation, teachers, and colleague farewells delivered nationwide.'
         },
         'trousseau_packing': {
-            title: 'Wedding Trousseau Packing Services in Karachi',
-            metaTitle: 'Wedding Trousseau Packing Karachi | Shadi Saman & Dress Trays',
-            desc: 'Present your bridal wedding trousseau and shadi saman with unmatched royal grandeur. Creations by H&I specializes in luxury bridal trousseau packing in Karachi, including designer acrylic dress trays, embellished jewelry boxes, vanity hampers, floral suit wraps, and coordinate luggage styling. Whether preparing groom sherwani trays, bridal lehenga presentations, or sweet box hampers, we transform traditional wedding preparations into an aesthetic work of art.'
+            title: 'Wedding Trousseau Packing in Karachi',
+            metaTitle: 'Wedding Trousseau Packing | Creations by H&I',
+            metaDesc: 'Luxury bridal trousseau packing in Karachi. Designer acrylic dress trays, lehenga wrapping & shadi saman vanity hampers.',
+            desc: 'Transform your shadi saman with luxury wedding trousseau packing in Karachi. We design bespoke acrylic dress trays, bridal lehenga wraps, groom sherwani presentations, and embellished jewelry vanity hampers. Every tray is styled to match your wedding color palette, ensuring a royal presentation for your big day.'
         }
     };
 
     if (!categoryId || !categoryMap[categoryId]) {
         productsGrid.innerHTML = `
-            <div class="error-box">
-                <p>Please select a category from the home page.</p>
+            <div class="error-box" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                <p>Please select a collection to view our creations.</p>
                 <div style="margin-top: 20px;">
-                    <a href="/#services" class="btn btn-primary">Browse Categories</a>
+                    <a href="/#services" class="btn btn-primary">Browse All Collections</a>
                 </div>
             </div>
         `;
@@ -90,12 +99,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (breadcrumbCategory) {
         breadcrumbCategory.textContent = currentCat.title;
     }
-    document.title = `${currentCat.metaTitle || currentCat.title} | Creations by H&I`;
+    document.title = currentCat.metaTitle;
+
+    // Update Meta Description
+    let metaDescTag = document.querySelector('meta[name="description"]');
+    if (metaDescTag) {
+        metaDescTag.setAttribute('content', currentCat.metaDesc);
+    }
 
     try {
         let data = null;
 
-        // 1. Fetch live real-time data directly from GitHub Raw first (bypasses any Netlify build delay)
+        // 1. Fetch live real-time data directly from GitHub Raw first (bypasses build delay)
         try {
             const ghResponse = await fetch(`https://raw.githubusercontent.com/Kaif28-pak/CreationbyH-I/main/data/${categoryId}.json?t=${Date.now()}`, {
                 cache: 'no-store',
@@ -109,10 +124,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
         } catch (ghErr) {
-            console.warn('[Products] Live GitHub fetch failed, attempting local fallback...', ghErr);
+            console.debug('[Products] GitHub fetch fallback...');
         }
 
-        // 2. Local file fallback if GitHub fetch didn't return data
+        // 2. Local file fallback
         if (!data) {
             try {
                 const localResponse = await fetch(`data/${categoryId}.json?t=${Date.now()}`, {
@@ -123,59 +138,55 @@ document.addEventListener('DOMContentLoaded', async () => {
                     data = await localResponse.json();
                 }
             } catch (localErr) {
-                console.warn('[Products] Local fetch also failed:', localErr);
+                console.warn('[Products] Local fetch fallback...');
             }
         }
 
-        if (!data) {
-            productsGrid.innerHTML = `
-                <div class="error-box">
-                    <p>No products found in this category yet. New arrivals coming soon!</p>
-                    <div style="margin-top: 20px;">
-                        <a href="index.html#services" class="btn btn-primary">Browse Other Categories</a>
-                    </div>
-                </div>
-            `;
-            return;
-        }
+        const rawProducts = (data && data.products) ? data.products : (Array.isArray(data) ? data : []);
 
-        const rawProducts = data.products ? data.products : (Array.isArray(data) ? data : []);
-
-        // Strict filter: Exclude any deleted, empty, or blank items
+        // Filter active products with titles
         const products = rawProducts.filter(p => {
             if (!p || typeof p !== 'object') return false;
             const hasTitle = p.title && typeof p.title === 'string' && p.title.trim().length > 0;
-            const hasMedia = (p.image && p.image.trim().length > 0) || (p.video && p.video.trim().length > 0);
-            return hasTitle && hasMedia;
+            return hasTitle && p.active !== false;
         });
 
+        // Hide category if 0 active items
         if (products.length === 0) {
             productsGrid.innerHTML = `
-                <div class="error-box">
-                    <p>No products found in this category yet. New arrivals coming soon!</p>
+                <div class="media-placeholder-block" style="grid-column: 1 / -1; max-width: 600px; margin: 40px auto;">
+                    <span class="ph-icon">🎁</span>
+                    <p class="ph-text">New Creations Coming Soon</p>
+                    <p class="ph-sub">We are handcrafting new items for this collection. Contact us on WhatsApp for custom orders!</p>
                     <div style="margin-top: 20px;">
-                        <a href="index.html#services" class="btn btn-primary">Browse Other Categories</a>
+                        <a href="https://wa.me/${WA_PHONE}?text=${encodeURIComponent(`Hi, I would like to order a custom item from ${currentCat.title}`)}" class="btn wa-btn" target="_blank" rel="noopener noreferrer">Inquire on WhatsApp</a>
                     </div>
                 </div>
             `;
             return;
         }
 
-        // Sort by order if available
         products.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
-
         productsGrid.innerHTML = '';
 
         products.forEach((product, index) => {
             const detailUrl = `product-view.html?category=${categoryId}&id=${index}`;
-            const encodedTitle = encodeURIComponent(`Hi! I want to inquire about "${product.title}" from ${categoryMap[categoryId].title} on your website.`);
-            const waLink = `https://wa.me/923096708144?text=${encodedTitle}`;
+            const encodedTitle = encodeURIComponent(`Hi! I want to order "${product.title}" from ${currentCat.title} on your website.`);
+            const waLink = `https://wa.me/${WA_PHONE}?text=${encodedTitle}`;
             
             const hasVideo = !!product.video;
             const videoBadge = hasVideo ? `<div class="product-media-badge">🎬 Video Available</div>` : '';
 
-            const fallbackImg = 'assets/images/category-flower-bouquet.jpg';
-            const imgSrc = product.image || fallbackImg;
+            // Elegant fallback: neutral placeholder instead of broken image
+            const hasImage = product.image && product.image.trim().length > 0;
+            const mediaContent = hasImage ? `
+                <img src="${product.image}" alt="${product.alt || product.title}" loading="lazy" width="400" height="300" onerror="this.parentElement.innerHTML='<div class=\\'media-placeholder-block\\'><span class=\\'ph-icon\\'>🎀</span><p class=\\'ph-text\\'>Photo Coming Soon</p></div>';">
+            ` : `
+                <div class="media-placeholder-block">
+                    <span class="ph-icon">🎀</span>
+                    <p class="ph-text">Photo Coming Soon</p>
+                </div>
+            `;
 
             const card = document.createElement('div');
             card.className = 'product-card';
@@ -183,9 +194,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <a href="${detailUrl}" class="product-card-link-wrap">
                     <div class="product-media">
                         ${videoBadge}
-                        <img src="${imgSrc}" alt="${product.title}" onerror="this.onerror=null; this.src='${fallbackImg}';">
+                        ${mediaContent}
                         <div class="product-media-overlay">
-                            <span class="overlay-view-badge">View Details & Media &rarr;</span>
+                            <span class="overlay-view-badge">View Details &rarr;</span>
                         </div>
                     </div>
                 </a>
@@ -196,7 +207,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <p class="product-desc">${product.description || 'Artistic creation handcrafted with perfection.'}</p>
                     <div class="product-card-actions">
                         <a href="${detailUrl}" class="btn-card-view">View Details</a>
-                        <a href="${waLink}" class="btn-card-wa" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                        <a href="${waLink}" class="btn-card-wa" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a>
                     </div>
                 </div>
             `;
@@ -207,13 +218,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('Error fetching products:', error);
         productsGrid.innerHTML = `
-            <div class="error-box">
-                <p>Failed to load products. Please refresh the page or try again later.</p>
+            <div class="error-box" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                <p>Products could not be loaded at this moment. Please refresh.</p>
                 <div style="margin-top: 20px;">
-                    <a href="index.html" class="btn btn-primary">Go to Home</a>
+                    <a href="/" class="btn btn-primary">Go to Home</a>
                 </div>
             </div>
         `;
     }
 });
-

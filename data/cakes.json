@@ -2,19 +2,23 @@
   "products": [
     {
       "id": "ck-1",
-      "title": "Floral Elegance Birthday Theme Cake",
-      "description": "Custom 2-tier vanilla bean and Belgian chocolate fudge cake styled with handcrafted sugar florals, edible gold leaf, and personalized acrylic cake topper.",
+      "title": "Floral Pastel Birthday Theme Cake",
+      "description": "Artisan two-tier Belgian chocolate fudge theme cake beautifully decorated with edible sugar florals, gold leaf flakes, and custom acrylic topper.",
       "image": "assets/images/category-cakes-customized-cakes.jpg",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 1
+      "order": 1,
+      "active": true
     },
     {
       "id": "ck-2",
-      "title": "Pastel Macaron Drip Cake",
-      "description": "Artisanal semi-naked drip cake decorated with French macarons, fresh strawberries, and customized happy birthday calligraphy.",
-      "image": "assets/images/category-cakes-customized-cakes.jpg",
+      "title": "Bridal Shower Drip Bento Cake",
+      "description": "Delicate vanilla bean buttercream drip bento cake decorated with French pastel macarons, fresh strawberries, and personalized bride-to-be bridal shower calligraphy.",
+      "image": "assets/images/customized-gift-basket-cake-flowers-karachi.jpg",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 2
+      "order": 2,
+      "active": true
     }
   ]
 }

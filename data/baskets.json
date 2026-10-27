@@ -3,18 +3,22 @@
     {
       "id": "bk-1",
       "title": "Royal Gourmet Luxury Gift Basket",
-      "description": "Opulent woven gift basket curated with imported Godiva chocolates, Ferrero Rocher, aromatic hand-poured vanilla candle, and fresh mini floral arrangement.",
+      "description": "Handcrafted luxury wicker basket filled with premium Godiva chocolates, aromatic vanilla scented candle, and fresh mini florals wrapped in silk ribbon.",
       "image": "assets/images/category-baskets.jpg",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 1
+      "order": 1,
+      "active": true
     },
     {
       "id": "bk-2",
       "title": "Celebration Pamper Hamper",
-      "description": "Artisan gift hamper containing designer bath salts, scented diffuser, organic honey jar, and customized greeting message card.",
-      "image": "assets/images/category-baskets.jpg",
+      "description": "Bespoke artisan gift box curated with soothing bath salts, organic honey jar, aromatic diffuser, and personalized handwritten greeting message card.",
+      "image": "assets/images/customized-gift-basket-cake-flowers-karachi.webp",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 2
+      "order": 2,
+      "active": true
     }
   ]
 }

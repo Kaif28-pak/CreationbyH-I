@@ -3,18 +3,22 @@
     {
       "id": "fr-1",
       "title": "Illuminated Acrylic LED Photo Frame",
-      "description": "Modern acrylic photo plaque with customized couple picture, Spotify song code, and warm timber LED illuminated stand.",
+      "description": "Modern illuminated acrylic photo plaque featuring your favorite couple portrait, custom song soundwave code, and a warm timber LED base.",
       "image": "assets/images/category-frames.jpg",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 1
+      "order": 1,
+      "active": true
     },
     {
       "id": "fr-2",
-      "title": "Classic Golden Anniversary Keepsake Frame",
-      "description": "Timeless golden metallic border frame with custom foiled calligraphy date, names, and high-resolution fine art photo print.",
-      "image": "assets/images/category-frames.jpg",
+      "title": "Gold Border Anniversary Keepsake Frame",
+      "description": "Classic gold metallic border keepsake frame with personalized foil-stamped couple names, wedding anniversary date, and archival fine art photo print.",
+      "image": "assets/images/category-customized-items.jpg",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 2
+      "order": 2,
+      "active": true
     }
   ]
 }

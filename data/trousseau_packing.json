@@ -2,19 +2,23 @@
   "products": [
     {
       "id": "tp-1",
-      "title": "Royal Acrylic Bridal Suit & Saree Trays",
-      "description": "Crystal clear acrylic bridal trousseau display trays decorated with fresh pastel florals, satin bows, and golden handles for wedding suit presentation.",
+      "title": "Crystal Acrylic Bridal Dress Tray",
+      "description": "Crystal clear acrylic bridal trousseau display tray with golden metallic handles, satin ribbons, and fresh pastel floral corner arrangements for wedding suits.",
       "image": "assets/images/wedding-trousseau-packing-karachi.jpg",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 1
+      "order": 1,
+      "active": true
     },
     {
       "id": "tp-2",
-      "title": "Embellished Shadi Saman & Luggage Hampers",
-      "description": "Bespoke bridal luggage hampers, jewelry vanity boxes, and customized perfume presentation stands tailored to your wedding color theme in Karachi.",
-      "image": "assets/images/wedding-trousseau-packing-karachi.jpg",
+      "title": "Royal Shadi Saman Vanity Hamper",
+      "description": "Royal embellished wedding vanity trunk styled for bridal cosmetics, designer perfumes, jewelry sets, and coordinated shadi saman presentation across Karachi.",
+      "image": "assets/images/bridal-shower-decoration-karachi.jpg",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 2
+      "order": 2,
+      "active": true
     }
   ]
 }

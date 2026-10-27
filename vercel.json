@@ -3,6 +3,8 @@
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/config.yml", "destination": "/admin/config.yml" },
+    { "source": "/about-us", "destination": "/about-us.html" },
+    { "source": "/contact", "destination": "/contact.html" },
     { "source": "/events", "destination": "/events.html" },
     { "source": "/events/:slug", "destination": "/event-detail.html?slug=:slug" },
     { "source": "/api/event-categories/:slug", "destination": "/api/event-categories?slug=:slug" },

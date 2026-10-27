@@ -18,9 +18,62 @@ media_library:
 publish_mode: simple
 
 collections:
+  - name: "site_settings"
+    label: "Site Settings & Content"
+    files:
+      - label: "General & Contact Details"
+        name: "general_settings"
+        file: "data/settings.json"
+        fields:
+          - { label: "WhatsApp Phone Number (e.g. 923096708144)", name: "whatsapp_number", widget: "string", default: "923096708144" }
+          - { label: "Display Phone Number", name: "phone", widget: "string", default: "0309 6708144" }
+          - { label: "Instagram Handle", name: "instagram_handle", widget: "string", default: "@creationsbyhandi" }
+          - { label: "Instagram Profile URL", name: "instagram_url", widget: "string", default: "https://www.instagram.com/creationsbyhandi" }
+          - { label: "Facebook URL", name: "facebook_url", widget: "string", default: "https://www.facebook.com/creationsbyhandi" }
+          - { label: "Business Physical Address", name: "address", widget: "string", default: "Karachi, Sindh, Pakistan" }
+          - { label: "Working Hours", name: "working_hours", widget: "string", default: "Monday – Sunday: 10:00 AM – 10:00 PM PKT" }
+          - { label: "Brand Description (Max 40 words)", name: "brand_description", widget: "text", hint: "Reused in About, Footer, and Meta Descriptions" }
+          - label: "Home Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Hero Headline (Max 10 words)", name: "headline", widget: "string", default: "Customized Gift Baskets & Event Styling in Karachi" }
+              - { label: "Hero Subtext (1 line)", name: "subtext", widget: "string", default: "Handcrafted gift hampers, theme cakes, and luxury celebrations delivered across Pakistan and the Gulf." }
+              - { label: "Hero Primary Button Text", name: "primary_btn_text", widget: "string", default: "Order on WhatsApp" }
+              - { label: "Hero Secondary Button Text", name: "secondary_btn_text", widget: "string", default: "View Collections" }
+              - { label: "Hero Image / Banner (Max 5MB, 1600px WebP)", name: "image", widget: "image" }
+          - label: "Home About Us Block"
+            name: "about_home"
+            widget: "object"
+            fields:
+              - { label: "About Headline", name: "headline", widget: "string", default: "Crafted with Love in Karachi" }
+              - { label: "About Text (60-80 words)", name: "text", widget: "text" }
+              - { label: "About Image", name: "image", widget: "image" }
+          - label: "Customer Testimonials (Max 6)"
+            name: "testimonials"
+            widget: "list"
+            fields:
+              - { label: "Customer Name", name: "name", widget: "string" }
+              - { label: "City / Location", name: "city", widget: "string" }
+              - { label: "Occasion / Service", name: "occasion", widget: "string" }
+              - { label: "Review Text (Max 25 words)", name: "review", widget: "string" }
+              - { label: "Rating (Stars 1-5)", name: "rating", widget: "number", default: 5 }
+          - label: "FAQ Questions & Answers (6 Items)"
+            name: "faq"
+            widget: "list"
+            fields:
+              - { label: "Question", name: "question", widget: "string" }
+              - { label: "Answer (Max 35 words)", name: "answer", widget: "text" }
+          - label: "Delivery Cities"
+            name: "delivery_cities"
+            widget: "list"
+            fields:
+              - { label: "City / Region Name", name: "city", widget: "string" }
+              - { label: "Short Line Description", name: "desc", widget: "string" }
+
   - name: "event_categories"
-    label: "Event Sections & Media"
-    label_singular: "Event Section"
+    label: "Event Categories & Reels"
+    label_singular: "Event Category"
     folder: "data/events"
     create: true
     slug: "{{slug}}"
@@ -28,93 +81,101 @@ collections:
     format: "json"
     summary: "{{name}} — (Order: {{order}})"
     fields:
-      - { label: "Event Section Name", name: "name", widget: "string", hint: "e.g. Bridal Shower, Wedding Event, Birthday Event, Mehndi Event" }
-      - { label: "URL Slug", name: "slug", widget: "string", hint: "e.g. bridal-shower, wedding-event (used in /events/[slug])" }
-      - { label: "Short Description", name: "description", widget: "text", required: false, hint: "Describe the styling, decor, and ambiance." }
-      - { label: "Cover Image", name: "cover_image", widget: "image", required: false, hint: "Cover photo displayed on the /events landing page." }
-      - { label: "Display Order", name: "order", widget: "number", default: 1, value_type: "int", required: false }
-      - { label: "Is Active / Visible", name: "is_active", widget: "boolean", default: true }
-      - label: "Media Gallery (Reels & Photos)"
+      - { label: "Event Category Name", name: "name", widget: "string", hint: "e.g. Bridal Shower, Wedding Event, Birthday Event, Aqeeqah Decor" }
+      - { label: "URL Slug", name: "slug", widget: "string", hint: "e.g. bridal-shower, wedding-event, birthday-event, aqeeqah-decor" }
+      - { label: "Short Description (Max 25 words)", name: "description", widget: "text" }
+      - { label: "Cover Image", name: "cover_image", widget: "image" }
+      - { label: "Display Order", name: "order", widget: "number", default: 1, value_type: "int" }
+      - { label: "Is Active / Visible on Website", name: "is_active", widget: "boolean", default: true }
+      - label: "Media Gallery (Max 12 Reels & Photos)"
         name: "media"
         widget: "list"
-        required: false
-        hint: "Add as many Video Reels or Photos as you want for this event section!"
         summary: "{{title}} — [{{media_type}}]"
         fields:
-          - { label: "Media Item Title", name: "title", widget: "string", hint: "e.g. Full Venue Styling & Overview" }
-          - { label: "Short Description (optional)", name: "description", widget: "string", required: false }
+          - { label: "Media Item Title (Max 60 chars)", name: "title", widget: "string" }
+          - { label: "Short Description (Max 25 words)", name: "description", widget: "string", required: false }
           - label: "Media Type"
             name: "media_type"
             widget: "select"
-            options:
-              - "video"
-              - "photo"
+            options: ["video", "photo"]
             default: "video"
-            hint: "Select whether this item is a vertical video reel or a photo"
-          - { label: "Video / Photo File", name: "file_url", widget: "file", hint: "Upload MP4/MOV reel or JPG/PNG/WEBP photo via Cloudinary" }
-          - { label: "Thumbnail / Poster (optional)", name: "thumbnail_url", widget: "image", required: false, hint: "Optional video poster thumbnail image" }
-          - { label: "Display Order", name: "order", widget: "number", default: 1, value_type: "int", required: false }
+          - { label: "Video / Photo File (Video max 30MB, Image max 5MB)", name: "file_url", widget: "file" }
+          - { label: "Video Poster / Thumbnail", name: "thumbnail_url", widget: "image", required: false }
+          - { label: "Display Order", name: "order", widget: "number", default: 1, value_type: "int" }
           - { label: "Is Active", name: "is_active", widget: "boolean", default: true }
 
-  - name: "site_settings"
-    label: "Site & WhatsApp Settings"
-    files:
-      - label: "General Settings"
-        name: "general_settings"
-        file: "data/settings.json"
-        fields:
-          - { label: "WhatsApp Number", name: "whatsapp_number", widget: "string", default: "923282276532", hint: "International format without '+' e.g. 923282276532" }
-          - { label: "WhatsApp Inquiry Message Template", name: "whatsapp_template", widget: "text", default: "Hello Creations by H&I! I am viewing your {event_name} gallery. I loved '{media_title}' and would like to inquire about booking and pricing.", hint: "Use {event_name} and {media_title} placeholders" }
-
   - name: "products_collection"
-    label: "Products We Are Offering"
+    label: "Gift Categories & Products"
     files:
-      - label: "Homepage Services (7 Main Categories)"
+      - label: "Homepage 8 Main Categories"
         name: "homepage_services"
         file: "data/products.json"
-        fields: &product_list_fields
+        fields: &category_card_fields
+          - label: "Categories"
+            name: "products"
+            widget: "list"
+            fields:
+              - { label: "Category Title", name: "title", widget: "string" }
+              - { label: "Category Key (e.g. baskets, cakes)", name: "category", widget: "string" }
+              - { label: "Clean URL Slug", name: "slug", widget: "string" }
+              - { label: "Short One-Line Description (Max 25 words)", name: "description", widget: "text" }
+              - { label: "Category Cover Image", name: "image", widget: "image" }
+              - { label: "Optional Video Preview", name: "video", widget: "file", required: false }
+              - { label: "Featured on Homepage", name: "featured", widget: "boolean", default: true }
+              - { label: "Is Active", name: "active", widget: "boolean", default: true }
+              - { label: "Display Order", name: "order", widget: "number", default: 1 }
+
+      - label: "Luxury Gift Baskets & Hampers (Max 40 items)"
+        name: "baskets"
+        file: "data/baskets.json"
+        fields: &product_item_fields
           - label: "Products"
             name: "products"
             widget: "list"
             fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Description", name: "description", widget: "text" }
-              - { label: "Image", name: "image", widget: "image" }
-              - { label: "Video (optional)", name: "video", widget: "file", required: false, hint: "Short MP4 clip, under ~15 seconds recommended." }
-              - { label: "Featured on homepage", name: "featured", widget: "boolean", default: true }
-              - { label: "Display order", name: "order", widget: "number", default: 1 }
+              - { label: "Title (Max 60 chars)", name: "title", widget: "string" }
+              - { label: "Short Description (20-25 words)", name: "description", widget: "text" }
+              - { label: "Main Image (Max 5MB)", name: "image", widget: "image" }
+              - { label: "Optional Gallery Images (Up to 6)", name: "gallery", widget: "list", field: { label: "Image", widget: "image" }, required: false }
+              - { label: "Optional Video (Max 30MB MP4)", name: "video", widget: "file", required: false }
+              - { label: "Alt Text", name: "alt", widget: "string", required: false }
+              - { label: "Price (e.g. Custom Quote or Rs. 5,000)", name: "price", widget: "string", default: "Custom Quote", required: false }
+              - { label: "Custom WhatsApp Message", name: "wa_message", widget: "string", required: false }
+              - { label: "Featured (Yes/No)", name: "featured", widget: "boolean", default: true }
+              - { label: "Is Active", name: "active", widget: "boolean", default: true }
+              - { label: "Display Order", name: "order", widget: "number", default: 1 }
 
-      - label: "Flower Bouquets"
+      - label: "Fresh Flower Bouquets (Max 40 items)"
         name: "flower_bouquets"
         file: "data/flower_bouquets.json"
-        fields: *product_list_fields
+        fields: *product_item_fields
 
-      - label: "Cakes & Customized Cakes"
+      - label: "Customized Theme Cakes (Max 40 items)"
         name: "cakes"
         file: "data/cakes.json"
-        fields: *product_list_fields
+        fields: *product_item_fields
 
-      - label: "Baskets"
-        name: "baskets"
-        file: "data/baskets.json"
-        fields: *product_list_fields
-
-      - label: "Balloon Boxes"
+      - label: "Customized Balloon Boxes (Max 40 items)"
         name: "balloon_boxes"
         file: "data/balloon_boxes.json"
-        fields: *product_list_fields
+        fields: *product_item_fields
 
-      - label: "Crates"
+      - label: "Wooden Gift Crates (Max 30 items)"
         name: "crates"
         file: "data/crates.json"
-        fields: *product_list_fields
+        fields: *product_item_fields
 
-      - label: "Frames"
+      - label: "Personalized Photo Frames (Max 30 items)"
         name: "frames"
         file: "data/frames.json"
-        fields: *product_list_fields
+        fields: *product_item_fields
 
-      - label: "Customized Items"
+      - label: "Personalized Mugs, Pens & Notebooks (Max 30 items)"
         name: "customized_items"
         file: "data/customized_items.json"
-        fields: *product_list_fields
+        fields: *product_item_fields
+
+      - label: "Wedding Trousseau Packing (Max 30 items)"
+        name: "trousseau_packing"
+        file: "data/trousseau_packing.json"
+        fields: *product_item_fields

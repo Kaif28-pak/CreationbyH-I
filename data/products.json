@@ -1,84 +1,100 @@
 {
   "products": [
     {
-      "title": "Fresh Flower Bouquets",
-      "category": "flower_bouquets",
-      "slug": "flower-bouquets-karachi",
-      "description": "Handcrafted luxury fresh flower bouquets and rose arrangements in Karachi with surprise delivery across Pakistan.",
-      "image": "assets/images/category-flower-bouquet.jpg",
-      "video": "",
-      "featured": true,
-      "order": 1
-    },
-    {
-      "title": "Customized Theme Cakes",
-      "category": "cakes",
-      "slug": "customized-theme-cakes-karachi",
-      "description": "Bespoke fondant and buttercream theme cakes with artistic decorations for birthdays, bridal showers, and weddings.",
-      "image": "assets/images/category-cakes-customized-cakes.jpg",
-      "video": "",
-      "featured": true,
-      "order": 2
-    },
-    {
+      "id": "cat-baskets",
       "title": "Luxury Gift Baskets & Hampers",
       "category": "baskets",
       "slug": "gift-baskets-hampers-karachi",
-      "description": "Premium customized gift baskets with your favourite branded products. Delivery in Karachi, Lahore, Islamabad, Dubai and Jeddah.",
+      "description": "Curated hampers with chocolates, perfumes, and personalized keepsakes for special milestones.",
       "image": "assets/images/category-baskets.jpg",
       "video": "",
       "featured": true,
-      "order": 3
+      "order": 1,
+      "active": true
     },
     {
+      "id": "cat-flowers",
+      "title": "Fresh Flower Bouquets",
+      "category": "flower_bouquets",
+      "slug": "flower-bouquets-karachi",
+      "description": "Hand-tied fresh roses, baby's breath, and pastel floral wraps arranged for surprise delivery.",
+      "image": "assets/images/category-flower-bouquet.jpg",
+      "video": "",
+      "featured": true,
+      "order": 2,
+      "active": true
+    },
+    {
+      "id": "cat-cakes",
+      "title": "Customized Theme Cakes",
+      "category": "cakes",
+      "slug": "customized-theme-cakes-karachi",
+      "description": "Artisan fondant and buttercream cakes baked fresh for birthdays, bridal showers, and weddings.",
+      "image": "assets/images/category-cakes-customized-cakes.jpg",
+      "video": "",
+      "featured": true,
+      "order": 3,
+      "active": true
+    },
+    {
+      "id": "cat-balloons",
       "title": "Customized Balloon Boxes",
       "category": "balloon_boxes",
       "slug": "customized-balloon-boxes",
-      "description": "Personalized transparent balloon boxes with custom name vinyl, mini balloons, and surprise gifts for special milestones.",
+      "description": "Clear surprise boxes with pastel balloons, warm fairy lights, and custom name lettering.",
       "image": "assets/images/category-balloon-boxes.jpg",
       "video": "",
       "featured": true,
-      "order": 4
+      "order": 4,
+      "active": true
     },
     {
+      "id": "cat-crates",
       "title": "Wooden Gift Crates",
       "category": "crates",
       "slug": "wooden-gift-crates-pakistan",
-      "description": "Handcrafted wooden gift crates packed with imported chocolates, perfumes, fresh florals, and personalized souvenirs.",
+      "description": "Laser-engraved wooden crates filled with gourmet treats, dry fruits, and bespoke keepsakes.",
       "image": "assets/images/category-crates.jpg",
       "video": "",
       "featured": true,
-      "order": 5
+      "order": 5,
+      "active": true
     },
     {
+      "id": "cat-frames",
       "title": "Personalized Photo Frames",
       "category": "frames",
       "slug": "personalized-photo-frames-gift",
-      "description": "Timeless personalized photo frames and customized romantic anniversary gifts wrapped with aesthetic elegance.",
+      "description": "Timeless keepsakes and illuminated acrylic photo frames customized with your favorite memories.",
       "image": "assets/images/category-frames.jpg",
       "video": "",
       "featured": true,
-      "order": 6
+      "order": 6,
+      "active": true
     },
     {
+      "id": "cat-custom-items",
       "title": "Personalized Mugs, Pens & Notebooks",
       "category": "customized_items",
       "slug": "personalized-gifts-pakistan",
-      "description": "Custom engraved corporate giveaways, personalized ceramic mugs, foil-stamped notebooks, and executive gift sets.",
+      "description": "Custom ceramic coffee mugs, engraved metallic pens, and foil-stamped executive notebooks.",
       "image": "assets/images/category-customized-items.jpg",
       "video": "",
       "featured": true,
-      "order": 7
+      "order": 7,
+      "active": true
     },
     {
+      "id": "cat-trousseau",
       "title": "Wedding Trousseau Packing",
       "category": "trousseau_packing",
       "slug": "wedding-trousseau-packing-karachi",
-      "description": "Luxury bridal trousseau packing, shadi kapre and saman packing, acrylic trays, and designer luggage presentation in Karachi.",
+      "description": "Designer acrylic dress trays, jewelry styling, and bridal shadi saman packing in Karachi.",
       "image": "assets/images/wedding-trousseau-packing-karachi.jpg",
       "video": "",
       "featured": true,
-      "order": 8
+      "order": 8,
+      "active": true
     }
   ]
 }

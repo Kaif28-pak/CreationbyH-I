@@ -1,4 +1,114 @@
 {
-  "whatsapp_number": "923282276532",
-  "whatsapp_template": "Hello Creations by H&I! I am viewing your {event_name} gallery. I loved '{media_title}' and would like to inquire about booking, pricing, and customization."
+  "whatsapp_number": "923096708144",
+  "phone": "0309 6708144",
+  "instagram_handle": "@creationsbyhandi",
+  "instagram_url": "https://www.instagram.com/creationsbyhandi",
+  "facebook_url": "https://www.facebook.com/creationsbyhandi",
+  "address": "Karachi, Sindh, Pakistan",
+  "working_hours": "Monday – Sunday: 10:00 AM – 10:00 PM PKT",
+  "brand_description": "Creations by H&I is a Karachi-based gifting and event studio. We craft customized gift baskets, fresh flower bouquets, theme cakes, and bespoke event decor with surprise delivery across Pakistan, Dubai, and Jeddah.",
+  "hero": {
+    "headline": "Customized Gift Baskets & Event Styling in Karachi",
+    "subtext": "Handcrafted gift hampers, theme cakes, and luxury celebrations delivered across Pakistan and the Gulf.",
+    "primary_btn_text": "Order on WhatsApp",
+    "secondary_btn_text": "View Collections",
+    "image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp"
+  },
+  "about_home": {
+    "headline": "Crafted with Love in Karachi",
+    "text": "At Creations by H&I, we turn life's most special moments into cherished memories. Based in Karachi, our creative studio curates bespoke gift baskets, hand-tied floral arrangements, artisanal theme cakes, and royal wedding trousseau displays. Whether you are celebrating locally across Karachi or sending surprise gifts from Dubai and Jeddah to loved ones in Pakistan, we handcraft and deliver every creation with aesthetic perfection and personal warmth.",
+    "image": "assets/images/customized-gift-basket-cake-flowers-karachi.webp",
+    "bullets": [
+      {
+        "title": "100% Custom Gifting",
+        "description": "Handpicked branded goodies and artisanal treats tailored to your budget."
+      },
+      {
+        "title": "Royal Trousseau Packing",
+        "description": "Designer acrylic dress trays and coordinated luggage styling for weddings."
+      },
+      {
+        "title": "Full-Scale Event Decor",
+        "description": "Bespoke styling for bridal showers, weddings, birthdays, and Aqeeqah."
+      }
+    ]
+  },
+  "trust_strip": [
+    { "icon": "🎁", "title": "Custom Made", "desc": "Tailored to your budget" },
+    { "icon": "🌸", "title": "Fresh & Premium", "desc": "Fresh florals & cakes" },
+    { "icon": "✈️", "title": "Pakistan & Gulf Delivery", "desc": "Karachi, UAE & KSA" },
+    { "icon": "💬", "title": "WhatsApp Support", "desc": "Fast, personal assistance" }
+  ],
+  "how_to_order": [
+    { "step": 1, "title": "Message on WhatsApp", "desc": "Share your occasion, preferred items, theme, and delivery date." },
+    { "step": 2, "title": "Confirm Design & Price", "desc": "We share photos and finalize the custom presentation together." },
+    { "step": 3, "title": "Get It Delivered", "desc": "Prompt doorstep surprise delivery across Pakistan, Dubai, or Jeddah." }
+  ],
+  "trousseau_highlight": {
+    "title": "Wedding Trousseau Packing in Karachi",
+    "text": "Elevate your wedding preparations with royal shadi saman presentation. We style bridal lehengas, groom sherwanis, and jewelry into stunning acrylic trays with satin floral accents.",
+    "bullets": [
+      "Designer Acrylic Dress Trays",
+      "Bridal Lehenga & Sherwani Styling",
+      "Jewelry Vanity & Perfume Boxes",
+      "Fragile Safe Handling & Delivery"
+    ]
+  },
+  "delivery_cities": [
+    { "city": "Karachi", "desc": "Same-day and scheduled doorstep delivery across all areas." },
+    { "city": "Lahore", "desc": "Express gift basket delivery to Gulberg, DHA, and beyond." },
+    { "city": "Islamabad", "desc": "Door-to-door courier service for crates, frames, and hampers." },
+    { "city": "Hyderabad", "desc": "Carefully packaged gift parcels delivered straight to loved ones." },
+    { "city": "Dubai (UAE)", "desc": "Order from UAE with direct delivery across Pakistan or express parcel." },
+    { "city": "Jeddah (KSA)", "desc": "Surprise your family back home with easy international WhatsApp booking." }
+  ],
+  "testimonials": [
+    {
+      "name": "Sarah A.",
+      "city": "Karachi",
+      "occasion": "Bridal Shower Decor",
+      "review": "The bridal shower decor in DHA was stunning! The floral backdrop and floor seating looked magical. Truly the best event planners in Karachi.",
+      "rating": 5
+    },
+    {
+      "name": "Dr. Farhan K.",
+      "city": "Dubai, UAE",
+      "occasion": "Overseas Birthday Hamper",
+      "review": "Ordered a birthday hamper for my mother in Karachi from Dubai. Everything was fresh, timely, and beautifully packed. Highly recommended!",
+      "rating": 5
+    },
+    {
+      "name": "Ayesha S.",
+      "city": "Karachi",
+      "occasion": "Wedding Trousseau Packing",
+      "review": "Their wedding trousseau packing for our shadi saman was royal. The crystal acrylic trays made my bridal lehenga look so gorgeous!",
+      "rating": 5
+    }
+  ],
+  "faq": [
+    {
+      "question": "How do I order customized gift baskets in Karachi?",
+      "answer": "Message us on WhatsApp with your budget, recipient details, and preferred items. We curate your gift basket, share preview photos for approval, and deliver on your chosen date."
+    },
+    {
+      "question": "Can I send gifts to Pakistan from Dubai or Jeddah?",
+      "answer": "Yes. Many overseas clients in the UAE and Saudi Arabia order surprise gifts for family in Pakistan. We accept secure bank transfers and provide confirmed delivery photos."
+    },
+    {
+      "question": "How far in advance should I book event decor in Karachi?",
+      "answer": "We recommend booking bridal showers and birthday setups 5 to 7 days ahead. For larger wedding stages and Aqeeqah events, book 2 to 3 weeks in advance."
+    },
+    {
+      "question": "What is included in wedding trousseau packing?",
+      "answer": "We provide designer acrylic trays, bridal lehenga wraps, groom sherwani presentations, jewelry vanity boxes, and coordinated luggage styling tailored to your wedding theme."
+    },
+    {
+      "question": "Can I customize the items inside a gift hamper?",
+      "answer": "Yes, every hamper is 100% custom made. You can choose chocolates like Godiva or Lindt, perfumes, scented candles, fresh flowers, and personalized greeting cards."
+    },
+    {
+      "question": "Which cities do you deliver to?",
+      "answer": "We deliver fresh flowers, cakes, and decor across Karachi. Durable gift baskets, wooden crates, and photo frames are delivered nationwide to Lahore, Islamabad, Hyderabad, and other cities."
+    }
+  ]
 }

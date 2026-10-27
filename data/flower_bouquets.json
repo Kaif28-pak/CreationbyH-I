@@ -2,19 +2,23 @@
   "products": [
     {
       "id": "fb-1",
-      "title": "Blushing Romance Rose Bouquet",
-      "description": "Hand-tied bouquet featuring fresh imported blush pink roses, gypsophila baby's breath, and eucalyptus greens wrapped in Korean waterproof aesthetic paper.",
+      "title": "Blushing Pastel Rose & Lily Bouquet",
+      "description": "Freshly cut pastel pink roses and imported white lilies hand-tied in Korean matte aesthetic paper with a lustrous satin ribbon.",
       "image": "assets/images/category-flower-bouquet.jpg",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 1
+      "order": 1,
+      "active": true
     },
     {
       "id": "fb-2",
-      "title": "Pastel Luxe Mixed Floral Wrap",
-      "description": "Exquisite arrangement of pastel peach carnations, white chrysanthemums, and fresh roses finished with a luxury silk satin bow.",
-      "image": "assets/images/category-flower-bouquet.jpg",
+      "title": "Velvet Red Anniversary Rose Wrap",
+      "description": "Classic romantic bouquet of fresh velvety imported red roses accented with delicate white baby’s breath and a customized greeting card.",
+      "image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 2
+      "order": 2,
+      "active": true
     }
   ]
 }

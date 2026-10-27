@@ -4,7 +4,7 @@
       "name": "Bridal Shower",
       "slug": "bridal-shower",
       "description": "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
-      "cover_image": "assets/images/category-crates.jpg",
+      "cover_image": "assets/images/bridal-shower-decoration-karachi.jpg",
       "order": 1,
       "is_active": true,
       "media": [
@@ -14,38 +14,18 @@
           "description": "Full venue styling with earthy pampas grass, custom backdrop and luxury ambiance.",
           "media_type": "video",
           "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-          "thumbnail_url": "assets/images/category-crates.jpg",
+          "thumbnail_url": "assets/images/bridal-shower-decoration-karachi.jpg",
           "order": 1,
           "is_active": true
         },
         {
           "id": "bs-photo-1",
-          "title": "Luxury Pastel Floral Arch & Neon Sign",
-          "description": "Handcrafted fresh floral arch with custom bride-to-be signage.",
+          "title": "Pastel Floral Arch & Bride-to-Be Sign",
+          "description": "Handcrafted fresh floral arch with personalized neon calligraphy signage.",
           "media_type": "photo",
-          "file_url": "assets/images/category-flower-bouquet.jpg",
-          "thumbnail_url": "assets/images/category-flower-bouquet.jpg",
+          "file_url": "assets/images/bridal-shower-decoration-karachi.jpg",
+          "thumbnail_url": "assets/images/bridal-shower-decoration-karachi.jpg",
           "order": 2,
-          "is_active": true
-        },
-        {
-          "id": "bs-reel-2",
-          "title": "Intimate Dinner Table & Ambient Candles",
-          "description": "Romantic candlelit table styling with gold cutlery and personalized menus.",
-          "media_type": "video",
-          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-          "thumbnail_url": "assets/images/category-baskets.jpg",
-          "order": 3,
-          "is_active": true
-        },
-        {
-          "id": "bs-photo-2",
-          "title": "Bespoke Bridal Favor Gift Hampers",
-          "description": "Personalized wooden crates filled with scented candles and luxury souvenirs.",
-          "media_type": "photo",
-          "file_url": "assets/images/hero_showcase.jpg",
-          "thumbnail_url": "assets/images/hero_showcase.jpg",
-          "order": 4,
           "is_active": true
         }
       ]
@@ -54,7 +34,7 @@
       "name": "Wedding Event",
       "slug": "wedding-event",
       "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-      "cover_image": "assets/images/hero_showcase.jpg",
+      "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
       "order": 2,
       "is_active": true,
       "media": [
@@ -64,28 +44,18 @@
           "description": "Grand couple entrance decor with cascading fairy lights and fresh rose runners.",
           "media_type": "video",
           "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-          "thumbnail_url": "assets/images/hero_showcase.jpg",
+          "thumbnail_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
           "order": 1,
           "is_active": true
         },
         {
           "id": "we-photo-1",
-          "title": "Floating Candle Mirror Pathway",
-          "description": "Romantic pathway with floating candles and calligraphic mirror welcome signs.",
+          "title": "Floating Candle Pathway & Welcome Mirror",
+          "description": "Romantic walkway styled with floating glass candles and custom calligraphy mirror.",
           "media_type": "photo",
-          "file_url": "assets/images/category-baskets.jpg",
-          "thumbnail_url": "assets/images/category-baskets.jpg",
+          "file_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
+          "thumbnail_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
           "order": 2,
-          "is_active": true
-        },
-        {
-          "id": "we-reel-2",
-          "title": "Candlelit Nikah Stage Reveal",
-          "description": "Intimate Nikah decor with sheer drapery, chandeliers, and floral crescent arch.",
-          "media_type": "video",
-          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-          "thumbnail_url": "assets/images/category-crates.jpg",
-          "order": 3,
           "is_active": true
         }
       ]
@@ -100,8 +70,8 @@
       "media": [
         {
           "id": "bd-reel-1",
-          "title": "Enchanted Garden Balloon Installation",
-          "description": "Organic pastel balloon garland with fairy lights and custom name plaque.",
+          "title": "Enchanted Garden Birthday Balloon Styling",
+          "description": "Organic pastel balloon garland with fairy lights and custom birthday name plaque.",
           "media_type": "video",
           "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
           "thumbnail_url": "assets/images/category-balloon-boxes.jpg",
@@ -110,8 +80,8 @@
         },
         {
           "id": "bd-photo-1",
-          "title": "Golden Glam Marquee Light Setup",
-          "description": "Light-up numbers, shimmer wall backdrop, and customized cake pedestal.",
+          "title": "Golden Glam Marquee Number Lighting",
+          "description": "Light-up giant numbers, shimmer backdrop wall, and customized cake pedestal.",
           "media_type": "photo",
           "file_url": "assets/images/category-balloon-boxes.jpg",
           "thumbnail_url": "assets/images/category-balloon-boxes.jpg",
@@ -121,30 +91,30 @@
       ]
     },
     {
-      "name": "Aqeeqah Decor in Karachi",
+      "name": "Aqeeqah Decor",
       "slug": "aqeeqah-decor",
-      "description": "Bespoke Islamic Aqeeqah event styling with personalized baby name light-up marquees, crescent floral arches, traditional cradle decor, and ambient lighting in Karachi.",
-      "cover_image": "assets/images/category-cakes-customized-cakes.jpg",
+      "description": "Bespoke Islamic Aqeeqah event styling with personalized baby name marquees, crescent floral arches, and traditional cradle decor.",
+      "cover_image": "assets/images/category-crates.jpg",
       "order": 4,
       "is_active": true,
       "media": [
         {
           "id": "aq-reel-1",
-          "title": "Bespoke Royal Baby Aqeeqah Stage & Cradle Setup",
+          "title": "Royal Baby Aqeeqah Stage & Cradle Setup",
           "description": "Traditional gold and ivory Aqeeqah cradle decor with fresh pastel florals and fairy light backdrop.",
           "media_type": "video",
           "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-          "thumbnail_url": "assets/images/category-cakes-customized-cakes.jpg",
+          "thumbnail_url": "assets/images/category-crates.jpg",
           "order": 1,
           "is_active": true
         },
         {
           "id": "aq-photo-1",
-          "title": "Personalized MUSA Marquee Light Signage & Dessert Setup",
-          "description": "Custom light-up baby name marquee with balloon clusters and customized theme giveaway table.",
+          "title": "Baby Name Marquee & Theme Dessert Table",
+          "description": "Custom light-up baby name marquee with balloon clusters and customized giveaway table.",
           "media_type": "photo",
-          "file_url": "assets/images/category-cakes-customized-cakes.jpg",
-          "thumbnail_url": "assets/images/category-cakes-customized-cakes.jpg",
+          "file_url": "assets/images/category-crates.jpg",
+          "thumbnail_url": "assets/images/category-crates.jpg",
           "order": 2,
           "is_active": true
         }
@@ -156,7 +126,7 @@
       "name": "Bridal Shower",
       "slug": "bridal-shower",
       "description": "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
-      "cover_image": "assets/images/category-crates.jpg",
+      "cover_image": "assets/images/bridal-shower-decoration-karachi.jpg",
       "order": 1,
       "is_active": true,
       "media": [
@@ -166,38 +136,18 @@
           "description": "Full venue styling with earthy pampas grass, custom backdrop and luxury ambiance.",
           "media_type": "video",
           "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-          "thumbnail_url": "assets/images/category-crates.jpg",
+          "thumbnail_url": "assets/images/bridal-shower-decoration-karachi.jpg",
           "order": 1,
           "is_active": true
         },
         {
           "id": "bs-photo-1",
-          "title": "Luxury Pastel Floral Arch & Neon Sign",
-          "description": "Handcrafted fresh floral arch with custom bride-to-be signage.",
+          "title": "Pastel Floral Arch & Bride-to-Be Sign",
+          "description": "Handcrafted fresh floral arch with personalized neon calligraphy signage.",
           "media_type": "photo",
-          "file_url": "assets/images/category-flower-bouquet.jpg",
-          "thumbnail_url": "assets/images/category-flower-bouquet.jpg",
+          "file_url": "assets/images/bridal-shower-decoration-karachi.jpg",
+          "thumbnail_url": "assets/images/bridal-shower-decoration-karachi.jpg",
           "order": 2,
-          "is_active": true
-        },
-        {
-          "id": "bs-reel-2",
-          "title": "Intimate Dinner Table & Ambient Candles",
-          "description": "Romantic candlelit table styling with gold cutlery and personalized menus.",
-          "media_type": "video",
-          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-          "thumbnail_url": "assets/images/category-baskets.jpg",
-          "order": 3,
-          "is_active": true
-        },
-        {
-          "id": "bs-photo-2",
-          "title": "Bespoke Bridal Favor Gift Hampers",
-          "description": "Personalized wooden crates filled with scented candles and luxury souvenirs.",
-          "media_type": "photo",
-          "file_url": "assets/images/hero_showcase.jpg",
-          "thumbnail_url": "assets/images/hero_showcase.jpg",
-          "order": 4,
           "is_active": true
         }
       ]
@@ -206,7 +156,7 @@
       "name": "Wedding Event",
       "slug": "wedding-event",
       "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-      "cover_image": "assets/images/hero_showcase.jpg",
+      "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
       "order": 2,
       "is_active": true,
       "media": [
@@ -216,28 +166,18 @@
           "description": "Grand couple entrance decor with cascading fairy lights and fresh rose runners.",
           "media_type": "video",
           "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-          "thumbnail_url": "assets/images/hero_showcase.jpg",
+          "thumbnail_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
           "order": 1,
           "is_active": true
         },
         {
           "id": "we-photo-1",
-          "title": "Floating Candle Mirror Pathway",
-          "description": "Romantic pathway with floating candles and calligraphic mirror welcome signs.",
+          "title": "Floating Candle Pathway & Welcome Mirror",
+          "description": "Romantic walkway styled with floating glass candles and custom calligraphy mirror.",
           "media_type": "photo",
-          "file_url": "assets/images/category-baskets.jpg",
-          "thumbnail_url": "assets/images/category-baskets.jpg",
+          "file_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
+          "thumbnail_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
           "order": 2,
-          "is_active": true
-        },
-        {
-          "id": "we-reel-2",
-          "title": "Candlelit Nikah Stage Reveal",
-          "description": "Intimate Nikah decor with sheer drapery, chandeliers, and floral crescent arch.",
-          "media_type": "video",
-          "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-          "thumbnail_url": "assets/images/category-crates.jpg",
-          "order": 3,
           "is_active": true
         }
       ]
@@ -252,8 +192,8 @@
       "media": [
         {
           "id": "bd-reel-1",
-          "title": "Enchanted Garden Balloon Installation",
-          "description": "Organic pastel balloon garland with fairy lights and custom name plaque.",
+          "title": "Enchanted Garden Birthday Balloon Styling",
+          "description": "Organic pastel balloon garland with fairy lights and custom birthday name plaque.",
           "media_type": "video",
           "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
           "thumbnail_url": "assets/images/category-balloon-boxes.jpg",
@@ -262,8 +202,8 @@
         },
         {
           "id": "bd-photo-1",
-          "title": "Golden Glam Marquee Light Setup",
-          "description": "Light-up numbers, shimmer wall backdrop, and customized cake pedestal.",
+          "title": "Golden Glam Marquee Number Lighting",
+          "description": "Light-up giant numbers, shimmer backdrop wall, and customized cake pedestal.",
           "media_type": "photo",
           "file_url": "assets/images/category-balloon-boxes.jpg",
           "thumbnail_url": "assets/images/category-balloon-boxes.jpg",
@@ -273,30 +213,30 @@
       ]
     },
     {
-      "name": "Aqeeqah Decor in Karachi",
+      "name": "Aqeeqah Decor",
       "slug": "aqeeqah-decor",
-      "description": "Bespoke Islamic Aqeeqah event styling with personalized baby name light-up marquees, crescent floral arches, traditional cradle decor, and ambient lighting in Karachi.",
-      "cover_image": "assets/images/category-cakes-customized-cakes.jpg",
+      "description": "Bespoke Islamic Aqeeqah event styling with personalized baby name marquees, crescent floral arches, and traditional cradle decor.",
+      "cover_image": "assets/images/category-crates.jpg",
       "order": 4,
       "is_active": true,
       "media": [
         {
           "id": "aq-reel-1",
-          "title": "Bespoke Royal Baby Aqeeqah Stage & Cradle Setup",
+          "title": "Royal Baby Aqeeqah Stage & Cradle Setup",
           "description": "Traditional gold and ivory Aqeeqah cradle decor with fresh pastel florals and fairy light backdrop.",
           "media_type": "video",
           "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-          "thumbnail_url": "assets/images/category-cakes-customized-cakes.jpg",
+          "thumbnail_url": "assets/images/category-crates.jpg",
           "order": 1,
           "is_active": true
         },
         {
           "id": "aq-photo-1",
-          "title": "Personalized MUSA Marquee Light Signage & Dessert Setup",
-          "description": "Custom light-up baby name marquee with balloon clusters and customized theme giveaway table.",
+          "title": "Baby Name Marquee & Theme Dessert Table",
+          "description": "Custom light-up baby name marquee with balloon clusters and customized giveaway table.",
           "media_type": "photo",
-          "file_url": "assets/images/category-cakes-customized-cakes.jpg",
-          "thumbnail_url": "assets/images/category-cakes-customized-cakes.jpg",
+          "file_url": "assets/images/category-crates.jpg",
+          "thumbnail_url": "assets/images/category-crates.jpg",
           "order": 2,
           "is_active": true
         }

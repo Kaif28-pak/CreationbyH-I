@@ -4,32 +4,57 @@ document.addEventListener('DOMContentLoaded', async () => {
     const breadcrumbProductName = document.getElementById('breadcrumb-product-name');
     const backToCategoryBtn = document.getElementById('back-to-category-btn');
 
-    // Lightbox modal elements
     const lightboxModal = document.getElementById('lightbox-modal');
     const lightboxClose = document.getElementById('lightbox-close');
     const lightboxContent = document.getElementById('lightbox-content');
 
-    // Parse URL params
+    const WA_PHONE = '923096708144';
+
     const urlParams = new URLSearchParams(window.location.search);
     const categoryId = urlParams.get('category') || urlParams.get('cat') || urlParams.get('id');
     const productParam = urlParams.get('id') || urlParams.get('product') || urlParams.get('index');
 
     const categoryMap = {
-        'flower_bouquets': { title: 'Flower Bouquets', desc: 'Beautiful, premium and elegant floral bouquets for every occasion.' },
-        'cakes': { title: 'Cakes & Customized Cakes', desc: 'Beautiful custom designed fondant cakes with elegant decorations.' },
-        'baskets': { title: 'Baskets', desc: 'Elegant gift baskets filled with premium goodies and wrapped beautifully.' },
-        'balloon_boxes': { title: 'Balloon Boxes', desc: 'Transparent balloon boxes filled with colorful balloons for party decor.' },
-        'crates': { title: 'Crates', desc: 'Premium wooden crates filled with luxury gifts and flowers.' },
-        'frames': { title: 'Frames', desc: 'Elegant customized photo frames wrapped perfectly as a gift.' },
-        'customized_items': { title: 'Customized Items', desc: 'Personalized gifts like custom mugs, notebooks, pens and more.' }
+        'flower_bouquets': { 
+            title: 'Fresh Flower Bouquets', 
+            slug: 'flower-bouquets-karachi'
+        },
+        'cakes': { 
+            title: 'Customized Theme Cakes', 
+            slug: 'customized-theme-cakes-karachi'
+        },
+        'baskets': { 
+            title: 'Luxury Gift Baskets & Hampers', 
+            slug: 'gift-baskets-hampers-karachi'
+        },
+        'balloon_boxes': { 
+            title: 'Customized Balloon Boxes', 
+            slug: 'customized-balloon-boxes'
+        },
+        'crates': { 
+            title: 'Wooden Gift Crates', 
+            slug: 'wooden-gift-crates-pakistan'
+        },
+        'frames': { 
+            title: 'Personalized Photo Frames', 
+            slug: 'personalized-photo-frames-gift'
+        },
+        'customized_items': { 
+            title: 'Personalized Mugs, Pens & Notebooks', 
+            slug: 'personalized-gifts-pakistan'
+        },
+        'trousseau_packing': {
+            title: 'Wedding Trousseau Packing',
+            slug: 'wedding-trousseau-packing-karachi'
+        }
     };
 
     if (!categoryId || !categoryMap[categoryId]) {
         contentArea.innerHTML = `
-            <div class="error-box">
-                <p>No valid category selected. Please explore our categories.</p>
+            <div class="error-box" style="text-align: center; padding: 40px;">
+                <p>No valid collection selected. Please explore our collections.</p>
                 <div style="margin-top: 20px;">
-                    <a href="index.html#services" class="btn btn-primary">Browse Categories</a>
+                    <a href="/#services" class="btn btn-primary">Browse Collections</a>
                 </div>
             </div>
         `;
@@ -37,18 +62,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const categoryInfo = categoryMap[categoryId];
-    const categoryPageUrl = `products.html?id=${categoryId}`;
+    const categoryPageUrl = `/${categoryInfo.slug}`;
 
-    // Setup breadcrumbs & back button
-    breadcrumbCategoryLink.href = categoryPageUrl;
-    breadcrumbCategoryLink.textContent = categoryInfo.title;
-    backToCategoryBtn.href = categoryPageUrl;
-    backToCategoryBtn.innerHTML = `&larr; Back to ${categoryInfo.title}`;
+    if (breadcrumbCategoryLink) {
+        breadcrumbCategoryLink.href = categoryPageUrl;
+        breadcrumbCategoryLink.textContent = categoryInfo.title;
+    }
+    if (backToCategoryBtn) {
+        backToCategoryBtn.href = categoryPageUrl;
+        backToCategoryBtn.innerHTML = `&larr; Back to ${categoryInfo.title}`;
+    }
 
     try {
         let data = null;
 
-        // 1. Fetch live real-time data directly from GitHub Raw first
+        // 1. Fetch live real-time data from GitHub Raw first
         try {
             const ghResponse = await fetch(`https://raw.githubusercontent.com/Kaif28-pak/CreationbyH-I/main/data/${categoryId}.json?t=${Date.now()}`, {
                 cache: 'no-store',
@@ -57,168 +85,115 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (ghResponse.ok) {
                 const ghData = await ghResponse.json();
                 const ghProducts = (ghData && Array.isArray(ghData.products)) ? ghData.products : (Array.isArray(ghData) ? ghData : []);
-                if (ghProducts.length > 0) {
-                    data = ghData;
-                }
+                if (ghProducts.length > 0) data = ghData;
             }
-        } catch (ghErr) {
-            console.warn('[ProductView] Live GitHub fetch failed, attempting local fallback...', ghErr);
-        }
+        } catch (ghErr) {}
 
-        // 2. Local file fallback if GitHub fetch didn't return data
+        // 2. Local fallback
         if (!data) {
             try {
                 const localResponse = await fetch(`data/${categoryId}.json?t=${Date.now()}`, {
                     cache: 'no-store',
                     headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
                 });
-                if (localResponse.ok) {
-                    data = await localResponse.json();
-                }
-            } catch (localErr) {
-                console.warn('[ProductView] Local fetch also failed:', localErr);
-            }
+                if (localResponse.ok) data = await localResponse.json();
+            } catch (localErr) {}
         }
 
-        if (!data) {
-            contentArea.innerHTML = `
-                <div class="error-box">
-                    <p>Could not load products for this category. Coming soon!</p>
-                    <div style="margin-top: 20px;">
-                        <a href="${categoryPageUrl}" class="btn btn-primary">Back to Category</a>
-                    </div>
-                </div>
-            `;
-            return;
-        }
-
-        const rawProducts = data.products ? data.products : (Array.isArray(data) ? data : []);
-
-        // Strict filter: Exclude any deleted, empty, or blank items
-        const products = rawProducts.filter(p => {
-            if (!p || typeof p !== 'object') return false;
-            const hasTitle = p.title && typeof p.title === 'string' && p.title.trim().length > 0;
-            const hasMedia = (p.image && p.image.trim().length > 0) || (p.video && p.video.trim().length > 0);
-            return hasTitle && hasMedia;
-        });
+        const rawProducts = (data && data.products) ? data.products : (Array.isArray(data) ? data : []);
+        const products = rawProducts.filter(p => p && p.title && p.title.trim().length > 0 && p.active !== false);
 
         if (products.length === 0) {
             contentArea.innerHTML = `
-                <div class="error-box">
-                    <p>No products found in this category.</p>
+                <div class="media-placeholder-block" style="max-width: 600px; margin: 40px auto;">
+                    <span class="ph-icon">🎁</span>
+                    <p class="ph-text">New Product Details Coming Soon</p>
+                    <p class="ph-sub">Contact our team directly on WhatsApp for photos and custom orders.</p>
                     <div style="margin-top: 20px;">
-                        <a href="${categoryPageUrl}" class="btn btn-primary">Back to Category</a>
+                        <a href="https://wa.me/${WA_PHONE}?text=${encodeURIComponent(`Hi, I want to inquire about custom orders in ${categoryInfo.title}`)}" class="btn wa-btn" target="_blank" rel="noopener noreferrer">Inquire on WhatsApp</a>
                     </div>
                 </div>
             `;
             return;
         }
 
-        // Sort by order if available
         products.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
 
-        // Determine current product index
         let currentIndex = 0;
         const parsedIndex = parseInt(productParam, 10);
         if (!isNaN(parsedIndex) && parsedIndex >= 0 && parsedIndex < products.length) {
             currentIndex = parsedIndex;
-        } else if (productParam) {
-            // Try title match
-            const foundIndex = products.findIndex(p => p.title.toLowerCase() === decodeURIComponent(productParam).toLowerCase());
-            if (foundIndex !== -1) currentIndex = foundIndex;
         }
 
         const product = products[currentIndex];
         document.title = `${product.title} | Creations by H&I`;
-        breadcrumbProductName.textContent = product.title;
+        if (breadcrumbProductName) breadcrumbProductName.textContent = product.title;
 
-        // WhatsApp message setup
-        const encodedMessage = encodeURIComponent(
-            `Hello Creations by H&I!\n\nI am interested in ordering:\n*${product.title}*\nCategory: ${categoryInfo.title}\n\nPlease share price, availability, and customization details.`
+        const encodedOrderMessage = encodeURIComponent(
+            `Hello Creations by H&I!\n\nI want to order:\n*${product.title}*\nCollection: ${categoryInfo.title}\n\nPlease share availability and customization options.`
         );
-        const waLink = `https://wa.me/923096708144?text=${encodedMessage}`;
+        const waOrderLink = `https://wa.me/${WA_PHONE}?text=${encodedOrderMessage}`;
+
+        const pageUrl = window.location.href;
+        const encodedShareMessage = encodeURIComponent(
+            `Check out this custom creation from Creations by H&I (Karachi):\n${product.title}\n${pageUrl}`
+        );
+        const waShareLink = `https://api.whatsapp.com/send?text=${encodedShareMessage}`;
 
         const hasImage = !!product.image;
         const hasVideo = !!product.video;
-        const fallbackImg = 'assets/images/category-flower-bouquet.jpg';
-        const activeImg = product.image || fallbackImg;
+        const activeImg = product.image || 'assets/images/category-baskets.jpg';
 
-        // Render Product Detail Layout
         contentArea.innerHTML = `
-            <div class="product-detail-layout">
+            <div class="product-detail-layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(24px, 4vw, 48px); margin-top: 20px; align-items: start;">
                 
                 <!-- Left: Media Showcase -->
-                <div class="media-showcase-box">
-                    
-                    ${(hasImage && hasVideo) ? `
-                        <div class="media-tabs">
-                            <button class="media-tab-btn active" id="tab-photo">📸 Photos</button>
-                            <button class="media-tab-btn" id="tab-video">🎬 Video Clip</button>
-                        </div>
-                    ` : ''}
-
-                    <div class="media-display-viewport" id="media-viewport">
-                        <!-- Dynamic Media will be rendered here -->
+                <div class="media-showcase-box" style="background: #FFF9FB; border-radius: 18px; padding: 16px; border: 1px solid rgba(227, 153, 182, 0.3);">
+                    <div class="media-display-viewport" style="border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; background: #FFF5F8; display: flex; align-items: center; justify-content: center;">
+                        <img src="${activeImg}" alt="${product.alt || product.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='assets/images/category-baskets.jpg';">
                     </div>
-
-                    ${(hasImage && hasVideo) ? `
-                        <div class="media-thumbnails-strip">
-                            <div class="media-thumb-item active" id="thumb-photo" title="View Photo">
-                                <img src="${activeImg}" alt="${product.title}">
-                            </div>
-                            <div class="media-thumb-item" id="thumb-video" title="Play Video">
-                                <video src="${product.video}" muted preload="metadata"></video>
-                                <div class="thumb-video-icon">&#9658;</div>
-                            </div>
+                    ${hasVideo ? `
+                        <div style="margin-top: 14px;">
+                            <video src="${product.video}" controls playsinline style="width: 100%; border-radius: 12px; max-height: 300px;"></video>
                         </div>
                     ` : ''}
-
                 </div>
 
-                <!-- Right: Product Information & Ordering -->
-                <div class="product-info-panel">
-                    <span class="category-pill">${categoryInfo.title}</span>
-                    <h1 class="product-view-title">${product.title}</h1>
-                    <div class="product-view-desc">${product.description || 'Each creation is uniquely handcrafted to bring artistic elegance and joy to your special occasions.'}</div>
-
-                    <!-- Highlights & Reassurance -->
-                    <div class="product-perks">
-                        <div class="perk-item">
-                            <span class="perk-icon">🌸</span>
-                            <span><strong>100% Handcrafted:</strong> Tailored with care for every event.</span>
-                        </div>
-                        <div class="perk-item">
-                            <span class="perk-icon">✨</span>
-                            <span><strong>Personalized:</strong> Custom names, cards, colors & themes.</span>
-                        </div>
-                        <div class="perk-item">
-                            <span class="perk-icon">🚚</span>
-                            <span><strong>Karachi Delivery:</strong> Safe and punctual doorstep dispatch.</span>
-                        </div>
+                <!-- Right: Product Information & CTAs -->
+                <div class="product-info-panel" style="display: flex; flex-direction: column; gap: 16px;">
+                    <span class="category-pill" style="align-self: flex-start; background: #FCE8EE; color: var(--text-dark); padding: 6px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;">${categoryInfo.title}</span>
+                    <h1 class="product-view-title" style="font-size: clamp(1.6rem, 3.5vw, 2.3rem); line-height: 1.25; margin: 0;">${product.title}</h1>
+                    <p class="product-view-desc" style="font-size: 1rem; color: var(--text-light); line-height: 1.6; margin: 0;">${product.description || 'Each creation is uniquely handcrafted to bring artistic elegance and joy to your special occasions.'}</p>
+                    
+                    <div class="product-price-badge" style="font-size: 1.25rem; font-weight: 700; color: var(--text-dark);">
+                        <span>Price: </span><span style="color: var(--accent-pink);">${product.price || 'Custom Quote'}</span>
                     </div>
 
-                    <!-- WhatsApp CTA Card -->
-                    <div class="order-action-card">
-                        <h4>Book or Inquire About This Creation</h4>
-                        <p>Directly chat with our team on WhatsApp for customization, price, and dates.</p>
-                        <a href="${waLink}" class="btn-whatsapp-large" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-                            </svg>
-                            Book on WhatsApp
+                    <!-- Perks & Trust -->
+                    <div class="product-perks" style="background: #FFF9FB; border-radius: 12px; padding: 14px; border: 1px solid rgba(227, 153, 182, 0.2); display: flex; flex-direction: column; gap: 8px;">
+                        <div style="font-size: 0.88rem;"><strong>🎀 100% Handcrafted:</strong> Tailored to your choice and budget.</div>
+                        <div style="font-size: 0.88rem;"><strong>🌸 Fresh & Premium:</strong> Quality chocolates, florals, and keepsakes.</div>
+                        <div style="font-size: 0.88rem;"><strong>🚚 Surprise Delivery:</strong> Karachi, Lahore, Islamabad, UAE & KSA.</div>
+                    </div>
+
+                    <!-- Dual WhatsApp CTA Buttons -->
+                    <div class="product-action-buttons" style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+                        <a href="${waOrderLink}" class="btn wa-btn" style="padding: 14px 24px; font-size: 1rem; justify-content: center; width: 100%; border-radius: 30px;" target="_blank" rel="noopener noreferrer">
+                            💬 Order on WhatsApp
+                        </a>
+                        <a href="${waShareLink}" class="btn btn-outline" style="padding: 12px 24px; font-size: 0.92rem; justify-content: center; width: 100%; border-radius: 30px; display: inline-flex; align-items: center; gap: 8px;" target="_blank" rel="noopener noreferrer">
+                            📤 Share on WhatsApp
                         </a>
                     </div>
 
                     <!-- Prev / Next Navigation -->
                     ${products.length > 1 ? `
-                        <div class="product-pager-bar">
-                            <a href="product-view.html?category=${categoryId}&id=${currentIndex - 1}" 
-                               class="pager-btn ${currentIndex === 0 ? 'disabled' : ''}">
-                                &larr; Previous Product
+                        <div class="product-pager-bar" style="display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; border-top: 1px solid rgba(227, 153, 182, 0.2); padding-top: 16px;">
+                            <a href="product-view.html?category=${categoryId}&id=${currentIndex > 0 ? currentIndex - 1 : products.length - 1}" class="back-link-btn" style="font-size: 0.88rem;">
+                                &larr; Previous Item
                             </a>
-                            <a href="product-view.html?category=${categoryId}&id=${currentIndex + 1}" 
-                               class="pager-btn ${currentIndex === products.length - 1 ? 'disabled' : ''}">
-                                Next Product &rarr;
+                            <a href="product-view.html?category=${categoryId}&id=${currentIndex < products.length - 1 ? currentIndex + 1 : 0}" class="back-link-btn" style="font-size: 0.88rem;">
+                                Next Item &rarr;
                             </a>
                         </div>
                     ` : ''}
@@ -228,111 +203,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
         `;
 
-        // Media switching logic
-        const mediaViewport = document.getElementById('media-viewport');
-        const tabPhoto = document.getElementById('tab-photo');
-        const tabVideo = document.getElementById('tab-video');
-        const thumbPhoto = document.getElementById('thumb-photo');
-        const thumbVideo = document.getElementById('thumb-video');
-
-        function showPhotoView() {
-            mediaViewport.innerHTML = `
-                <img src="${activeImg}" alt="${product.title}" id="main-view-image" onerror="this.onerror=null; this.src='${fallbackImg}';">
-                <button class="zoom-hint-badge" id="zoom-badge">
-                    <span>🔍</span> Tap to Zoom
-                </button>
-            `;
-
-            if (tabPhoto) tabPhoto.classList.add('active');
-            if (tabVideo) tabVideo.classList.remove('active');
-            if (thumbPhoto) thumbPhoto.classList.add('active');
-            if (thumbVideo) thumbVideo.classList.remove('active');
-
-            // Zoom triggers
-            const mainImg = document.getElementById('main-view-image');
-            const zoomBadge = document.getElementById('zoom-badge');
-            if (mainImg) mainImg.addEventListener('click', () => openLightbox('image', activeImg, product.title));
-            if (zoomBadge) zoomBadge.addEventListener('click', () => openLightbox('image', activeImg, product.title));
-        }
-
-        function showVideoView() {
-            mediaViewport.innerHTML = `
-                <video src="${product.video}" controls autoplay playsinline loop></video>
-            `;
-
-            if (tabPhoto) tabPhoto.classList.remove('active');
-            if (tabVideo) tabVideo.classList.add('active');
-            if (thumbPhoto) thumbPhoto.classList.remove('active');
-            if (thumbVideo) thumbVideo.classList.add('active');
-        }
-
-        // Initialize media state
-        if (hasImage) {
-            showPhotoView();
-        } else if (hasVideo) {
-            showVideoView();
-        } else {
-            mediaViewport.innerHTML = `<img src="${fallbackImg}" alt="${product.title}">`;
-        }
-
-        // Event listeners for tabs and thumbs
-        if (tabPhoto) tabPhoto.addEventListener('click', showPhotoView);
-        if (tabVideo) tabVideo.addEventListener('click', showVideoView);
-        if (thumbPhoto) thumbPhoto.addEventListener('click', showPhotoView);
-        if (thumbVideo) thumbVideo.addEventListener('click', showVideoView);
-
     } catch (error) {
-        console.error('Error rendering product view:', error);
+        console.error('Error fetching product:', error);
         contentArea.innerHTML = `
-            <div class="error-box">
-                <p>Failed to load product details. Please try again later.</p>
+            <div class="error-box" style="text-align: center; padding: 40px;">
+                <p>Could not load product details. Please refresh or return to collections.</p>
                 <div style="margin-top: 20px;">
-                    <a href="index.html" class="btn btn-primary">Go to Home</a>
+                    <a href="/#services" class="btn btn-primary">Browse Collections</a>
                 </div>
             </div>
         `;
     }
-
-    // Lightbox functions
-    function openLightbox(type, src, altText) {
-        lightboxContent.innerHTML = '';
-        if (type === 'image') {
-            const img = document.createElement('img');
-            img.src = src;
-            img.alt = altText || 'Product Preview';
-            lightboxContent.appendChild(img);
-        } else if (type === 'video') {
-            const video = document.createElement('video');
-            video.src = src;
-            video.controls = true;
-            video.autoplay = true;
-            video.playsInline = true;
-            lightboxContent.appendChild(video);
-        }
-        lightboxModal.classList.add('active');
-        lightboxModal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-        lightboxModal.classList.remove('active');
-        lightboxModal.setAttribute('aria-hidden', 'true');
-        lightboxContent.innerHTML = '';
-        document.body.style.overflow = '';
-    }
-
-    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
-    if (lightboxModal) {
-        lightboxModal.addEventListener('click', (e) => {
-            if (e.target === lightboxModal || e.target === lightboxClose) {
-                closeLightbox();
-            }
-        });
-    }
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightboxModal.classList.contains('active')) {
-            closeLightbox();
-        }
-    });
 });

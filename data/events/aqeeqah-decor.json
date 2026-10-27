@@ -1,28 +1,28 @@
 {
-  "name": "Aqeeqah Decor in Karachi",
+  "name": "Aqeeqah Decor",
   "slug": "aqeeqah-decor",
-  "description": "Bespoke Islamic Aqeeqah event styling with personalized baby name light-up marquees, crescent floral arches, traditional cradle decor, and ambient lighting in Karachi.",
-  "cover_image": "assets/images/category-cakes-customized-cakes.jpg",
+  "description": "Bespoke Islamic Aqeeqah event styling with personalized baby name marquees, crescent floral arches, and traditional cradle decor.",
+  "cover_image": "assets/images/category-crates.jpg",
   "order": 4,
   "is_active": true,
   "media": [
     {
       "id": "aq-reel-1",
-      "title": "Bespoke Royal Baby Aqeeqah Stage & Cradle Setup",
+      "title": "Royal Baby Aqeeqah Stage & Cradle Setup",
       "description": "Traditional gold and ivory Aqeeqah cradle decor with fresh pastel florals and fairy light backdrop.",
       "media_type": "video",
       "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-      "thumbnail_url": "assets/images/category-cakes-customized-cakes.jpg",
+      "thumbnail_url": "assets/images/category-crates.jpg",
       "order": 1,
       "is_active": true
     },
     {
       "id": "aq-photo-1",
-      "title": "Personalized MUSA Marquee Light Signage & Dessert Setup",
-      "description": "Custom light-up baby name marquee with balloon clusters and customized theme giveaway table.",
+      "title": "Baby Name Marquee & Theme Dessert Table",
+      "description": "Custom light-up baby name marquee with balloon clusters and customized giveaway table.",
       "media_type": "photo",
-      "file_url": "assets/images/category-cakes-customized-cakes.jpg",
-      "thumbnail_url": "assets/images/category-cakes-customized-cakes.jpg",
+      "file_url": "assets/images/category-crates.jpg",
+      "thumbnail_url": "assets/images/category-crates.jpg",
       "order": 2,
       "is_active": true
     }

@@ -29,6 +29,16 @@
   status = 200
 
 [[redirects]]
+  from = "/about-us"
+  to = "/about-us.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
   from = "/events"
   to = "/events.html"
   status = 200
@@ -77,4 +87,3 @@
   from = "/wedding-trousseau-packing-karachi"
   to = "/products.html?id=trousseau_packing"
   status = 200
-

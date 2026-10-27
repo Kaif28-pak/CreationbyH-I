@@ -1,15 +1,15 @@
 /**
  * Creations by H&I - Main Application Script
- * Dynamic content loader for Services & Decap CMS Event Planner collection
+ * Dynamic content loader for Services, Featured Products & Event Planner
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
     // DOM Element References
     const servicesGrid = document.getElementById('services-grid');
+    const featuredGrid = document.getElementById('featured-grid');
     const eventPlannerGrid = document.getElementById('event-planner-grid');
-    const eventFilterBtns = document.querySelectorAll('.event-filter-btn');
 
-    // Enhanced Lightbox with Multi-Video Playlist & Carousel Support
+    // Lightbox Modal Elements
     const lightboxModal = document.getElementById('lightbox-modal');
     const lightboxClose = document.getElementById('lightbox-close');
     const lightboxPrev = document.getElementById('lightbox-prev');
@@ -19,6 +19,36 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let currentPlaylist = [];
     let currentPlaylistIndex = 0;
+
+    // Contact WhatsApp Phone
+    const WA_PHONE = '923096708144';
+
+    // Global Conversion Tracker
+    window.trackWhatsAppConversion = function(label = 'General Order') {
+        try {
+            if (typeof gtag === 'function') {
+                gtag('event', 'generate_lead', {
+                    event_category: 'WhatsApp Order',
+                    event_label: label
+                });
+            }
+            if (typeof fbq === 'function') {
+                fbq('track', 'Contact', {
+                    content_name: label
+                });
+            }
+        } catch (e) {
+            console.debug('Analytics tracker error:', e);
+        }
+    };
+
+    // Attach tracking to all WhatsApp links
+    document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+        link.addEventListener('click', () => {
+            const label = link.getAttribute('aria-label') || link.innerText || 'WhatsApp Click';
+            window.trackWhatsAppConversion(label.trim());
+        });
+    });
 
     function renderActiveLightboxItem() {
         if (!lightboxContent || currentPlaylist.length === 0) return;
@@ -77,7 +107,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         renderActiveLightboxItem();
-
         lightboxModal.classList.add('active');
         lightboxModal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -119,37 +148,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     document.addEventListener('keydown', (e) => {
         if (!lightboxModal || !lightboxModal.classList.contains('active')) return;
-        if (e.key === 'Escape') {
-            closeLightbox();
-        } else if (e.key === 'ArrowLeft') {
-            prevLightboxItem();
-        } else if (e.key === 'ArrowRight') {
-            nextLightboxItem();
-        }
+        if (e.key === 'Escape') closeLightbox();
+        else if (e.key === 'ArrowLeft') prevLightboxItem();
+        else if (e.key === 'ArrowRight') nextLightboxItem();
     });
 
-    // WhatsApp Contact Number
-    const WA_PHONE = '923096708144';
-
-    // Set initial loading states
-    if (servicesGrid) {
-        servicesGrid.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-light);">
-                <p>Loading our curated services...</p>
-            </div>
-        `;
-    }
-
-    if (eventPlannerGrid) {
-        eventPlannerGrid.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-light);">
-                <p>Loading event portfolio & memories...</p>
-            </div>
-        `;
-    }
-
     // =========================================================================
-    // 1. SERVICES SECTION LOADER
+    // 1. SERVICES SECTION LOADER (8 Main Categories)
     // =========================================================================
     async function loadServices() {
         if (!servicesGrid) return;
@@ -163,16 +168,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             const data = await response.json();
 
             const rawProducts = data.products ? data.products : (Array.isArray(data) ? data : []);
-            const products = rawProducts.filter(p => p && p.title && p.title.trim().length > 0);
+            // Filter only active categories with titles
+            const products = rawProducts.filter(p => p && p.title && p.title.trim().length > 0 && p.active !== false);
             products.sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
 
-            const featuredServices = products.filter(p => p.featured);
-            renderServices(featuredServices);
+            renderServices(products);
         } catch (error) {
             console.error('Error loading services:', error);
             servicesGrid.innerHTML = `
                 <div style="grid-column: 1 / -1; text-align: center; padding: 30px; color: var(--text-light);">
-                    <p>Services could not be loaded at this moment. Please refresh.</p>
+                    <p>Services are loading. Please refresh if this takes too long.</p>
                 </div>
             `;
         }
@@ -181,117 +186,118 @@ document.addEventListener('DOMContentLoaded', async () => {
     function renderServices(items) {
         servicesGrid.innerHTML = '';
         if (!items || items.length === 0) {
-            servicesGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">No services available.</p>';
+            servicesGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">No categories available.</p>';
             return;
         }
 
-        const categorySlugMap = {
-            'Fresh Flower Bouquets': 'flower-bouquets-karachi',
-            'Customized Theme Cakes': 'customized-theme-cakes-karachi',
-            'Luxury Gift Baskets & Hampers': 'gift-baskets-hampers-karachi',
-            'Customized Balloon Boxes': 'customized-balloon-boxes',
-            'Wooden Gift Crates': 'wooden-gift-crates-pakistan',
-            'Personalized Photo Frames': 'personalized-photo-frames-gift',
-            'Personalized Mugs, Pens & Notebooks': 'personalized-gifts-pakistan',
-            'Wedding Trousseau Packing': 'wedding-trousseau-packing-karachi',
-            'Flower Bouquet': 'flower-bouquets-karachi',
-            'Cakes / Customized Cakes': 'customized-theme-cakes-karachi',
-            'Baskets': 'gift-baskets-hampers-karachi',
-            'Balloon Boxes': 'customized-balloon-boxes',
-            'Crates': 'wooden-gift-crates-pakistan',
-            'Frames': 'personalized-photo-frames-gift',
-            'Customized Items': 'personalized-gifts-pakistan'
-        };
-
-        const categoryIdMap = {
-            'Fresh Flower Bouquets': 'flower_bouquets',
-            'Customized Theme Cakes': 'cakes',
-            'Luxury Gift Baskets & Hampers': 'baskets',
-            'Customized Balloon Boxes': 'balloon_boxes',
-            'Wooden Gift Crates': 'crates',
-            'Personalized Photo Frames': 'frames',
-            'Personalized Mugs, Pens & Notebooks': 'customized_items',
-            'Wedding Trousseau Packing': 'trousseau_packing',
-            'Flower Bouquet': 'flower_bouquets',
-            'Cakes / Customized Cakes': 'cakes',
-            'Baskets': 'baskets',
-            'Balloon Boxes': 'balloon_boxes',
-            'Crates': 'crates',
-            'Frames': 'frames',
-            'Customized Items': 'customized_items'
-        };
-
         items.forEach(item => {
-            const catId = item.category || categoryIdMap[item.title] || '';
-            const catSlug = item.slug || categorySlugMap[item.title] || '';
-            const pageLink = catSlug ? `/${catSlug}` : (catId ? `/products.html?id=${catId}` : '#');
-            const videoTag = item.video ? `<video src="${item.video}" loop muted playsinline></video>` : '';
+            const pageLink = item.slug ? `/${item.slug}` : (item.category ? `/products.html?id=${item.category}` : '#');
+            const fallbackImg = 'assets/images/category-flower-bouquet.jpg';
+            const imgSrc = item.image || fallbackImg;
 
             const card = document.createElement('div');
             card.className = 'service-card reveal active';
             card.innerHTML = `
-                <div class="service-img">
-                    <img src="${item.image || 'assets/images/category-flower-bouquet.jpg'}" alt="${item.title}" onerror="this.onerror=null; this.src='assets/images/category-flower-bouquet.jpg';">
-                    ${videoTag}
-                </div>
+                <a href="${pageLink}" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="service-img">
+                        <img src="${imgSrc}" alt="${item.title} by Creations by H&I" loading="lazy" width="400" height="300" onerror="this.onerror=null; this.src='${fallbackImg}';">
+                    </div>
+                </a>
                 <h3>${item.title}</h3>
                 <p>${item.description || ''}</p>
-                <a href="${pageLink}" class="btn wa-btn" style="border: 2px solid var(--accent-pink); padding: 8px 22px; font-size: 13px;">View ${item.title}</a>
+                <a href="${pageLink}" class="btn wa-btn" style="border: 1.5px solid var(--accent-pink); padding: 8px 20px; font-size: 13px;">View ${item.title}</a>
             `;
-
-            // Hover preview for video if present
-            if (item.video) {
-                const vid = card.querySelector('video');
-                if (vid) {
-                    card.addEventListener('mouseenter', () => vid.play().catch(() => {}));
-                    card.addEventListener('mouseleave', () => vid.pause());
-                    card.addEventListener('touchstart', () => vid.play().catch(() => {}));
-                    vid.addEventListener('error', () => vid.style.display = 'none');
-                }
-            }
 
             servicesGrid.appendChild(card);
         });
     }
 
     // =========================================================================
-    // 2. EVENT PLANNER SECTION (Decap CMS Folder Collection)
+    // 2. FEATURED BEST SELLERS LOADER (4-6 Products)
+    // =========================================================================
+    async function loadFeaturedProducts() {
+        if (!featuredGrid) return;
+
+        const categoriesToFetch = ['baskets', 'flower_bouquets', 'cakes', 'balloon_boxes', 'crates', 'trousseau_packing'];
+        const featuredItems = [];
+
+        for (const catId of categoriesToFetch) {
+            try {
+                const res = await fetch(`data/${catId}.json?t=${Date.now()}`, { cache: 'no-store' });
+                if (res.ok) {
+                    const data = await res.json();
+                    const prods = data.products || (Array.isArray(data) ? data : []);
+                    const matched = prods.find(p => p.featured && p.active !== false);
+                    if (matched) {
+                        matched.categoryId = catId;
+                        featuredItems.push(matched);
+                    }
+                }
+            } catch (e) {
+                // Ignore individual category fetch failures
+            }
+            if (featuredItems.length >= 6) break;
+        }
+
+        renderFeatured(featuredItems);
+    }
+
+    function renderFeatured(items) {
+        if (!featuredGrid) return;
+        featuredGrid.innerHTML = '';
+
+        if (!items || items.length === 0) {
+            featuredGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">Featured collections coming soon.</p>';
+            return;
+        }
+
+        items.forEach((product, idx) => {
+            const detailUrl = `product-view.html?category=${product.categoryId || 'baskets'}&id=${idx}`;
+            const encodedTitle = encodeURIComponent(`Hi! I want to order "${product.title}" from your website.`);
+            const waLink = `https://wa.me/${WA_PHONE}?text=${encodedTitle}`;
+            const fallbackImg = 'assets/images/category-baskets.jpg';
+            const imgSrc = product.image || fallbackImg;
+
+            const card = document.createElement('div');
+            card.className = 'product-card reveal active';
+            card.innerHTML = `
+                <a href="${detailUrl}" class="product-card-link-wrap">
+                    <div class="product-media">
+                        <img src="${imgSrc}" alt="${product.title}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';">
+                        <div class="product-media-overlay">
+                            <span class="overlay-view-badge">View Details &rarr;</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="product-content">
+                    <a href="${detailUrl}" style="text-decoration: none; color: inherit;">
+                        <h3 class="product-title">${product.title}</h3>
+                    </a>
+                    <p class="product-desc">${product.description || 'Bespoke luxury handcrafted with care.'}</p>
+                    <div class="product-card-actions">
+                        <a href="${detailUrl}" class="btn-card-view">View Details</a>
+                        <a href="${waLink}" class="btn-card-wa" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a>
+                    </div>
+                </div>
+            `;
+
+            featuredGrid.appendChild(card);
+        });
+    }
+
+    // =========================================================================
+    // 3. EVENT PLANNER SECTION (Dynamic 4 Categories)
     // =========================================================================
     let allEvents = [];
     let currentFilter = 'All';
 
-    /**
-     * Build WhatsApp URL with the exact requested pre-filled inquiry format:
-     * "Hi, I am interested in this [Category: Bridal Shower - Event Title] service."
-     */
-    /**
-     * Build WhatsApp URL for event category
-     */
-    function createEventWhatsAppLink(categoryName, title) {
+    function createEventWhatsAppLink(categoryName) {
         const cleanCategory = categoryName ? categoryName.trim() : 'Event Styling';
-        const cleanTitle = title ? title.trim() : cleanCategory;
         const messageText = `Hello Creations by H&I! I am viewing your ${cleanCategory} portfolio. I would like to inquire about booking, pricing, and availability.`;
         return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(messageText)}`;
     }
 
-    /**
-     * Fetch event categories from public API / data sources:
-     */
     async function fetchEventPlannerData() {
-        let categories = [];
-
-        // 1. Try public API endpoint
-        try {
-            const apiRes = await fetch(`/api/event-categories?t=${Date.now()}`);
-            if (apiRes.ok) {
-                const data = await apiRes.json();
-                if (data && Array.isArray(data.categories) && data.categories.length > 0) {
-                    return data.categories;
-                }
-            }
-        } catch (e) {}
-
-        // 2. Try compiled data/events.json with cache-busting
         try {
             const res = await fetch(`data/events.json?t=${Date.now()}`, {
                 cache: 'no-store',
@@ -300,56 +306,47 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (res.ok) {
                 const data = await res.json();
                 const list = data.categories || data.events;
-                if (data && Array.isArray(list) && list.length > 0) {
-                    return list;
+                if (Array.isArray(list) && list.length > 0) {
+                    return list.filter(item => item && item.is_active !== false);
                 }
             }
-        } catch (err) {
-            console.info('[EventPlanner] Local events.json fetch skipped/failed, attempting GitHub API sync...');
+        } catch (e) {
+            console.info('[EventPlanner] Local events.json fetch fallback to individual files...');
         }
 
-        // 3. Try GitHub API for repo Kaif28-pak/CreationbyH-I
-        try {
-            const ghRes = await fetch(`https://api.github.com/repos/Kaif28-pak/CreationbyH-I/contents/data/events?t=${Date.now()}`, {
-                cache: 'no-store',
-                headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
-            });
-            if (ghRes.ok) {
-                const files = await ghRes.json();
-                if (Array.isArray(files) && files.length > 0) {
-                    const jsonFiles = files.filter(f => f.name.endsWith('.json') && f.name !== 'events.json');
-                    const fetchedItems = await Promise.all(
-                        jsonFiles.map(async (file) => {
-                            try {
-                                const r = await fetch(`data/events/${file.name}?t=${Date.now()}`, { cache: 'no-store' }).catch(() => fetch(file.download_url));
-                                if (r.ok) {
-                                    const itemData = await r.json();
-                                    if (itemData) {
-                                        itemData.slug = itemData.slug || file.name.replace(/\.json$/, '');
-                                    }
-                                    return itemData;
-                                }
-                            } catch (e) {
-                                return null;
-                            }
-                        })
-                    );
-                    categories = fetchedItems.filter(Boolean);
-                    if (categories.length > 0) {
-                        return categories;
-                    }
-                }
+        const fallbackCategories = [
+            {
+                name: "Bridal Shower",
+                slug: "bridal-shower",
+                description: "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
+                cover_image: "assets/images/bridal-shower-decoration-karachi.jpg",
+                order: 1
+            },
+            {
+                name: "Wedding Event",
+                slug: "wedding-event",
+                description: "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
+                cover_image: "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
+                order: 2
+            },
+            {
+                name: "Birthday Event",
+                slug: "birthday-event",
+                description: "Enchanted balloon garlands, customized marquee letter lighting, themed backdrop installations, and dessert table styling.",
+                cover_image: "assets/images/category-balloon-boxes.jpg",
+                order: 3
+            },
+            {
+                name: "Aqeeqah Decor",
+                slug: "aqeeqah-decor",
+                description: "Bespoke Islamic Aqeeqah event styling with personalized baby name marquees, crescent floral arches, and traditional cradle decor.",
+                cover_image: "assets/images/category-crates.jpg",
+                order: 4
             }
-        } catch (err) {
-            console.warn('[EventPlanner] GitHub API fallback error:', err);
-        }
-
-        return categories;
+        ];
+        return fallbackCategories;
     }
 
-    /**
-     * Render dynamic event filter tabs
-     */
     function renderEventFilters(categories) {
         const filterContainer = document.getElementById('event-filters');
         if (!filterContainer) return;
@@ -364,7 +361,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const btns = filterContainer.querySelectorAll('.event-filter-btn');
         btns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', () => {
                 btns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentFilter = btn.getAttribute('data-filter') || 'All';
@@ -373,36 +370,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    /**
-     * Render 3 skeleton placeholder cards during loading
-     */
-    function renderEventSkeletons() {
-        if (!eventPlannerGrid) return;
-        eventPlannerGrid.innerHTML = Array(3).fill(0).map(() => `
-            <div class="event-card event-card-skeleton" aria-hidden="true">
-                <div class="skeleton-box skeleton-media"></div>
-                <div class="skeleton-box skeleton-title"></div>
-                <div class="skeleton-box skeleton-desc"></div>
-                <div class="skeleton-box skeleton-btn"></div>
-            </div>
-        `).join('');
-    }
-
-    /**
-     * Render the Event Planner cards filtered by category
-     */
     function renderEventPlanner(items, filter = 'All') {
         if (!eventPlannerGrid) return;
         eventPlannerGrid.innerHTML = '';
 
-        // Exclude deleted, blank, or null items
         const validItems = (items || []).filter(item => {
             if (!item || typeof item !== 'object') return false;
             const name = item.name || item.title;
             return name && typeof name === 'string' && name.trim().length > 0 && item.is_active !== false;
         });
 
-        // Normalize filter comparison
         const filtered = filter === 'All'
             ? validItems
             : validItems.filter(item => {
@@ -413,9 +390,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (filtered.length === 0) {
             eventPlannerGrid.innerHTML = `
-                <div class="event-planner-empty">
-                    <h4>Abhi koi event section available nahi hai.</h4>
-                    <p>Naye portfolio moments aur styling jald hi add kiye jayenge!</p>
+                <div style="grid-column: 1 / -1; text-align: center; padding: 30px; color: var(--text-light);">
+                    <p>No events found for this category.</p>
                 </div>
             `;
             return;
@@ -427,41 +403,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             const description = eventItem.description || 'Custom crafted styling, ambient illumination, and bespoke floral decor.';
             const slug = eventItem.slug || (title ? title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '');
             const detailUrl = `/events/${slug}`;
-            const waLink = createEventWhatsAppLink(category, title);
+            const waLink = createEventWhatsAppLink(category);
 
-            // Collect media items
             const mediaList = Array.isArray(eventItem.media) ? eventItem.media.filter(m => m.is_active !== false) : [];
             const videos = mediaList.filter(m => m.media_type === 'video');
             const photos = mediaList.filter(m => m.media_type === 'photo');
 
-            // Video check
-            const hasVideos = videos.length > 0 || !!eventItem.video;
-
-            // Summary pill count text
             let mediaBadgeText = '';
             if (videos.length > 0 && photos.length > 0) {
                 mediaBadgeText = `${videos.length} Reels · ${photos.length} Photos`;
             } else if (videos.length > 0) {
-                mediaBadgeText = `${videos.length} ${videos.length === 1 ? 'Reel' : 'Reels'}`;
+                mediaBadgeText = `${videos.length} Reels`;
             } else if (photos.length > 0) {
-                mediaBadgeText = `${photos.length} ${photos.length === 1 ? 'Photo' : 'Photos'}`;
+                mediaBadgeText = `${photos.length} Photos`;
             } else {
-                mediaBadgeText = 'Coming Soon';
+                mediaBadgeText = 'Featured Decor';
             }
 
-            // Preview image priority: cover_image -> photo -> video poster -> fallback
-            let coverPoster = '';
-            if (eventItem.cover_image && typeof eventItem.cover_image === 'string' && eventItem.cover_image.trim()) {
-                coverPoster = eventItem.cover_image.trim();
-            } else if (photos.length > 0 && photos[0].file_url) {
-                coverPoster = photos[0].file_url;
-            } else if (videos.length > 0 && (videos[0].thumbnail_url || videos[0].poster)) {
-                coverPoster = videos[0].thumbnail_url || videos[0].poster;
-            } else if (eventItem.image && typeof eventItem.image === 'string' && eventItem.image.trim()) {
-                coverPoster = eventItem.image.trim();
-            } else {
-                coverPoster = 'assets/images/hero_showcase.jpg';
-            }
+            const coverPoster = eventItem.cover_image || 'assets/images/bridal-shower-decoration-karachi.jpg';
 
             const card = document.createElement('div');
             card.className = 'event-card reveal active';
@@ -472,34 +431,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <span class="event-count-pill">${mediaBadgeText}</span>
                     <img 
                         src="${coverPoster}" 
-                        alt="${title}" 
+                        alt="${title} in Karachi by Creations by H&I" 
                         loading="lazy" 
-                        onerror="this.onerror=null; this.src='assets/images/hero_showcase.jpg';">
-                    ${hasVideos ? `
-                        <div class="event-play-overlay" aria-hidden="true">
-                            <div class="event-play-circle" title="Watch Reels">
-                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                            </div>
-                        </div>
-                    ` : ''}
+                        width="500" 
+                        height="350"
+                        onerror="this.onerror=null; this.src='assets/images/bridal-shower-decoration-karachi.jpg';">
                 </div>
                 <div class="event-card-content">
                     <h3 class="event-card-title">${title}</h3>
                     <p class="event-card-desc">${description}</p>
                 </div>
                 <div class="event-card-actions">
-                    <a href="${detailUrl}" class="btn-event-view-gallery">View ${category} &rarr;</a>
+                    <a href="${detailUrl}" class="btn-event-view-gallery">View Portfolio &rarr;</a>
                     <a href="${waLink}" class="btn-event-wa-icon" target="_blank" rel="noopener noreferrer" aria-label="Inquire about ${title} on WhatsApp" title="Inquire on WhatsApp">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        💬
                     </a>
                 </div>
             `;
 
-            // Entire card click navigates to /events/[slug]
             card.addEventListener('click', (e) => {
-                if (e.target.closest('.btn-event-wa-icon')) {
-                    return;
-                }
+                if (e.target.closest('.btn-event-wa-icon')) return;
                 window.location.href = detailUrl;
             });
 
@@ -507,29 +458,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // =========================================================================
-    // 3. INITIALIZE BOTH SECTIONS & FILTER LISTENERS
-    // =========================================================================
+    // Initialize all sections
     loadServices();
-    renderEventSkeletons();
+    loadFeaturedProducts();
 
     try {
         allEvents = await fetchEventPlannerData();
-
-        // Sort by order ascending
         allEvents.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
-
         renderEventFilters(allEvents);
         renderEventPlanner(allEvents, currentFilter);
     } catch (err) {
         console.error('Failed to initialize Event Planner:', err);
-        if (eventPlannerGrid) {
-            eventPlannerGrid.innerHTML = `
-                <div class="event-planner-empty">
-                    <h4>Abhi koi event section available nahi hai.</h4>
-                    <p>Unable to display Event Planner moments right now.</p>
-                </div>
-            `;
-        }
     }
 });

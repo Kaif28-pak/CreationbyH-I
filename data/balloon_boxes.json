@@ -3,18 +3,22 @@
     {
       "id": "bb-1",
       "title": "Pastel Dream Transparent Balloon Box",
-      "description": "Clear display balloon box with metallic rose gold & blush balloons, twinkling LED fairy lights, and custom name calligraphy vinyl.",
+      "description": "Transparent acrylic surprise box filled with blush pastel balloons, delicate warm fairy lights, and personalized golden vinyl name calligraphy lettering.",
       "image": "assets/images/category-balloon-boxes.jpg",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 1
+      "order": 1,
+      "active": true
     },
     {
       "id": "bb-2",
-      "title": "Surprise Proposal & Birthday Balloon Hamper",
-      "description": "Interactive surprise balloon box with hidden drawer base for cake or luxury perfume, customized with personalized congratulations message.",
-      "image": "assets/images/category-balloon-boxes.jpg",
+      "title": "Surprise Milestone Balloon Hamper",
+      "description": "Interactive celebration surprise balloon hamper with a hidden pull-out base drawer for luxury perfumes, designer chocolates, or fine jewelry gifts.",
+      "image": "assets/images/hero_showcase.jpg",
+      "price": "Custom Quote",
       "featured": true,
-      "order": 2
+      "order": 2,
+      "active": true
     }
   ]
 }
