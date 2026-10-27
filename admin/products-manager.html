@@ -389,12 +389,25 @@
 
                 <div class="form-group">
                     <label for="prod-image">Image URL / File Path</label>
-                    <input type="text" id="prod-image" placeholder="assets/images/products/basket-1.webp or Cloudinary URL">
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="prod-image" placeholder="Image URL or upload via Cloudinary">
+                        <button type="button" id="upload-image-btn" class="btn btn-secondary" style="white-space: nowrap; font-size: 0.8rem; width: auto; padding: 8px 14px;">
+                            📸 Upload Image
+                        </button>
+                    </div>
+                    <div id="image-preview" style="margin-top: 8px; display: none;">
+                        <img src="" id="image-preview-thumb" alt="Preview" style="width: 70px; height: 70px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border);">
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="prod-video">Video / Reel URL (Optional)</label>
-                    <input type="text" id="prod-video" placeholder="assets/videos/reel-1.mp4 (Optional)">
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="prod-video" placeholder="Reel URL or upload via Cloudinary">
+                        <button type="button" id="upload-video-btn" class="btn btn-secondary" style="white-space: nowrap; font-size: 0.8rem; width: auto; padding: 8px 14px;">
+                            🎬 Upload Reel
+                        </button>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -451,6 +464,9 @@
 
     </div>
 
+    <!-- Cloudinary Official Direct Upload Widget -->
+    <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
+
     <!-- Firebase Compat SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -458,3 +474,4 @@
     <script src="/admin/products-manager.js"></script>
 </body>
 </html>
+

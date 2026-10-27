@@ -30,6 +30,61 @@ document.addEventListener('DOMContentLoaded', async () => {
     const titleCounter = document.getElementById('title-counter');
     const descCounter = document.getElementById('desc-counter');
 
+    // Cloudinary Upload Widget Elements
+    const uploadImageBtn = document.getElementById('upload-image-btn');
+    const uploadVideoBtn = document.getElementById('upload-video-btn');
+    const imagePreview = document.getElementById('image-preview');
+    const imagePreviewThumb = document.getElementById('image-preview-thumb');
+
+    // Cloudinary Image Uploader
+    if (uploadImageBtn) {
+        uploadImageBtn.addEventListener('click', () => {
+            if (!window.cloudinary) {
+                alert('Cloudinary is loading. Please check your internet connection.');
+                return;
+            }
+            window.cloudinary.openUploadWidget({
+                cloudName: 'djjvgubrk',
+                uploadPreset: 'ml_default',
+                sources: ['local', 'camera', 'url'],
+                multiple: false,
+                resourceType: 'image',
+                clientAllowedFormats: ['webp', 'jpg', 'jpeg', 'png']
+            }, (error, result) => {
+                if (!error && result && result.event === 'success') {
+                    prodImage.value = result.info.secure_url;
+                    if (imagePreview && imagePreviewThumb) {
+                        imagePreviewThumb.src = result.info.secure_url;
+                        imagePreview.style.display = 'block';
+                    }
+                }
+            });
+        });
+    }
+
+    // Cloudinary Video / Reel Uploader
+    if (uploadVideoBtn) {
+        uploadVideoBtn.addEventListener('click', () => {
+            if (!window.cloudinary) {
+                alert('Cloudinary is loading. Please check your internet connection.');
+                return;
+            }
+            window.cloudinary.openUploadWidget({
+                cloudName: 'djjvgubrk',
+                uploadPreset: 'ml_default',
+                sources: ['local', 'camera', 'url'],
+                multiple: false,
+                resourceType: 'video',
+                clientAllowedFormats: ['mp4', 'mov']
+            }, (error, result) => {
+                if (!error && result && result.event === 'success') {
+                    prodVideo.value = result.info.secure_url;
+                    alert('Video reel uploaded to Cloudinary successfully!');
+                }
+            });
+        });
+    }
+
     const CATEGORIES = [
         'baskets', 'flower_bouquets', 'cakes', 'balloon_boxes',
         'crates', 'frames', 'customized_items', 'trousseau_packing'
@@ -190,6 +245,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const words = prodDesc.value.trim().split(/\s+/).length;
         descCounter.textContent = `${words} words (target: 20-25)`;
 
+        if (p.image && imagePreview && imagePreviewThumb) {
+            imagePreviewThumb.src = p.image;
+            imagePreview.style.display = 'block';
+        } else if (imagePreview) {
+            imagePreview.style.display = 'none';
+        }
+
         formHeading.textContent = `Edit: ${p.title}`;
         saveBtn.textContent = '💾 Update Product';
         cancelBtn.style.display = 'inline-flex';
@@ -210,6 +272,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         titleCounter.textContent = '0 / 60';
         descCounter.textContent = '0 words (target: 20-25)';
         prodActive.checked = true;
+        if (imagePreview) imagePreview.style.display = 'none';
     }
 
     // 5. Save / Add Product Handler
@@ -346,3 +409,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initial Load
     await loadAllProducts();
 });
+
