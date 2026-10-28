@@ -1,20 +1,15 @@
 /**
  * Creations by H&I - Firebase & Firestore Configuration
- * 
- * Instructions:
- * 1. Go to https://console.firebase.google.com/
- * 2. Create a project: "creations-by-handi"
- * 3. Create Cloud Firestore in "Test Mode"
- * 4. Register a Web App (</>) and copy the firebaseConfig object below.
  */
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBfpBpMnfI5pUo3XOryByfW4Lyx11LQSgU",
+    authDomain: "creationbyhandi.firebaseapp.com",
+    projectId: "creationbyhandi",
+    storageBucket: "creationbyhandi.firebasestorage.app",
+    messagingSenderId: "228112600635",
+    appId: "1:228112600635:web:0debba094a00f9ac07561e",
+    measurementId: "G-2JZCD0GF2M"
 };
 
 // Check if valid credentials have been set
@@ -34,12 +29,12 @@ if (typeof firebase !== 'undefined' && isFirebaseConfigured()) {
             firebase.initializeApp(firebaseConfig);
         }
         db = firebase.firestore();
-        console.log('[Firebase] Initialized Cloud Firestore successfully.');
+        console.log('[Firebase] Initialized Cloud Firestore successfully for creationbyhandi.');
     } catch (err) {
         console.warn('[Firebase] Initialization error:', err);
     }
 } else {
-    console.log('[Firebase] Running in Local Fallback mode (Firebase credentials pending).');
+    console.log('[Firebase] Running in Local Fallback mode.');
 }
 
 // Global Firebase Helpers
@@ -110,4 +105,3 @@ window.CreationsFirebase = {
         return null;
     }
 };
-
