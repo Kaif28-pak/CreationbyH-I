@@ -1,9 +1,25 @@
 /**
  * Creations by H&I - Products Manager Script
- * Handles Firestore CRUD & Local JSON import
+ * Handles Authentication, Cloud Firestore CRUD & Cloudinary uploads
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // Auth DOM Elements
+    const authModal = document.getElementById('auth-modal');
+    const authForm = document.getElementById('auth-form');
+    const authEmail = document.getElementById('auth-email');
+    const authPassword = document.getElementById('auth-password');
+    const authError = document.getElementById('auth-error');
+    const authTitle = document.getElementById('auth-title');
+    const authSubtitle = document.getElementById('auth-subtitle');
+    const authSubmitBtn = document.getElementById('auth-submit-btn');
+    const authToggleBtn = document.getElementById('auth-toggle-btn');
+    const authTogglePrompt = document.getElementById('auth-toggle-prompt');
+    const userProfileBadge = document.getElementById('user-profile-badge');
+    const userEmailDisplay = document.getElementById('user-email-display');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    // Panel DOM Elements
     const statusBadge = document.getElementById('firebase-status');
     const productForm = document.getElementById('product-form');
     const formHeading = document.getElementById('form-heading');
@@ -36,7 +52,115 @@ document.addEventListener('DOMContentLoaded', async () => {
     const imagePreview = document.getElementById('image-preview');
     const imagePreviewThumb = document.getElementById('image-preview-thumb');
 
-    // Cloudinary Image Uploader
+    const CATEGORIES = [
+        'baskets', 'flower_bouquets', 'cakes', 'balloon_boxes',
+        'crates', 'frames', 'customized_items', 'trousseau_packing'
+    ];
+
+    let cachedProducts = [];
+    let isSignUpMode = false;
+
+    // =========================================================================
+    // 1. FIREBASE AUTHENTICATION LOGIC
+    // =========================================================================
+
+    if (authToggleBtn) {
+        authToggleBtn.addEventListener('click', () => {
+            isSignUpMode = !isSignUpMode;
+            authError.style.display = 'none';
+            if (isSignUpMode) {
+                authSubtitle.textContent = 'Create New Admin Account';
+                authSubmitBtn.textContent = 'Register Admin Account';
+                authTogglePrompt.textContent = 'Already have an account?';
+                authToggleBtn.textContent = 'Sign In';
+            } else {
+                authSubtitle.textContent = 'Admin Portal Sign In';
+                authSubmitBtn.textContent = 'Sign In';
+                authTogglePrompt.textContent = 'First time setting up?';
+                authToggleBtn.textContent = 'Create Admin Account';
+            }
+        });
+    }
+
+    if (authForm) {
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = authEmail.value.trim();
+            const password = authPassword.value;
+            authError.style.display = 'none';
+            authSubmitBtn.disabled = true;
+            authSubmitBtn.textContent = 'Authenticating...';
+
+            try {
+                if (isSignUpMode) {
+                    await firebase.auth().createUserWithEmailAndPassword(email, password);
+                } else {
+                    await firebase.auth().signInWithEmailAndPassword(email, password);
+                }
+            } catch (err) {
+                authError.style.display = 'block';
+                let friendlyMsg = err.message;
+                if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+                    friendlyMsg = 'Invalid email or password. If this is your first time, click "Create Admin Account" below.';
+                } else if (err.code === 'auth/operation-not-allowed') {
+                    friendlyMsg = 'Email/Password sign-in is not enabled in Firebase Console yet. Please enable it under Authentication > Sign-in method.';
+                }
+                authError.textContent = friendlyMsg;
+            } finally {
+                authSubmitBtn.disabled = false;
+                authSubmitBtn.textContent = isSignUpMode ? 'Register Admin Account' : 'Sign In';
+            }
+        });
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+            if (confirm('Are you sure you want to sign out?')) {
+                await firebase.auth().signOut();
+            }
+        });
+    }
+
+    // Monitor Firebase Auth State
+    if (typeof firebase !== 'undefined' && firebase.auth) {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                if (authModal) authModal.style.display = 'none';
+                if (userProfileBadge) userProfileBadge.style.display = 'inline-flex';
+                if (userEmailDisplay) userEmailDisplay.textContent = user.email;
+                checkStatus();
+                loadAllProducts();
+            } else {
+                if (authModal) authModal.style.display = 'flex';
+                if (userProfileBadge) userProfileBadge.style.display = 'none';
+            }
+        });
+    }
+
+    // =========================================================================
+    // 2. COUNTERS & CLOUDINARY UPLOADERS
+    // =========================================================================
+
+    prodTitle.addEventListener('input', () => {
+        titleCounter.textContent = `${prodTitle.value.length} / 60`;
+    });
+
+    prodDesc.addEventListener('input', () => {
+        const text = prodDesc.value.trim();
+        const words = text ? text.split(/\s+/).length : 0;
+        descCounter.textContent = `${words} words (target: 20-25)`;
+        if (words >= 20 && words <= 25) {
+            descCounter.style.color = 'var(--success)';
+            descCounter.style.fontWeight = 'bold';
+        } else if (words > 25) {
+            descCounter.style.color = 'var(--danger)';
+            descCounter.style.fontWeight = 'normal';
+        } else {
+            descCounter.style.color = 'var(--text-muted)';
+            descCounter.style.fontWeight = 'normal';
+        }
+    });
+
     if (uploadImageBtn) {
         uploadImageBtn.addEventListener('click', () => {
             if (!window.cloudinary) {
@@ -62,7 +186,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Cloudinary Video / Reel Uploader
     if (uploadVideoBtn) {
         uploadVideoBtn.addEventListener('click', () => {
             if (!window.cloudinary) {
@@ -85,36 +208,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    const CATEGORIES = [
-        'baskets', 'flower_bouquets', 'cakes', 'balloon_boxes',
-        'crates', 'frames', 'customized_items', 'trousseau_packing'
-    ];
-
-    let cachedProducts = [];
-
-    // Title input counter
-    prodTitle.addEventListener('input', () => {
-        titleCounter.textContent = `${prodTitle.value.length} / 60`;
-    });
-
-    // Word counter for description
-    prodDesc.addEventListener('input', () => {
-        const text = prodDesc.value.trim();
-        const words = text ? text.split(/\s+/).length : 0;
-        descCounter.textContent = `${words} words (target: 20-25)`;
-        if (words >= 20 && words <= 25) {
-            descCounter.style.color = 'var(--success)';
-            descCounter.style.fontWeight = 'bold';
-        } else if (words > 25) {
-            descCounter.style.color = 'var(--danger)';
-            descCounter.style.fontWeight = 'normal';
-        } else {
-            descCounter.style.color = 'var(--text-muted)';
-            descCounter.style.fontWeight = 'normal';
-        }
-    });
-
-    // 1. Check Firebase Status
+    // Check Firebase Status
     function checkStatus() {
         if (window.CreationsFirebase && window.CreationsFirebase.isConfigured()) {
             statusBadge.className = 'status-badge status-connected';
@@ -127,9 +221,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    const isConnected = checkStatus();
+    checkStatus();
 
-    // 2. Load Products (From Firestore if connected, else from local JSON files)
+    // =========================================================================
+    // 3. PRODUCT CATALOG DATA LOADING
+    // =========================================================================
+
     async function loadAllProducts() {
         productListEl.innerHTML = '<div style="text-align: center; padding: 30px;">Loading catalog...</div>';
         cachedProducts = [];
@@ -146,7 +243,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
 
-        // If Firestore is empty or not yet connected, load local JSONs
+        // If Firestore is empty, load local JSONs
         if (cachedProducts.length === 0) {
             for (const cat of CATEGORIES) {
                 try {
@@ -169,7 +266,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderFilteredList();
     }
 
-    // 3. Render Product List
     function renderFilteredList() {
         const selected = filterCategory.value;
         const filtered = selected === 'all' 
@@ -216,10 +312,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `;
 
-            // Edit button handler
             row.querySelector('.btn-edit').addEventListener('click', () => editProduct(p));
-
-            // Delete button handler
             row.querySelector('.btn-danger').addEventListener('click', () => deleteProduct(p.id, p.title));
 
             productListEl.appendChild(row);
@@ -228,7 +321,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     filterCategory.addEventListener('change', renderFilteredList);
 
-    // 4. Edit Product into form
+    // =========================================================================
+    // 4. FORM CRUD HANDLERS
+    // =========================================================================
+
     function editProduct(p) {
         editDocIdInput.value = p.id;
         prodCategory.value = p.category || 'baskets';
@@ -275,12 +371,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (imagePreview) imagePreview.style.display = 'none';
     }
 
-    // 5. Save / Add Product Handler
+    // Save Product
     productForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            alert('Security Error: You must be logged in as an Admin to save products.');
+            return;
+        }
+
         if (!window.CreationsFirebase || !window.CreationsFirebase.isConfigured()) {
-            alert('Firebase credentials not set in js/firebase-config.js yet!\n\nPlease paste your firebaseConfig values in js/firebase-config.js to enable saving directly to Firestore.');
+            alert('Firebase credentials not set in js/firebase-config.js yet!');
             return;
         }
 
@@ -306,11 +408,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         try {
             if (docId && !docId.startsWith('local_')) {
-                // Update existing Firestore doc
                 await db.collection('products').doc(docId).set(productData, { merge: true });
                 alert(`Product "${productData.title}" updated successfully in Firestore!`);
             } else {
-                // Add new doc
                 const newDocRef = await db.collection('products').add(productData);
                 alert(`Product "${productData.title}" added successfully! Doc ID: ${newDocRef.id}`);
             }
@@ -325,14 +425,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // 6. Delete Product Handler
+    // Delete Product
     async function deleteProduct(id, title) {
-        if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
-
-        if (!window.CreationsFirebase || !window.CreationsFirebase.isConfigured()) {
-            alert('Firebase not connected. Cannot delete from local static files directly from browser.');
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            alert('Security Error: You must be logged in to delete products.');
             return;
         }
+
+        if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
 
         if (id.startsWith('local_')) {
             alert('This is a local static JSON item. Once you import to Firebase, you can delete it anytime!');
@@ -349,10 +450,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // 7. 1-Click Sync Local JSON into Firestore
+    // 1-Click Sync Local JSON to Firestore
     syncLocalBtn.addEventListener('click', async () => {
-        if (!window.CreationsFirebase || !window.CreationsFirebase.isConfigured()) {
-            alert('Please add your Firebase credentials in js/firebase-config.js first!');
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            alert('Security Error: You must be signed in to import products.');
             return;
         }
 
@@ -405,8 +507,4 @@ document.addEventListener('DOMContentLoaded', async () => {
             syncLocalBtn.textContent = '🔄 Import Local JSON to Firebase';
         }
     });
-
-    // Initial Load
-    await loadAllProducts();
 });
-
