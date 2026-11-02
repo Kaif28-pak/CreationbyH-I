@@ -398,14 +398,22 @@
                 <div class="form-group">
                     <label for="prod-category">Category</label>
                     <select id="prod-category" required>
-                        <option value="baskets">Luxury Gift Baskets & Hampers</option>
-                        <option value="flower_bouquets">Fresh Flower Bouquets</option>
-                        <option value="cakes">Customized Theme Cakes</option>
-                        <option value="balloon_boxes">Customized Balloon Boxes</option>
-                        <option value="crates">Wooden Gift Crates</option>
-                        <option value="frames">Personalized Photo Frames</option>
-                        <option value="customized_items">Personalized Mugs, Pens & Notebooks</option>
-                        <option value="trousseau_packing">Wedding Trousseau Packing</option>
+                        <optgroup label="Gift Collections">
+                            <option value="baskets">Luxury Gift Baskets & Hampers</option>
+                            <option value="flower_bouquets">Fresh Flower Bouquets</option>
+                            <option value="cakes">Customized Theme Cakes</option>
+                            <option value="balloon_boxes">Customized Balloon Boxes</option>
+                            <option value="crates">Wooden Gift Crates</option>
+                            <option value="frames">Personalized Photo Frames</option>
+                            <option value="customized_items">Personalized Mugs, Pens & Notebooks</option>
+                            <option value="trousseau_packing">Wedding Trousseau Packing</option>
+                        </optgroup>
+                        <optgroup label="Event Celebrations & Reels">
+                            <option value="bridal-shower">Bridal Shower Event</option>
+                            <option value="wedding-event">Wedding Event</option>
+                            <option value="birthday-event">Birthday Event</option>
+                            <option value="aqeeqah-decor">Aqeeqah Decor</option>
+                        </optgroup>
                     </select>
                 </div>
 
@@ -480,22 +488,28 @@
         <div class="panel-card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
                 <h2 class="panel-title" style="margin-bottom: 0; border: none; padding: 0;">Catalog Products</h2>
-                <button type="button" id="sync-local-btn" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">
-                    🔄 Import Local JSON to Firebase
-                </button>
+                
             </div>
 
             <div class="filter-bar">
                 <select id="filter-category">
-                    <option value="all">All Categories</option>
-                    <option value="baskets">Luxury Gift Baskets</option>
-                    <option value="flower_bouquets">Flower Bouquets</option>
-                    <option value="cakes">Theme Cakes</option>
-                    <option value="balloon_boxes">Balloon Boxes</option>
-                    <option value="crates">Wooden Crates</option>
-                    <option value="frames">Photo Frames</option>
-                    <option value="customized_items">Personalized Mugs/Pens</option>
-                    <option value="trousseau_packing">Trousseau Trays</option>
+                    <option value="all">All Items & Categories</option>
+                    <optgroup label="Gift Collections">
+                        <option value="baskets">Luxury Gift Baskets</option>
+                        <option value="flower_bouquets">Flower Bouquets</option>
+                        <option value="cakes">Theme Cakes</option>
+                        <option value="balloon_boxes">Balloon Boxes</option>
+                        <option value="crates">Wooden Crates</option>
+                        <option value="frames">Photo Frames</option>
+                        <option value="customized_items">Personalized Mugs/Pens</option>
+                        <option value="trousseau_packing">Trousseau Trays</option>
+                    </optgroup>
+                    <optgroup label="Events & Reels">
+                        <option value="bridal-shower">Bridal Shower</option>
+                        <option value="wedding-event">Wedding Event</option>
+                        <option value="birthday-event">Birthday Event</option>
+                        <option value="aqeeqah-decor">Aqeeqah Decor</option>
+                    </optgroup>
                 </select>
                 <span id="product-count" style="font-size: 0.85rem; color: var(--text-muted); margin-left: auto;">0 products</span>
             </div>

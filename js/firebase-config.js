@@ -37,12 +37,12 @@ if (typeof firebase !== 'undefined' && isFirebaseConfigured()) {
     console.log('[Firebase] Running in Local Fallback mode.');
 }
 
-// Global Firebase Helpers
+// Global Firebase Helpers - Firestore is the SOLE Source of Truth
 window.CreationsFirebase = {
     isConfigured: isFirebaseConfigured,
     getDb: () => db,
     
-    // Fetch products for a category (with fallback)
+    // Fetch products for a category
     async getProductsByCategory(categoryId) {
         if (db && isFirebaseConfigured()) {
             try {
@@ -51,22 +51,20 @@ window.CreationsFirebase = {
                     .where('active', '!=', false)
                     .get();
 
-                if (!snapshot.empty) {
-                    const products = [];
-                    snapshot.forEach(doc => {
-                        products.push({ id: doc.id, ...doc.data() });
-                    });
-                    products.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
-                    return products;
-                }
+                const products = [];
+                snapshot.forEach(doc => {
+                    products.push({ id: doc.id, ...doc.data() });
+                });
+                products.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
+                return products; // Return exact products (empty array if user deleted/has none)
             } catch (err) {
-                console.warn('[Firebase] Firestore fetch failed, falling back to local JSON:', err);
+                console.warn('[Firebase] Firestore fetch failed:', err);
             }
         }
-        return null; // Signals to use local JSON fallback
+        return null; // Fallback only when Firebase is unconfigured
     },
 
-    // Fetch featured products
+    // Fetch featured products for homepage
     async getFeaturedProducts() {
         if (db && isFirebaseConfigured()) {
             try {
@@ -76,13 +74,11 @@ window.CreationsFirebase = {
                     .limit(6)
                     .get();
 
-                if (!snapshot.empty) {
-                    const featured = [];
-                    snapshot.forEach(doc => {
-                        featured.push({ id: doc.id, ...doc.data() });
-                    });
-                    return featured;
-                }
+                const featured = [];
+                snapshot.forEach(doc => {
+                    featured.push({ id: doc.id, ...doc.data() });
+                });
+                return featured;
             } catch (err) {
                 console.warn('[Firebase] Firestore featured fetch failed:', err);
             }
@@ -90,7 +86,39 @@ window.CreationsFirebase = {
         return null;
     },
 
-    // Fetch single product by ID or Slug
+    // Fetch event media / reels for event pages
+    async getEventMedia(slug) {
+        if (db && isFirebaseConfigured()) {
+            try {
+                const snapshot = await db.collection('products')
+                    .where('category', '==', slug)
+                    .where('active', '!=', false)
+                    .get();
+
+                const media = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    media.push({
+                        id: doc.id,
+                        title: data.title || '',
+                        description: data.description || '',
+                        media_type: data.video ? 'video' : 'photo',
+                        file_url: data.video || data.image || '',
+                        thumbnail_url: data.image || '',
+                        order: Number(data.order) || 1,
+                        is_active: data.active !== false
+                    });
+                });
+                media.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
+                return media;
+            } catch (err) {
+                console.warn('[Firebase] Firestore event media fetch error:', err);
+            }
+        }
+        return null;
+    },
+
+    // Fetch single product by ID
     async getProductById(productId) {
         if (db && isFirebaseConfigured()) {
             try {
