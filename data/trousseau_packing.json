@@ -1,24 +1,3 @@
 {
-  "products": [
-    {
-      "id": "tp-1",
-      "title": "Crystal Acrylic Bridal Dress Tray",
-      "description": "Crystal clear acrylic bridal trousseau display tray with golden metallic handles, satin ribbons, and fresh pastel floral corner arrangements for wedding suits.",
-      "image": "assets/images/wedding-trousseau-packing-karachi.jpg",
-      "price": "Custom Quote",
-      "featured": true,
-      "order": 1,
-      "active": true
-    },
-    {
-      "id": "tp-2",
-      "title": "Royal Shadi Saman Vanity Hamper",
-      "description": "Royal embellished wedding vanity trunk styled for bridal cosmetics, designer perfumes, jewelry sets, and coordinated shadi saman presentation across Karachi.",
-      "image": "assets/images/bridal-shower-decoration-karachi.jpg",
-      "price": "Custom Quote",
-      "featured": true,
-      "order": 2,
-      "active": true
-    }
-  ]
+  "products": []
 }
