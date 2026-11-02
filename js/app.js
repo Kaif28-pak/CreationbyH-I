@@ -198,14 +198,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             const card = document.createElement('div');
             card.className = 'service-card reveal active';
             card.innerHTML = `
-                <a href="${pageLink}" style="text-decoration: none; color: inherit; display: block;">
+                <a href="${pageLink}" style="text-decoration: none; color: inherit; display: block; width: 100%;">
                     <div class="service-img">
-                        <img src="${imgSrc}" alt="${item.title} by Creations by H&I" loading="lazy" width="400" height="300" onerror="this.onerror=null; this.src='${fallbackImg}';">
+                        <img src="${imgSrc}" alt="${item.title} by Creations by H&I" loading="lazy" width="300" height="300" onerror="this.onerror=null; this.src='${fallbackImg}';">
                     </div>
+                    <h3>${item.title}</h3>
                 </a>
-                <h3>${item.title}</h3>
-                <p>${item.description || ''}</p>
-                <a href="${pageLink}" class="btn wa-btn" style="border: 1.5px solid var(--accent-pink); padding: 8px 20px; font-size: 13px;">View ${item.title}</a>
+                <div class="service-card-footer">
+                    <a href="${pageLink}" class="btn wa-btn" style="border: 1.5px solid var(--accent-pink); padding: 9px 20px; font-size: 13px; font-weight: 600;">View Collection</a>
+                </div>
             `;
 
             servicesGrid.appendChild(card);
