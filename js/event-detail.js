@@ -73,34 +73,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function fetchCategory(slug) {
         if (!slug) return null;
 
-        // 0. Live Cloud Firestore (Sole source of truth when configured)
-        if (window.CreationsFirebase && window.CreationsFirebase.isConfigured()) {
-            try {
-                const fbMedia = await window.CreationsFirebase.getEventMedia(slug);
-                if (Array.isArray(fbMedia)) {
-                    let catMeta = {
-                        name: slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-                        slug: slug,
-                        description: 'Custom crafted styling, ambient illumination, floral decor, and bespoke ambiance in Karachi.',
-                        cover_image: '/assets/images/hero_showcase.jpg',
-                        media: fbMedia
-                    };
-                    try {
-                        const res = await fetch(`/data/events.json?t=${Date.now()}`);
-                        if (res.ok) {
-                            const data = await res.json();
-                            const list = data.categories || data.events || [];
-                            const match = list.find(c => c.slug === slug);
-                            if (match) {
-                                catMeta = { ...match, media: fbMedia };
-                            }
-                        }
-                    } catch (e) {}
-                    return catMeta;
-                }
-            } catch (err) {}
-        }
-
         // 1. API endpoint
         try {
             const res = await fetch(`/api/event-categories?slug=${slug}&t=${Date.now()}`);

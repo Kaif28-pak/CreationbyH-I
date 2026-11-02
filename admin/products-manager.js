@@ -54,8 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const CATEGORIES = [
         'baskets', 'flower_bouquets', 'cakes', 'balloon_boxes',
-        'crates', 'frames', 'customized_items', 'trousseau_packing',
-        'bridal-shower', 'wedding-event', 'birthday-event', 'aqeeqah-decor'
+        'crates', 'frames', 'customized_items', 'trousseau_packing'
     ];
 
     let cachedProducts = [];
@@ -244,6 +243,26 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
 
+        // If Firestore is empty, load local JSONs
+        if (cachedProducts.length === 0) {
+            for (const cat of CATEGORIES) {
+                try {
+                    const res = await fetch(`/data/${cat}.json?t=${Date.now()}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        const items = data.products || (Array.isArray(data) ? data : []);
+                        items.forEach((item, index) => {
+                            cachedProducts.push({
+                                id: `local_${cat}_${index}`,
+                                category: cat,
+                                ...item
+                            });
+                        });
+                    }
+                } catch (e) {}
+            }
+        }
+
         renderFilteredList();
     }
 
@@ -416,7 +435,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
 
-
+        if (id.startsWith('local_')) {
+            alert('This is a local static JSON item. Once you import to Firebase, you can delete it anytime!');
+            return;
+        }
 
         try {
             const db = window.CreationsFirebase.getDb();
@@ -428,8 +450,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Optional Sync Local JSON to Firestore (if button exists)
-    if (syncLocalBtn) syncLocalBtn.addEventListener('click', async () => {
+    // 1-Click Sync Local JSON to Firestore
+    syncLocalBtn.addEventListener('click', async () => {
         const user = firebase.auth().currentUser;
         if (!user) {
             alert('Security Error: You must be signed in to import products.');

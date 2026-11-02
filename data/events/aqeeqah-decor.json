@@ -5,5 +5,26 @@
   "cover_image": "assets/images/category-crates.jpg",
   "order": 4,
   "is_active": true,
-  "media": []
+  "media": [
+    {
+      "id": "aq-reel-1",
+      "title": "Royal Baby Aqeeqah Stage & Cradle Setup",
+      "description": "Traditional gold and ivory Aqeeqah cradle decor with fresh pastel florals and fairy light backdrop.",
+      "media_type": "video",
+      "file_url": "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
+      "thumbnail_url": "assets/images/category-crates.jpg",
+      "order": 1,
+      "is_active": true
+    },
+    {
+      "id": "aq-photo-1",
+      "title": "Baby Name Marquee & Theme Dessert Table",
+      "description": "Custom light-up baby name marquee with balloon clusters and customized giveaway table.",
+      "media_type": "photo",
+      "file_url": "assets/images/category-crates.jpg",
+      "thumbnail_url": "assets/images/category-crates.jpg",
+      "order": 2,
+      "is_active": true
+    }
+  ]
 }

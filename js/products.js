@@ -109,33 +109,47 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         let rawProducts = [];
-        let isFirebaseActive = false;
 
-        // 1. Cloud Firestore is the SOLE authority when configured
+        // 1. Fetch live from Cloud Firestore if configured
         if (window.CreationsFirebase && window.CreationsFirebase.isConfigured()) {
-            isFirebaseActive = true;
             try {
                 const fbProducts = await window.CreationsFirebase.getProductsByCategory(categoryId);
-                if (Array.isArray(fbProducts)) {
+                if (fbProducts && fbProducts.length > 0) {
                     rawProducts = fbProducts;
                     console.log(`[Products] Loaded ${rawProducts.length} items from Cloud Firestore.`);
                 }
             } catch (fbErr) {
-                console.warn('[Products] Firebase fetch error:', fbErr);
+                console.warn('[Products] Firebase fetch fallback:', fbErr);
             }
         }
 
-        // 2. Fallback only if Firebase is not active
-        if (!isFirebaseActive) {
+        // 2. Local JSON fallback
+        if (rawProducts.length === 0) {
             try {
                 const localResponse = await fetch(`data/${categoryId}.json?t=${Date.now()}`, {
-                    cache: 'no-store'
+                    cache: 'no-store',
+                    headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
                 });
                 if (localResponse.ok) {
                     const localData = await localResponse.json();
                     rawProducts = (localData && localData.products) ? localData.products : (Array.isArray(localData) ? localData : []);
                 }
-            } catch (localErr) {}
+            } catch (localErr) {
+                console.warn('[Products] Local fetch fallback...');
+            }
+        }
+
+        // 3. GitHub Raw fallback
+        if (rawProducts.length === 0) {
+            try {
+                const ghResponse = await fetch(`https://raw.githubusercontent.com/Kaif28-pak/CreationbyH-I/main/data/${categoryId}.json?t=${Date.now()}`, {
+                    cache: 'no-store'
+                });
+                if (ghResponse.ok) {
+                    const ghData = await ghResponse.json();
+                    rawProducts = (ghData && ghData.products) ? ghData.products : (Array.isArray(ghData) ? ghData : []);
+                }
+            } catch (ghErr) {}
         }
 
         // Filter active products with titles
