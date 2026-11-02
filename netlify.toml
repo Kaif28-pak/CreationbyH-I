@@ -24,11 +24,6 @@
     Expires = "0"
 
 [[redirects]]
-  from = "/config.yml"
-  to = "/admin/config.yml"
-  status = 200
-
-[[redirects]]
   from = "/about-us"
   to = "/about-us.html"
   status = 200
