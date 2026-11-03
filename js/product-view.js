@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const WA_PHONE = '923096708144';
 
     const urlParams = new URLSearchParams(window.location.search);
-    const categoryId = urlParams.get('category') || urlParams.get('cat') || urlParams.get('id');
-    const productParam = urlParams.get('id') || urlParams.get('product') || urlParams.get('index');
+    let categoryId = urlParams.get('category') || urlParams.get('cat');
+    let productParam = urlParams.get('id') || urlParams.get('product') || urlParams.get('index');
 
     const categoryMap = {
         'flower_bouquets': { 
@@ -49,6 +49,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
+    // If only ?id= is given and matches a category key, treat as categoryId
+    if (!categoryId && productParam && categoryMap[productParam]) {
+        categoryId = productParam;
+        productParam = null;
+    }
+
+    // Direct Firestore lookup if categoryId is missing but product doc ID is provided
+    let directProductDoc = null;
+    if (!categoryId && productParam && window.CreationsFirebase && window.CreationsFirebase.isConfigured()) {
+        try {
+            directProductDoc = await window.CreationsFirebase.getProductById(productParam);
+            if (directProductDoc && directProductDoc.category && categoryMap[directProductDoc.category]) {
+                categoryId = directProductDoc.category;
+            }
+        } catch (e) {
+            console.warn('[ProductView] Direct lookup error:', e);
+        }
+    }
+
     if (!categoryId || !categoryMap[categoryId]) {
         contentArea.innerHTML = `
             <div class="error-box" style="text-align: center; padding: 40px;">
@@ -76,8 +95,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         let rawProducts = [];
 
+        if (directProductDoc) {
+            rawProducts = [directProductDoc];
+        }
+
         // 1. Fetch live from Cloud Firestore if configured
-        if (window.CreationsFirebase && window.CreationsFirebase.isConfigured()) {
+        if (rawProducts.length === 0 && window.CreationsFirebase && window.CreationsFirebase.isConfigured()) {
             try {
                 if (productParam && isNaN(parseInt(productParam, 10))) {
                     const singleDoc = await window.CreationsFirebase.getProductById(productParam);
@@ -156,6 +179,55 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         document.title = `${product.title} | Creations by H&I`;
         if (breadcrumbProductName) breadcrumbProductName.textContent = product.title;
+
+        // Dynamic Meta Description for SEO
+        const metaDesc = product.description || product.shortDescription || `Order ${product.title} from Creations by H&I. Handcrafted in Karachi, customized for birthdays, weddings, and celebrations. Order on WhatsApp!`;
+        const metaDescTag = document.querySelector('meta[name="description"]');
+        if (metaDescTag) metaDescTag.setAttribute('content', metaDesc);
+
+        // Dynamic OpenGraph / Social Share Meta Tags for WhatsApp & Social Previews
+        function updateMeta(prop, val) {
+            if (!val) return;
+            let el = document.querySelector(`meta[property="${prop}"]`);
+            if (!el) {
+                el = document.createElement('meta');
+                el.setAttribute('property', prop);
+                document.head.appendChild(el);
+            }
+            el.setAttribute('content', val);
+        }
+        updateMeta('og:title', `${product.title} | Creations by H&I Karachi`);
+        updateMeta('og:description', metaDesc);
+        if (product.image) updateMeta('og:image', product.image);
+        updateMeta('og:url', window.location.href);
+
+        // Schema.org Product Structured Data (JSON-LD) for Google Rich Snippets
+        let jsonLdScript = document.getElementById('product-schema-jsonld');
+        if (!jsonLdScript) {
+            jsonLdScript = document.createElement('script');
+            jsonLdScript.id = 'product-schema-jsonld';
+            jsonLdScript.type = 'application/ld+json';
+            document.head.appendChild(jsonLdScript);
+        }
+        const schema = {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": product.title,
+            "description": metaDesc,
+            "image": product.image ? [product.image] : [],
+            "brand": {
+                "@type": "Brand",
+                "name": "Creations by H&I"
+            },
+            "offers": {
+                "@type": "Offer",
+                "url": window.location.href,
+                "priceCurrency": "PKR",
+                "price": product.price ? product.price : 0,
+                "availability": "https://schema.org/InStock"
+            }
+        };
+        jsonLdScript.textContent = JSON.stringify(schema);
 
         const encodedOrderMessage = encodeURIComponent(
             `Hello Creations by H&I!\n\nI want to order:\n*${product.title}*\nCollection: ${categoryInfo.title}\n\nPlease share availability and customization options.`

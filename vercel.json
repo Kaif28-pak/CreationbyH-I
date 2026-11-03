@@ -11,6 +11,14 @@
       "destination": "/contact.html"
     },
     {
+      "source": "/product",
+      "destination": "/product-view.html"
+    },
+    {
+      "source": "/product-view",
+      "destination": "/product-view.html"
+    },
+    {
       "source": "/events",
       "destination": "/events.html"
     },

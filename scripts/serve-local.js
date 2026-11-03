@@ -32,6 +32,8 @@ const server = http.createServer((req, res) => {
 
   // Handle category slug rewrites locally
   const slugToCat = {
+    '/product': 'product-view.html',
+    '/product-view': 'product-view.html',
     '/flower-bouquets-karachi': 'products.html',
     '/customized-theme-cakes-karachi': 'products.html',
     '/gift-baskets-hampers-karachi': 'products.html',
