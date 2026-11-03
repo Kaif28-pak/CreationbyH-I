@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 order: 1
             },
             {
-                name: "Wedding Event",
+                name: "Wedding Home Decor",
                 slug: "wedding-event",
                 description: "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
                 cover_image: "assets/images/creations-by-handi-luxury-gifting-event-banner.webp?v=1",

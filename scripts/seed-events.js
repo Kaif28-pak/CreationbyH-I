@@ -68,7 +68,7 @@ const defaultCategories = [
         ]
     },
     {
-        name: "Wedding Event",
+        name: "Wedding Home Decor",
         slug: "wedding-event",
         description: "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
         cover_image: "assets/images/hero_showcase.jpg",
