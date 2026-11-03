@@ -6,5 +6,16 @@
   "video": "",
   "order": 4,
   "is_active": true,
-  "media": []
+  "media": [
+    {
+      "id": "aqeeqah-photo-1",
+      "title": "Musa Aqeeqah Ceremony Jungle Theme",
+      "description": "Simba and Lion King character cutouts, illuminated letters 'MUSA', lush greenery, and balloon arch decor in Karachi.",
+      "media_type": "photo",
+      "file_url": "assets/images/event-aqeeqah-decor.jpg",
+      "thumbnail_url": "assets/images/event-aqeeqah-decor.jpg",
+      "order": 1,
+      "is_active": true
+    }
+  ]
 }

@@ -8,27 +8,70 @@
       "video": "",
       "order": 1,
       "is_active": true,
-      "media": []
+      "media": [
+        {
+          "id": "shower-photo-1",
+          "title": "Welcome to Kiran's Baby Shower",
+          "description": "Grass backdrop with pastel balloon garland, custom easel welcome board, and gold cylinder cake plinths.",
+          "media_type": "photo",
+          "file_url": "assets/images/event-baby-shower.jpg",
+          "thumbnail_url": "assets/images/event-baby-shower.jpg",
+          "order": 1,
+          "is_active": true
+        }
+      ]
     },
     {
       "name": "Wedding Home Decor",
       "slug": "wedding-home-decor",
       "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
       "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
-      "video": "assets/videos/event-celebration-reel.mp4",
+      "video": "",
       "order": 2,
       "is_active": true,
-      "media": []
+      "media": [
+        {
+          "id": "wedding-photo-1",
+          "title": "Royal Wedding Home Decor & Floral Walkway",
+          "description": "Opulent floral stages, candlelit Nikah walkways, and luxury ambient illumination in Karachi.",
+          "media_type": "photo",
+          "file_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
+          "thumbnail_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
+          "order": 1,
+          "is_active": true
+        }
+      ]
     },
     {
       "name": "Birthday Event",
       "slug": "birthday-event",
       "description": "Intimate canopy teepee tents, enchanted fairy lights, marquee letters, and customized theme birthday decor.",
       "cover_image": "assets/images/event-birthday-decor.jpg?v=1",
-      "video": "",
+      "video": "assets/videos/event-celebration-reel.mp4",
       "order": 3,
       "is_active": true,
-      "media": []
+      "media": [
+        {
+          "id": "bday-reel-1",
+          "title": "Happy Birthday Celebration Reel",
+          "description": "Fairy lights canopy teepee tent, custom marquee lighting, and celebration ambiance in Karachi.",
+          "media_type": "video",
+          "file_url": "assets/videos/event-celebration-reel.mp4",
+          "thumbnail_url": "assets/images/event-birthday-decor.jpg",
+          "order": 1,
+          "is_active": true
+        },
+        {
+          "id": "bday-photo-1",
+          "title": "Canopy Teepee Tent & Balloon Styling",
+          "description": "Cozy indoor tent setup with warm fairy lights, custom balloons, and illuminated letters.",
+          "media_type": "photo",
+          "file_url": "assets/images/event-birthday-decor.jpg",
+          "thumbnail_url": "assets/images/event-birthday-decor.jpg",
+          "order": 2,
+          "is_active": true
+        }
+      ]
     },
     {
       "name": "Aqeeqah Decor",
@@ -38,7 +81,18 @@
       "video": "",
       "order": 4,
       "is_active": true,
-      "media": []
+      "media": [
+        {
+          "id": "aqeeqah-photo-1",
+          "title": "Musa Aqeeqah Ceremony Jungle Theme",
+          "description": "Simba and Lion King character cutouts, illuminated letters 'MUSA', lush greenery, and balloon arch decor in Karachi.",
+          "media_type": "photo",
+          "file_url": "assets/images/event-aqeeqah-decor.jpg",
+          "thumbnail_url": "assets/images/event-aqeeqah-decor.jpg",
+          "order": 1,
+          "is_active": true
+        }
+      ]
     }
   ],
   "events": [
@@ -50,27 +104,70 @@
       "video": "",
       "order": 1,
       "is_active": true,
-      "media": []
+      "media": [
+        {
+          "id": "shower-photo-1",
+          "title": "Welcome to Kiran's Baby Shower",
+          "description": "Grass backdrop with pastel balloon garland, custom easel welcome board, and gold cylinder cake plinths.",
+          "media_type": "photo",
+          "file_url": "assets/images/event-baby-shower.jpg",
+          "thumbnail_url": "assets/images/event-baby-shower.jpg",
+          "order": 1,
+          "is_active": true
+        }
+      ]
     },
     {
       "name": "Wedding Home Decor",
       "slug": "wedding-home-decor",
       "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
       "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
-      "video": "assets/videos/event-celebration-reel.mp4",
+      "video": "",
       "order": 2,
       "is_active": true,
-      "media": []
+      "media": [
+        {
+          "id": "wedding-photo-1",
+          "title": "Royal Wedding Home Decor & Floral Walkway",
+          "description": "Opulent floral stages, candlelit Nikah walkways, and luxury ambient illumination in Karachi.",
+          "media_type": "photo",
+          "file_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
+          "thumbnail_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
+          "order": 1,
+          "is_active": true
+        }
+      ]
     },
     {
       "name": "Birthday Event",
       "slug": "birthday-event",
       "description": "Intimate canopy teepee tents, enchanted fairy lights, marquee letters, and customized theme birthday decor.",
       "cover_image": "assets/images/event-birthday-decor.jpg?v=1",
-      "video": "",
+      "video": "assets/videos/event-celebration-reel.mp4",
       "order": 3,
       "is_active": true,
-      "media": []
+      "media": [
+        {
+          "id": "bday-reel-1",
+          "title": "Happy Birthday Celebration Reel",
+          "description": "Fairy lights canopy teepee tent, custom marquee lighting, and celebration ambiance in Karachi.",
+          "media_type": "video",
+          "file_url": "assets/videos/event-celebration-reel.mp4",
+          "thumbnail_url": "assets/images/event-birthday-decor.jpg",
+          "order": 1,
+          "is_active": true
+        },
+        {
+          "id": "bday-photo-1",
+          "title": "Canopy Teepee Tent & Balloon Styling",
+          "description": "Cozy indoor tent setup with warm fairy lights, custom balloons, and illuminated letters.",
+          "media_type": "photo",
+          "file_url": "assets/images/event-birthday-decor.jpg",
+          "thumbnail_url": "assets/images/event-birthday-decor.jpg",
+          "order": 2,
+          "is_active": true
+        }
+      ]
     },
     {
       "name": "Aqeeqah Decor",
@@ -80,7 +177,18 @@
       "video": "",
       "order": 4,
       "is_active": true,
-      "media": []
+      "media": [
+        {
+          "id": "aqeeqah-photo-1",
+          "title": "Musa Aqeeqah Ceremony Jungle Theme",
+          "description": "Simba and Lion King character cutouts, illuminated letters 'MUSA', lush greenery, and balloon arch decor in Karachi.",
+          "media_type": "photo",
+          "file_url": "assets/images/event-aqeeqah-decor.jpg",
+          "thumbnail_url": "assets/images/event-aqeeqah-decor.jpg",
+          "order": 1,
+          "is_active": true
+        }
+      ]
     }
   ]
 }

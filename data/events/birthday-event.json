@@ -3,8 +3,29 @@
   "slug": "birthday-event",
   "description": "Intimate canopy teepee tents, enchanted fairy lights, marquee letters, and customized theme birthday decor.",
   "cover_image": "assets/images/event-birthday-decor.jpg?v=1",
-  "video": "",
+  "video": "assets/videos/event-celebration-reel.mp4",
   "order": 3,
   "is_active": true,
-  "media": []
+  "media": [
+    {
+      "id": "bday-reel-1",
+      "title": "Happy Birthday Celebration Reel",
+      "description": "Fairy lights canopy teepee tent, custom marquee lighting, and celebration ambiance in Karachi.",
+      "media_type": "video",
+      "file_url": "assets/videos/event-celebration-reel.mp4",
+      "thumbnail_url": "assets/images/event-birthday-decor.jpg",
+      "order": 1,
+      "is_active": true
+    },
+    {
+      "id": "bday-photo-1",
+      "title": "Canopy Teepee Tent & Balloon Styling",
+      "description": "Cozy indoor tent setup with warm fairy lights, custom balloons, and illuminated letters.",
+      "media_type": "photo",
+      "file_url": "assets/images/event-birthday-decor.jpg",
+      "thumbnail_url": "assets/images/event-birthday-decor.jpg",
+      "order": 2,
+      "is_active": true
+    }
+  ]
 }

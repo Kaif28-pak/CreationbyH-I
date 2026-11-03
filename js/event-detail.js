@@ -170,6 +170,32 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Extract active media items
         mediaItems = Array.isArray(cat.media) ? cat.media.filter(m => m.is_active !== false) : [];
+        if (mediaItems.length === 0) {
+            if (cat.video) {
+                mediaItems.push({
+                    id: `${cat.slug || 'event'}-reel-main`,
+                    title: `${name} Celebration Reel`,
+                    description: cat.description || 'Full celebration ambiance and bespoke styling.',
+                    media_type: 'video',
+                    file_url: cat.video,
+                    thumbnail_url: cat.cover_image || '',
+                    order: 1,
+                    is_active: true
+                });
+            }
+            if (cat.cover_image) {
+                mediaItems.push({
+                    id: `${cat.slug || 'event'}-photo-main`,
+                    title: `${name} Showcase Decor`,
+                    description: cat.description || 'Custom crafted styling, ambient illumination, and floral decor.',
+                    media_type: 'photo',
+                    file_url: cat.cover_image,
+                    thumbnail_url: cat.cover_image,
+                    order: 2,
+                    is_active: true
+                });
+            }
+        }
         mediaItems.sort((a, b) => (Number(a.order) || 1) - (Number(b.order) || 1));
 
         const videosCount = mediaItems.filter(m => m.media_type === 'video').length;

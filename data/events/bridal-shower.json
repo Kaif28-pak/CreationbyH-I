@@ -6,5 +6,16 @@
   "video": "",
   "order": 1,
   "is_active": true,
-  "media": []
+  "media": [
+    {
+      "id": "shower-photo-1",
+      "title": "Welcome to Kiran's Baby Shower",
+      "description": "Grass backdrop with pastel balloon garland, custom easel welcome board, and gold cylinder cake plinths.",
+      "media_type": "photo",
+      "file_url": "assets/images/event-baby-shower.jpg",
+      "thumbnail_url": "assets/images/event-baby-shower.jpg",
+      "order": 1,
+      "is_active": true
+    }
+  ]
 }

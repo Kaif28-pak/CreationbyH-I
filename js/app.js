@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 slug: "wedding-home-decor",
                 description: "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
                 cover_image: "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
-                video: "assets/videos/event-celebration-reel.mp4",
+                video: "",
                 order: 2
             },
             {
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 slug: "birthday-event",
                 description: "Intimate canopy teepee tents, enchanted fairy lights, marquee letters, and customized theme birthday decor.",
                 cover_image: "assets/images/event-birthday-decor.jpg?v=1",
-                video: "",
+                video: "assets/videos/event-celebration-reel.mp4",
                 order: 3
             },
             {
