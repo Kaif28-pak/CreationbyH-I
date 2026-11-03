@@ -1,10 +1,11 @@
 {
   "categories": [
     {
-      "name": "Bridal Shower",
+      "name": "Bridal & Baby Shower",
       "slug": "bridal-shower",
-      "description": "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
-      "cover_image": "assets/images/bridal-shower-decoration-karachi.jpg",
+      "description": "Bespoke pastel florals, custom baby shower & bridal backdrops, balloon arches, and gold plinths in Karachi.",
+      "cover_image": "assets/images/event-baby-shower.jpg?v=1",
+      "video": "",
       "order": 1,
       "is_active": true,
       "media": []
@@ -13,7 +14,8 @@
       "name": "Wedding Event",
       "slug": "wedding-event",
       "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-      "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
+      "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp?v=1",
+      "video": "assets/videos/event-celebration-reel.mp4",
       "order": 2,
       "is_active": true,
       "media": []
@@ -21,8 +23,9 @@
     {
       "name": "Birthday Event",
       "slug": "birthday-event",
-      "description": "Enchanted balloon garlands, customized marquee letter lighting, themed backdrop installations, and dessert table styling.",
-      "cover_image": "assets/images/category-balloon-boxes.jpg",
+      "description": "Intimate canopy teepee tents, enchanted fairy lights, marquee letters, and customized theme birthday decor.",
+      "cover_image": "assets/images/event-birthday-decor.jpg?v=1",
+      "video": "",
       "order": 3,
       "is_active": true,
       "media": []
@@ -30,8 +33,9 @@
     {
       "name": "Aqeeqah Decor",
       "slug": "aqeeqah-decor",
-      "description": "Bespoke Islamic Aqeeqah event styling with personalized baby name marquees, crescent floral arches, and traditional cradle decor.",
-      "cover_image": "assets/images/category-crates.jpg",
+      "description": "Royal Lion King jungle themes, personalized baby name marquees, balloon garlands, and bespoke Aqeeqah styling in Karachi.",
+      "cover_image": "assets/images/event-aqeeqah-decor.jpg?v=1",
+      "video": "",
       "order": 4,
       "is_active": true,
       "media": []
@@ -39,10 +43,11 @@
   ],
   "events": [
     {
-      "name": "Bridal Shower",
+      "name": "Bridal & Baby Shower",
       "slug": "bridal-shower",
-      "description": "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
-      "cover_image": "assets/images/bridal-shower-decoration-karachi.jpg",
+      "description": "Bespoke pastel florals, custom baby shower & bridal backdrops, balloon arches, and gold plinths in Karachi.",
+      "cover_image": "assets/images/event-baby-shower.jpg?v=1",
+      "video": "",
       "order": 1,
       "is_active": true,
       "media": []
@@ -51,7 +56,8 @@
       "name": "Wedding Event",
       "slug": "wedding-event",
       "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-      "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
+      "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp?v=1",
+      "video": "assets/videos/event-celebration-reel.mp4",
       "order": 2,
       "is_active": true,
       "media": []
@@ -59,8 +65,9 @@
     {
       "name": "Birthday Event",
       "slug": "birthday-event",
-      "description": "Enchanted balloon garlands, customized marquee letter lighting, themed backdrop installations, and dessert table styling.",
-      "cover_image": "assets/images/category-balloon-boxes.jpg",
+      "description": "Intimate canopy teepee tents, enchanted fairy lights, marquee letters, and customized theme birthday decor.",
+      "cover_image": "assets/images/event-birthday-decor.jpg?v=1",
+      "video": "",
       "order": 3,
       "is_active": true,
       "media": []
@@ -68,8 +75,9 @@
     {
       "name": "Aqeeqah Decor",
       "slug": "aqeeqah-decor",
-      "description": "Bespoke Islamic Aqeeqah event styling with personalized baby name marquees, crescent floral arches, and traditional cradle decor.",
-      "cover_image": "assets/images/category-crates.jpg",
+      "description": "Royal Lion King jungle themes, personalized baby name marquees, balloon garlands, and bespoke Aqeeqah styling in Karachi.",
+      "cover_image": "assets/images/event-aqeeqah-decor.jpg?v=1",
+      "video": "",
       "order": 4,
       "is_active": true,
       "media": []

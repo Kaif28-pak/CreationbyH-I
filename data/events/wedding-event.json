@@ -2,7 +2,8 @@
   "name": "Wedding Event",
   "slug": "wedding-event",
   "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-  "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
+  "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp?v=1",
+  "video": "assets/videos/event-celebration-reel.mp4",
   "order": 2,
   "is_active": true,
   "media": []

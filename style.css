@@ -515,7 +515,10 @@ nav {
     flex-shrink: 0;
 }
 .event-media-wrap img,
-.cat-card-media-wrap img {
+.event-media-wrap video,
+.event-preview-video,
+.cat-card-media-wrap img,
+.cat-card-media-wrap video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -524,6 +527,7 @@ nav {
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .event-card:hover .event-media-wrap img,
+.event-card:hover .event-preview-video,
 .event-category-card:hover .cat-card-media-wrap img {
     transform: scale(1.04);
 }

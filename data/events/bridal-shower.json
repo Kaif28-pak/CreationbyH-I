@@ -1,8 +1,9 @@
 {
-  "name": "Bridal Shower",
+  "name": "Bridal & Baby Shower",
   "slug": "bridal-shower",
-  "description": "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
-  "cover_image": "assets/images/bridal-shower-decoration-karachi.jpg",
+  "description": "Bespoke pastel florals, custom baby shower & bridal backdrops, balloon arches, and gold plinths in Karachi.",
+  "cover_image": "assets/images/event-baby-shower.jpg?v=1",
+  "video": "",
   "order": 1,
   "is_active": true,
   "media": []

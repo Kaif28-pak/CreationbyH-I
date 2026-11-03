@@ -331,31 +331,35 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const fallbackCategories = [
             {
-                name: "Bridal Shower",
+                name: "Bridal & Baby Shower",
                 slug: "bridal-shower",
-                description: "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
-                cover_image: "assets/images/bridal-shower-decoration-karachi.jpg",
+                description: "Bespoke pastel florals, custom baby shower & bridal backdrops, balloon arches, and gold plinths in Karachi.",
+                cover_image: "assets/images/event-baby-shower.jpg?v=1",
+                video: "",
                 order: 1
             },
             {
                 name: "Wedding Event",
                 slug: "wedding-event",
                 description: "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-                cover_image: "assets/images/creations-by-handi-luxury-gifting-event-banner.webp",
+                cover_image: "assets/images/creations-by-handi-luxury-gifting-event-banner.webp?v=1",
+                video: "assets/videos/event-celebration-reel.mp4",
                 order: 2
             },
             {
                 name: "Birthday Event",
                 slug: "birthday-event",
-                description: "Enchanted balloon garlands, customized marquee letter lighting, themed backdrop installations, and dessert table styling.",
-                cover_image: "assets/images/category-balloon-boxes.jpg",
+                description: "Intimate canopy teepee tents, enchanted fairy lights, marquee letters, and customized theme birthday decor.",
+                cover_image: "assets/images/event-birthday-decor.jpg?v=1",
+                video: "",
                 order: 3
             },
             {
                 name: "Aqeeqah Decor",
                 slug: "aqeeqah-decor",
-                description: "Bespoke Islamic Aqeeqah event styling with personalized baby name marquees, crescent floral arches, and traditional cradle decor.",
-                cover_image: "assets/images/category-crates.jpg",
+                description: "Royal Lion King jungle themes, personalized baby name marquees, balloon garlands, and bespoke Aqeeqah styling in Karachi.",
+                cover_image: "assets/images/event-aqeeqah-decor.jpg?v=1",
+                video: "",
                 order: 4
             }
         ];
@@ -424,8 +428,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             const videos = mediaList.filter(m => m.media_type === 'video');
             const photos = mediaList.filter(m => m.media_type === 'photo');
 
+            // Check for direct video reel or media video
+            const videoReel = eventItem.video || eventItem.reel_video || (videos.length > 0 ? videos[0].file_url : null);
+            const hasVideo = !!videoReel;
+
             let mediaBadgeText = '';
-            if (videos.length > 0 && photos.length > 0) {
+            if (hasVideo) {
+                mediaBadgeText = '🎬 Watch Reel';
+            } else if (videos.length > 0 && photos.length > 0) {
                 mediaBadgeText = `${videos.length} Reels · ${photos.length} Photos`;
             } else if (videos.length > 0) {
                 mediaBadgeText = `${videos.length} Reels`;
@@ -435,22 +445,40 @@ document.addEventListener('DOMContentLoaded', async () => {
                 mediaBadgeText = 'Featured Decor';
             }
 
-            const coverPoster = eventItem.cover_image || 'assets/images/bridal-shower-decoration-karachi.jpg';
+            const coverPoster = eventItem.cover_image || 'assets/images/event-baby-shower.jpg';
 
             const card = document.createElement('div');
             card.className = 'event-card reveal active';
             card.setAttribute('role', 'article');
             card.innerHTML = `
-                <div class="event-media-wrap">
+                <div class="event-media-wrap" ${hasVideo ? 'style="cursor: pointer;" title="Tap to watch full reel with sound"' : ''}>
                     <span class="event-dark-pill">${category}</span>
                     <span class="event-count-pill">${mediaBadgeText}</span>
-                    <img 
-                        src="${coverPoster}" 
-                        alt="${title} in Karachi by Creations by H&I" 
-                        loading="lazy" 
-                        width="500" 
-                        height="350"
-                        onerror="this.onerror=null; this.src='assets/images/bridal-shower-decoration-karachi.jpg';">
+                    ${hasVideo ? `
+                        <video 
+                            src="${videoReel}" 
+                            poster="${coverPoster}" 
+                            autoplay 
+                            loop 
+                            muted 
+                            playsinline 
+                            preload="metadata"
+                            class="event-preview-video">
+                        </video>
+                        <div class="event-play-overlay">
+                            <div class="event-play-circle" title="Tap to watch full reel with sound">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    ` : `
+                        <img 
+                            src="${coverPoster}" 
+                            alt="${title} in Karachi by Creations by H&I" 
+                            loading="lazy" 
+                            width="500" 
+                            height="350"
+                            onerror="this.onerror=null; this.src='assets/images/event-baby-shower.jpg';">
+                    `}
                 </div>
                 <div class="event-card-content">
                     <h3 class="event-card-title">${title}</h3>
@@ -464,8 +492,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `;
 
+            // If card has video, clicking the media preview opens Lightbox modal with full video & sound
+            const mediaWrap = card.querySelector('.event-media-wrap');
+            if (mediaWrap && hasVideo) {
+                mediaWrap.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openLightbox('video', videoReel, `${title} - Event Reel by Creations by H&I`);
+                });
+            }
+
+            // Clicking elsewhere on card navigates to event detail page
             card.addEventListener('click', (e) => {
                 if (e.target.closest('.btn-event-wa-icon')) return;
+                if (e.target.closest('.event-media-wrap') && hasVideo) return;
                 window.location.href = detailUrl;
             });
 

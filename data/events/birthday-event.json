@@ -1,8 +1,9 @@
 {
   "name": "Birthday Event",
   "slug": "birthday-event",
-  "description": "Enchanted balloon garlands, customized marquee letter lighting, themed backdrop installations, and dessert table styling.",
-  "cover_image": "assets/images/category-balloon-boxes.jpg",
+  "description": "Intimate canopy teepee tents, enchanted fairy lights, marquee letters, and customized theme birthday decor.",
+  "cover_image": "assets/images/event-birthday-decor.jpg?v=1",
+  "video": "",
   "order": 3,
   "is_active": true,
   "media": []
