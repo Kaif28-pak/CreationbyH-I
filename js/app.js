@@ -192,15 +192,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         items.forEach(item => {
             const pageLink = item.slug ? `/${item.slug}` : (item.category ? `/products.html?id=${item.category}` : '#');
-            const fallbackImg = 'assets/images/category-flower-bouquet.jpg';
-            const imgSrc = item.image || fallbackImg;
+            const hasImg = item.image && item.image.trim().length > 0;
+            const imgHtml = hasImg
+                ? `<img src="${item.image}" alt="${item.title} by Creations by H&I" loading="lazy" width="300" height="300" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'service-placeholder\\'>🎀</div>';">`
+                : `<div class="service-placeholder">🎀</div>`;
 
             const card = document.createElement('div');
             card.className = 'service-card reveal active';
             card.innerHTML = `
                 <a href="${pageLink}" style="text-decoration: none; color: inherit; display: block; width: 100%;">
                     <div class="service-img">
-                        <img src="${imgSrc}" alt="${item.title} by Creations by H&I" loading="lazy" width="300" height="300" onerror="this.onerror=null; this.src='${fallbackImg}';">
+                        ${imgHtml}
                     </div>
                     <h3>${item.title}</h3>
                 </a>
@@ -340,9 +342,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             },
             {
                 name: "Wedding Home Decor",
-                slug: "wedding-event",
+                slug: "wedding-home-decor",
                 description: "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-                cover_image: "assets/images/creations-by-handi-luxury-gifting-event-banner.webp?v=1",
+                cover_image: "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
                 video: "assets/videos/event-celebration-reel.mp4",
                 order: 2
             },

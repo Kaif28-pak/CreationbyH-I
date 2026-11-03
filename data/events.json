@@ -12,9 +12,9 @@
     },
     {
       "name": "Wedding Home Decor",
-      "slug": "wedding-event",
+      "slug": "wedding-home-decor",
       "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-      "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp?v=1",
+      "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
       "video": "assets/videos/event-celebration-reel.mp4",
       "order": 2,
       "is_active": true,
@@ -54,9 +54,9 @@
     },
     {
       "name": "Wedding Home Decor",
-      "slug": "wedding-event",
+      "slug": "wedding-home-decor",
       "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-      "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.webp?v=1",
+      "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
       "video": "assets/videos/event-celebration-reel.mp4",
       "order": 2,
       "is_active": true,

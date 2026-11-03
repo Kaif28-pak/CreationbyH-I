@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 badgeText = 'Coming Soon';
             }
 
-            const coverImg = cat.cover_image || (photos[0] ? photos[0].file_url : (videos[0] ? (videos[0].thumbnail_url || videos[0].poster) : 'assets/images/hero_showcase.jpg'));
+            const coverImg = cat.cover_image || (photos[0] ? photos[0].file_url : (videos[0] ? (videos[0].thumbnail_url || videos[0].poster) : 'assets/images/creations-by-handi-luxury-gifting-event-banner.jpg'));
             const pageUrl = `/events/${cat.slug}`;
             const waUrl = `https://wa.me/923282276532?text=${encodeURIComponent(`Hello Creations by H&I! I am interested in inquiring about ${cat.name} styling.`)}`;
 
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             src="${coverImg}" 
                             alt="${cat.name} Showcase" 
                             loading="lazy" 
-                            onerror="this.onerror=null; this.src='assets/images/hero_showcase.jpg';">
+                            onerror="this.onerror=null; this.src='assets/images/creations-by-handi-luxury-gifting-event-banner.jpg';">
                         ${hasVideos ? `
                             <div class="event-play-overlay" aria-hidden="true">
                                 <div class="event-play-circle" title="Watch Reels">

@@ -21,7 +21,7 @@ const defaultCategories = [
         name: "Bridal Shower",
         slug: "bridal-shower",
         description: "Bespoke pastel florals, custom bridal favor crates, macrame backdrops, and cozy luxury floor seating in Karachi.",
-        cover_image: "assets/images/category-crates.jpg",
+        cover_image: "assets/images/event-baby-shower.jpg",
         order: 1,
         is_active: true,
         media: [
@@ -31,7 +31,7 @@ const defaultCategories = [
                 description: "Full venue styling with earthy pampas grass, custom backdrop and luxury ambiance.",
                 media_type: "video",
                 file_url: "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-                thumbnail_url: "assets/images/category-crates.jpg",
+                thumbnail_url: "assets/images/event-baby-shower.jpg",
                 order: 1,
                 is_active: true
             },
@@ -60,8 +60,8 @@ const defaultCategories = [
                 title: "Bespoke Bridal Favor Gift Hampers",
                 description: "Personalized wooden crates filled with scented candles and luxury souvenirs.",
                 media_type: "photo",
-                file_url: "assets/images/hero_showcase.jpg",
-                thumbnail_url: "assets/images/hero_showcase.jpg",
+                file_url: "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
+                thumbnail_url: "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
                 order: 4,
                 is_active: true
             }
@@ -71,7 +71,7 @@ const defaultCategories = [
         name: "Wedding Home Decor",
         slug: "wedding-event",
         description: "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-        cover_image: "assets/images/hero_showcase.jpg",
+        cover_image: "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
         order: 2,
         is_active: true,
         media: [
@@ -81,7 +81,7 @@ const defaultCategories = [
                 description: "Grand couple entrance decor with cascading fairy lights and fresh rose runners.",
                 media_type: "video",
                 file_url: "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-                thumbnail_url: "assets/images/hero_showcase.jpg",
+                thumbnail_url: "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
                 order: 1,
                 is_active: true
             },
@@ -101,7 +101,7 @@ const defaultCategories = [
                 description: "Intimate Nikah decor with sheer drapery, chandeliers, and floral crescent arch.",
                 media_type: "video",
                 file_url: "https://res.cloudinary.com/djjvgubrk/video/upload/v1792587282/VID-20260408-WA0025.mp4",
-                thumbnail_url: "assets/images/category-crates.jpg",
+                thumbnail_url: "assets/images/event-baby-shower.jpg",
                 order: 3,
                 is_active: true
             }
@@ -111,7 +111,7 @@ const defaultCategories = [
         name: "Birthday Event",
         slug: "birthday-event",
         description: "Enchanted balloon garlands, customized marquee letter lighting, themed backdrop installations, and dessert table styling.",
-        cover_image: "assets/images/category-balloon-boxes.jpg",
+        cover_image: "assets/images/event-birthday-decor.jpg",
         order: 3,
         is_active: true,
         media: [
@@ -121,7 +121,7 @@ const defaultCategories = [
                 description: "Organic pastel balloon garland with fairy lights and custom name plaque.",
                 media_type: "video",
                 file_url: "https://res.cloudinary.com/djjvgubrk/video/upload/f_auto/q_auto/v1791548735/12291760_1920_1080_24fps.mp4",
-                thumbnail_url: "assets/images/category-balloon-boxes.jpg",
+                thumbnail_url: "assets/images/event-birthday-decor.jpg",
                 order: 1,
                 is_active: true
             },
@@ -130,8 +130,8 @@ const defaultCategories = [
                 title: "Golden Glam Marquee Light Setup",
                 description: "Light-up numbers, shimmer wall backdrop, and customized cake pedestal.",
                 media_type: "photo",
-                file_url: "assets/images/category-balloon-boxes.jpg",
-                thumbnail_url: "assets/images/category-balloon-boxes.jpg",
+                file_url: "assets/images/event-birthday-decor.jpg",
+                thumbnail_url: "assets/images/event-birthday-decor.jpg",
                 order: 2,
                 is_active: true
             }

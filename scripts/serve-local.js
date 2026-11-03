@@ -46,6 +46,8 @@ const server = http.createServer((req, res) => {
 
   if (slugToCat[cleanUrl]) {
     filePath = path.join(__dirname, '..', slugToCat[cleanUrl]);
+  } else if (cleanUrl.startsWith('/events/') && cleanUrl !== '/events.html') {
+    filePath = path.join(__dirname, '..', 'event-detail.html');
   }
 
   if (!fs.existsSync(filePath)) {

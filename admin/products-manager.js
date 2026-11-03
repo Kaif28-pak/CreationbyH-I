@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const CATEGORIES = [
         'baskets', 'flower_bouquets', 'cakes', 'balloon_boxes',
         'crates', 'frames', 'customized_items', 'trousseau_packing',
-        'bridal-shower', 'wedding-event', 'birthday-event', 'aqeeqah-decor'
+        'bridal-shower', 'wedding-home-decor', 'wedding-event', 'birthday-event', 'aqeeqah-decor'
     ];
 
     let cachedProducts = [];

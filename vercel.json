@@ -23,6 +23,10 @@
       "destination": "/events.html"
     },
     {
+      "source": "/events/wedding-event",
+      "destination": "/events/wedding-home-decor"
+    },
+    {
       "source": "/events/:slug",
       "destination": "/event-detail.html?slug=:slug"
     },

@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         name: slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
                         slug: slug,
                         description: 'Custom crafted styling, ambient illumination, floral decor, and bespoke ambiance in Karachi.',
-                        cover_image: '/assets/images/hero_showcase.jpg',
+                        cover_image: '/assets/images/creations-by-handi-luxury-gifting-event-banner.jpg',
                         media: fbMedia
                     };
                     try {
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         currentCategory = cat;
         const name = cat.name || 'Event Celebration';
         const description = cat.description || 'Custom crafted styling, ambient illumination, floral decor, and bespoke ambiance.';
-        const coverImg = normalizeMediaUrl(cat.cover_image) || '/assets/images/hero_showcase.jpg';
+        const coverImg = normalizeMediaUrl(cat.cover_image) || '/assets/images/creations-by-handi-luxury-gifting-event-banner.jpg';
 
         if (breadcrumbEventName) breadcrumbEventName.textContent = name;
         document.title = `${name} | Event Portfolio & Reels | Creations by H&I`;
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         ${mediaItems.map((item, index) => {
                             const isVideo = item.media_type === 'video';
                             const fileUrl = normalizeMediaUrl(item.file_url);
-                            const poster = normalizeMediaUrl(item.thumbnail_url) || (isVideo ? '' : fileUrl) || '/assets/images/hero_showcase.jpg';
+                            const poster = normalizeMediaUrl(item.thumbnail_url) || (isVideo ? '' : fileUrl) || '/assets/images/creations-by-handi-luxury-gifting-event-banner.jpg';
                             const waItemLink = createWaLink(name, item.title);
 
                             return `
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                                 src="${fileUrl}" 
                                                 alt="${item.title}" 
                                                 loading="lazy" 
-                                                onerror="this.onerror=null; this.src='/assets/images/hero_showcase.jpg';">
+                                                onerror="this.onerror=null; this.src='/assets/images/creations-by-handi-luxury-gifting-event-banner.jpg';">
                                             <div class="media-zoom-icon" aria-hidden="true">
                                                 <span>🔍</span>
                                             </div>
