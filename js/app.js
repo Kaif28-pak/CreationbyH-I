@@ -458,13 +458,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <span class="event-count-pill">${mediaBadgeText}</span>
                     ${hasVideo ? `
                         <video 
-                            src="${videoReel}" 
+                            data-src="${videoReel}" 
                             poster="${coverPoster}" 
-                            autoplay 
                             loop 
                             muted 
                             playsinline 
-                            preload="metadata"
+                            preload="none"
                             class="event-preview-video">
                         </video>
                         <div class="event-play-overlay">
@@ -512,6 +511,32 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             eventPlannerGrid.appendChild(card);
         });
+
+        // Lazy-load video reels only when user scrolls near Section 5
+        const previewVideos = eventPlannerGrid.querySelectorAll('.event-preview-video[data-src]');
+        if ('IntersectionObserver' in window) {
+            const videoObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    const vid = entry.target;
+                    if (entry.isIntersecting) {
+                        if (!vid.src && vid.dataset.src) {
+                            vid.src = vid.dataset.src;
+                            vid.load();
+                        }
+                        vid.play().catch(() => {});
+                    } else {
+                        if (vid.src) {
+                            vid.pause();
+                        }
+                    }
+                });
+            }, { rootMargin: '150px 0px' });
+            previewVideos.forEach(v => videoObserver.observe(v));
+        } else {
+            previewVideos.forEach(vid => {
+                if (vid.dataset.src) vid.src = vid.dataset.src;
+            });
+        }
     }
 
     // Initialize all sections

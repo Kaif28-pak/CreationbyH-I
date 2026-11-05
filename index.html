@@ -18,6 +18,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="assets/images/creations-by-handi-luxury-gifting-event-banner.jpg" fetchpriority="high">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 
@@ -30,7 +31,8 @@
       gtag('config', 'G-2JZCD0GF2M');
     </script>
 
-    <!-- Meta Pixel Placeholder -->
+    <!-- Meta Pixel Placeholder (Uncomment when adding live pixel ID) -->
+    <!--
     <script>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -43,6 +45,7 @@
       fbq('init', 'XXXXXXXXXXXXXXX');
       fbq('track', 'PageView');
     </script>
+    -->
 
     <!-- JSON-LD Structured Data: LocalBusiness, FAQPage, & Aggregate Product -->
     <script type="application/ld+json">
@@ -702,10 +705,10 @@
     </script>
     
         <!-- Firebase Cloud Firestore (Auto fallback to local JSON if unconfigured) -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="/js/firebase-config.js"></script>
-    <script src="/js/nav.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script defer src="/js/firebase-config.js"></script>
+    <script defer src="/js/nav.js"></script>
     <script type="module" src="/js/app.js"></script>
 </body>
 </html>
