@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const productListEl = document.getElementById('product-list');
     const filterCategory = document.getElementById('filter-category');
     const productCountEl = document.getElementById('product-count');
-    const syncLocalBtn = document.getElementById('sync-local-btn');
 
     // Form inputs
     const prodCategory = document.getElementById('prod-category');
@@ -427,62 +426,4 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert(`Delete failed: ${err.message}`);
         }
     }
-
-    // Optional Sync Local JSON to Firestore (if button exists)
-    if (syncLocalBtn) syncLocalBtn.addEventListener('click', async () => {
-        const user = firebase.auth().currentUser;
-        if (!user) {
-            alert('Security Error: You must be signed in to import products.');
-            return;
-        }
-
-        if (!confirm('This will upload all 16 current local products from JSON files directly into your Firebase Firestore database. Proceed?')) {
-            return;
-        }
-
-        syncLocalBtn.disabled = true;
-        syncLocalBtn.textContent = '⏳ Importing to Firestore...';
-
-        try {
-            const db = window.CreationsFirebase.getDb();
-            let count = 0;
-
-            for (const cat of CATEGORIES) {
-                const res = await fetch(`/data/${cat}.json?t=${Date.now()}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    const items = data.products || (Array.isArray(data) ? data : []);
-
-                    for (const item of items) {
-                        if (!item.title) continue;
-                        const docData = {
-                            category: cat,
-                            title: item.title,
-                            description: item.shortDescription || item.description || '',
-                            shortDescription: item.shortDescription || item.description || '',
-                            price: item.price || null,
-                            image: item.image || '',
-                            video: item.video || '',
-                            order: Number(item.order) || (count + 1),
-                            featured: !!item.featured,
-                            active: item.active !== false,
-                            importedAt: new Date().toISOString()
-                        };
-
-                        await db.collection('products').add(docData);
-                        count++;
-                    }
-                }
-            }
-
-            alert(`Success! Imported ${count} products into Cloud Firestore.`);
-            await loadAllProducts();
-        } catch (err) {
-            console.error('Import error:', err);
-            alert(`Import failed: ${err.message}`);
-        } finally {
-            syncLocalBtn.disabled = false;
-            syncLocalBtn.textContent = '🔄 Import Local JSON to Firebase';
-        }
-    });
 });

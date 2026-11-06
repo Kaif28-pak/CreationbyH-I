@@ -260,12 +260,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function renderFeatured(items) {
         if (!featuredGrid) return;
+        const section = document.getElementById('featured');
         featuredGrid.innerHTML = '';
 
         if (!items || items.length === 0) {
-            featuredGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">Featured collections coming soon.</p>';
+            // Keep section hidden until admin adds featured products
+            if (section) section.style.display = 'none';
             return;
         }
+
+        if (section) section.style.display = '';
 
         items.forEach((product, idx) => {
             const docId = product.id && !product.id.startsWith('local_') ? product.id : idx;
