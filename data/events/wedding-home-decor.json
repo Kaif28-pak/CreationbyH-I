@@ -2,7 +2,7 @@
   "name": "Wedding Home Decor",
   "slug": "wedding-home-decor",
   "description": "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-  "cover_image": "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
+  "cover_image": "assets/images/event-wedding-home-decor.jpg",
   "video": "",
   "order": 2,
   "is_active": true,
@@ -12,8 +12,8 @@
       "title": "Royal Wedding Home Decor & Floral Walkway",
       "description": "Opulent floral stages, candlelit Nikah walkways, and luxury ambient illumination in Karachi.",
       "media_type": "photo",
-      "file_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
-      "thumbnail_url": "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
+      "file_url": "assets/images/event-wedding-home-decor.jpg",
+      "thumbnail_url": "assets/images/event-wedding-home-decor.jpg",
       "order": 1,
       "is_active": true
     }

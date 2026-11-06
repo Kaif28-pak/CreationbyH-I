@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 name: "Wedding Home Decor",
                 slug: "wedding-home-decor",
                 description: "Opulent floral stages, candlelit Nikah walkways, royal sofa seating arrangements, and grand fairy light tunnels.",
-                cover_image: "assets/images/creations-by-handi-luxury-gifting-event-banner.jpg",
+                cover_image: "assets/images/event-wedding-home-decor.jpg",
                 video: "",
                 order: 2
             },
