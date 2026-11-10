@@ -62,10 +62,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             desc: 'Add rustic elegance to your gifting with handcrafted wooden gift boxes and crates in Pakistan. Each pine wood box is custom-engraved with names or logos and packed with dry fruits, gourmet chocolates, perfumes, and keepsakes. Ideal for corporate gifts, weddings, and personalized keepsake hampers across Pakistan.'
         },
         'frames': {
-            title: 'Personalized Photo Frames in Karachi',
-            metaTitle: 'Photo Frames & Gifts Karachi | Creations by H&I',
-            metaDesc: 'Custom LED acrylic photo plaques and gold border keepsake frames in Karachi. Safe delivery across Pakistan. Order on WhatsApp!',
-            desc: 'Preserve cherished memories with personalized photo frames in Karachi. Our collection includes illuminated acrylic LED photo frames, couple anniversary plaques, and classic gold-bordered keepsakes customized with your favorite photographs and personal messages. Safely packaged for surprise gift delivery across Karachi, Lahore, and Islamabad.'
+            title: 'Customized LED Photo Frames & Plaques in Pakistan',
+            metaTitle: 'LED Photo Frames & Light Frames Karachi | Creations by H&I',
+            metaDesc: 'Order custom LED photo frames & light frames in Pakistan. Perfect wedding & anniversary photo frame gifts with warm LED lights. Safe delivery on WhatsApp!',
+            desc: 'Preserve cherished moments with customized LED photo frames and illuminated picture frames in Pakistan. Our collection features acrylic LED light photo frames, couple wedding anniversary plaques, and glowing keepsakes customized with your favorite photos, special dates, and personal messages. Safely bubble-wrapped and delivered across Karachi, Lahore, Islamabad, and nationwide.'
         },
         'customized_items': {
             title: 'Personalized Mugs, Pens & Gifts in Pakistan',
