@@ -167,54 +167,135 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         products.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
-        productsGrid.innerHTML = '';
 
-        products.forEach((product, index) => {
-            const docIdentifier = product.id && !product.id.startsWith('local_') ? product.id : index;
-            const detailUrl = `product-view.html?category=${categoryId}&id=${docIdentifier}`;
-            const encodedTitle = encodeURIComponent(`Hi! I want to order "${product.title}" from ${currentCat.title} on your website.`);
-            const waLink = `https://wa.me/${WA_PHONE}?text=${encodedTitle}`;
-            
-            const hasVideo = !!product.video;
-            const videoBadge = hasVideo ? `<div class="product-media-badge">🎬 Video Available</div>` : '';
+        const paginationContainer = document.getElementById('products-pagination');
+        const ITEMS_PER_PAGE = 10;
+        let currentPage = 1;
 
-            // Elegant fallback: neutral placeholder instead of broken image
-            const hasImage = product.image && product.image.trim().length > 0;
-            const mediaContent = hasImage ? `
-                <img src="${product.image}" alt="${product.alt || product.title}" loading="lazy" width="400" height="300" onerror="this.parentElement.innerHTML='<div class=\\'media-placeholder-block\\'><span class=\\'ph-icon\\'>🎀</span><p class=\\'ph-text\\'>Photo Coming Soon</p></div>';">
-            ` : `
-                <div class="media-placeholder-block">
-                    <span class="ph-icon">🎀</span>
-                    <p class="ph-text">Photo Coming Soon</p>
-                </div>
+        const currentUrlParams = new URLSearchParams(window.location.search);
+        const pageParam = parseInt(currentUrlParams.get('page'), 10);
+        if (!isNaN(pageParam) && pageParam > 0) {
+            currentPage = pageParam;
+        }
+
+        function renderPagination(totalItems, activePage) {
+            if (!paginationContainer) return;
+            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+            if (totalPages <= 1) {
+                paginationContainer.style.display = 'none';
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            paginationContainer.style.display = 'flex';
+            const startItem = (activePage - 1) * ITEMS_PER_PAGE + 1;
+            const endItem = Math.min(activePage * ITEMS_PER_PAGE, totalItems);
+
+            let buttonsHtml = '';
+
+            // Previous Button
+            const prevDisabled = activePage <= 1 ? 'disabled' : '';
+            buttonsHtml += `<button class="pagination-btn pagination-prev" data-page="${activePage - 1}" ${prevDisabled} aria-label="Previous Page">&larr; Prev</button>`;
+
+            // Page Number Buttons
+            for (let i = 1; i <= totalPages; i++) {
+                const isActive = i === activePage ? 'active' : '';
+                buttonsHtml += `<button class="pagination-btn pagination-num ${isActive}" data-page="${i}" aria-label="Page ${i}">${i}</button>`;
+            }
+
+            // Next Button
+            const nextDisabled = activePage >= totalPages ? 'disabled' : '';
+            buttonsHtml += `<button class="pagination-btn pagination-next" data-page="${activePage + 1}" ${nextDisabled} aria-label="Next Page">Next &rarr;</button>`;
+
+            paginationContainer.innerHTML = `
+                <nav class="pagination-nav" aria-label="Products pagination">
+                    ${buttonsHtml}
+                </nav>
+                <div class="pagination-info">Showing ${startItem}–${endItem} of ${totalItems} creations</div>
             `;
 
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-                <a href="${detailUrl}" class="product-card-link-wrap">
-                    <div class="product-media">
-                        ${videoBadge}
-                        ${mediaContent}
-                        <div class="product-media-overlay">
-                            <span class="overlay-view-badge">View Details &rarr;</span>
+            // Attach click listeners to pagination buttons
+            paginationContainer.querySelectorAll('.pagination-btn:not(:disabled)').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetPage = parseInt(btn.getAttribute('data-page'), 10);
+                    if (!isNaN(targetPage) && targetPage !== activePage) {
+                        renderPage(targetPage, true);
+                    }
+                });
+            });
+        }
+
+        function renderPage(page, shouldScroll = false) {
+            const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+            currentPage = page;
+
+            const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIdx = startIdx + ITEMS_PER_PAGE;
+            const pageItems = products.slice(startIdx, endIdx);
+
+            productsGrid.innerHTML = '';
+
+            pageItems.forEach((product, index) => {
+                const globalIndex = startIdx + index;
+                const docIdentifier = product.id && !product.id.startsWith('local_') ? product.id : globalIndex;
+                const detailUrl = `product-view.html?category=${categoryId}&id=${docIdentifier}`;
+                const encodedTitle = encodeURIComponent(`Hi! I want to order "${product.title}" from ${currentCat.title} on your website.`);
+                const waLink = `https://wa.me/${WA_PHONE}?text=${encodedTitle}`;
+                
+                const hasVideo = !!product.video;
+                const videoBadge = hasVideo ? `<div class="product-media-badge">🎬 Video Available</div>` : '';
+
+                // Elegant fallback: neutral placeholder instead of broken image
+                const hasImage = product.image && product.image.trim().length > 0;
+                const mediaContent = hasImage ? `
+                    <img src="${product.image}" alt="${product.alt || product.title}" loading="lazy" width="400" height="400" onerror="this.parentElement.innerHTML='<div class=\\'media-placeholder-block\\'><span class=\\'ph-icon\\'>🎀</span><p class=\\'ph-text\\'>Photo Coming Soon</p></div>';">
+                ` : `
+                    <div class="media-placeholder-block">
+                        <span class="ph-icon">🎀</span>
+                        <p class="ph-text">Photo Coming Soon</p>
+                    </div>
+                `;
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <a href="${detailUrl}" class="product-card-link-wrap">
+                        <div class="product-media">
+                            ${videoBadge}
+                            ${mediaContent}
+                            <div class="product-media-overlay">
+                                <span class="overlay-view-badge">View Details &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="product-content">
+                        <a href="${detailUrl}" style="text-decoration: none; color: inherit;">
+                            <h3 class="product-title">${product.title}</h3>
+                        </a>
+                        <p class="product-desc">${product.description || product.shortDescription || 'Artistic creation handcrafted with perfection.'}</p>
+                        <div class="product-card-actions">
+                            <a href="${detailUrl}" class="btn-card-view">View Details</a>
+                            <a href="${waLink}" class="btn-card-wa" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a>
                         </div>
                     </div>
-                </a>
-                <div class="product-content">
-                    <a href="${detailUrl}" style="text-decoration: none; color: inherit;">
-                        <h3 class="product-title">${product.title}</h3>
-                    </a>
-                    <p class="product-desc">${product.description || product.shortDescription || 'Artistic creation handcrafted with perfection.'}</p>
-                    <div class="product-card-actions">
-                        <a href="${detailUrl}" class="btn-card-view">View Details</a>
-                        <a href="${waLink}" class="btn-card-wa" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a>
-                    </div>
-                </div>
-            `;
+                `;
 
-            productsGrid.appendChild(card);
-        });
+                productsGrid.appendChild(card);
+            });
+
+            renderPagination(products.length, currentPage);
+
+            if (shouldScroll) {
+                const scrollTarget = document.querySelector('.products-container') || productsGrid;
+                scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        renderPage(currentPage, false);
 
     } catch (error) {
         console.error('Error fetching products:', error);
