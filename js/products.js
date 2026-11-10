@@ -68,10 +68,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             desc: 'Preserve cherished moments with customized LED photo frames and illuminated picture frames in Pakistan. Our collection features acrylic LED light photo frames, couple wedding anniversary plaques, and glowing keepsakes customized with your favorite photos, special dates, and personal messages. Safely bubble-wrapped and delivered across Karachi, Lahore, Islamabad, and nationwide.'
         },
         'customized_items': {
-            title: 'Personalized Mugs, Pens & Gifts in Pakistan',
-            metaTitle: 'Personalized Gifts Pakistan | Creations by H&I',
-            metaDesc: 'Custom ceramic mugs, engraved metal pens, and executive notebooks in Karachi. Corporate and personal gifts delivered nationwide.',
-            desc: 'Add a personal touch to everyday essentials with customized gifts in Pakistan. We customize ceramic coffee mugs, executive engraved metal pens, and hardbound foil-stamped notebooks with your recipient\'s name or logo. Thoughtful keepsakes for birthdays, corporate appreciation, teachers, and colleague farewells delivered nationwide.'
+            title: 'Personalized Gifts, Custom Pens & Mugs in Pakistan',
+            metaTitle: 'Customized Gifts Pakistan | Mugs & Pens | Creations by H&I',
+            metaDesc: 'Order customized gifts in Pakistan. Personalized pens with name, custom mugs & corporate gifts in Karachi. Fast nationwide delivery. Order on WhatsApp!',
+            desc: 'Elevate your gifting with bespoke customized gifts in Pakistan. We specialize in personalized pens with name engraving, custom ceramic coffee mugs, metallic keychains, and executive corporate gifts in Karachi. Perfect for birthdays, employee appreciation, farewells, and custom branding, safely packaged with fast nationwide delivery across Pakistan.'
         },
         'trousseau_packing': {
             title: 'Wedding Trousseau Packing in Karachi',
