@@ -74,10 +74,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             desc: 'Elevate your gifting with bespoke customized gifts in Pakistan. We specialize in personalized pens with name engraving, custom ceramic coffee mugs, metallic keychains, and executive corporate gifts in Karachi. Perfect for birthdays, employee appreciation, farewells, and custom branding, safely packaged with fast nationwide delivery across Pakistan.'
         },
         'trousseau_packing': {
-            title: 'Wedding Trousseau Packing in Karachi',
-            metaTitle: 'Wedding Trousseau Packing | Creations by H&I',
-            metaDesc: 'Luxury bridal trousseau packing in Karachi. Designer acrylic dress trays, lehenga wrapping & shadi saman vanity hampers.',
-            desc: 'Transform your shadi saman with luxury wedding trousseau packing in Karachi. We design bespoke acrylic dress trays, bridal lehenga wraps, groom sherwani presentations, and embellished jewelry vanity hampers. Every tray is styled to match your wedding color palette, ensuring a royal presentation for your big day.'
+            title: 'Wedding Trousseau Packing & Tray Decoration in Karachi',
+            metaTitle: 'Wedding Trousseau Packing & Trays Karachi | Creations by H&I',
+            metaDesc: 'Luxury wedding trousseau packing & tray decoration in Karachi. Designer bridal lehenga wraps, nikkah ring trays & shadi bari hampers. Order on WhatsApp!',
+            desc: 'Elevate your wedding celebration with luxury wedding trousseau packing and tray decoration in Karachi. We design bespoke acrylic dress trays, bridal lehenga wraps, groom sherwani presentations, nikkah ring trays, and bridal vanity hampers. Exquisitely styled for shadi bari, jahez, and engagement ceremonies with doorstep delivery in Karachi.'
         }
     };
 
