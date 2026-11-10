@@ -56,10 +56,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             desc: 'Make celebrations unforgettable with our customized balloon boxes and hot air Bobo balloon hampers. Each clear display box features color-coordinated balloons, warm fairy lights, and custom name lettering, packed with chocolates, snacks, or flowers for surprise doorstep delivery across Karachi.'
         },
         'crates': {
-            title: 'Handcrafted Wooden Gift Crates in Pakistan',
-            metaTitle: 'Wooden Gift Crates Pakistan | Creations by H&I',
-            metaDesc: 'Handcrafted wooden gift crates engraved with custom names. Packed with gourmet treats and dry fruits. Order on WhatsApp!',
-            desc: 'Add rustic elegance to your gifting with handcrafted wooden gift crates in Pakistan. Each pine wood crate is custom-engraved with names or wedding dates and packed with artisanal goodies, perfumes, dry fruits, and florals. A timeless choice for groomsmen gifts, corporate hampers, and family celebrations.'
+            title: 'Handcrafted Wooden Gift Boxes & Crates in Pakistan',
+            metaTitle: 'Wooden Gift Boxes & Crates Pakistan | Creations by H&I',
+            metaDesc: 'Order custom wooden gift boxes, crates & dry fruit hampers in Pakistan. Personalized pine wood keepsake boxes with nationwide delivery. Order on WhatsApp!',
+            desc: 'Add rustic elegance to your gifting with handcrafted wooden gift boxes and crates in Pakistan. Each pine wood box is custom-engraved with names or logos and packed with dry fruits, gourmet chocolates, perfumes, and keepsakes. Ideal for corporate gifts, weddings, and personalized keepsake hampers across Pakistan.'
         },
         'frames': {
             title: 'Personalized Photo Frames in Karachi',
