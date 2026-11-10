@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             desc: 'Surprise your loved ones in Karachi with hand-tied fresh flower bouquets. Our florists arrange velvety roses, lilies, and baby’s breath wrapped in pastel Korean paper and satin ribbons. Ideal for birthdays, anniversaries, and bridal showers, with prompt doorstep delivery across Karachi and personalized hamper combos.'
         },
         'cakes': {
-            title: 'Customized Theme Cakes in Karachi',
-            metaTitle: 'Customized Theme Cakes Karachi | Creations by H&I',
-            metaDesc: 'Bespoke fondant and buttercream theme cakes in Karachi for birthdays, weddings, and bridal showers. Chat on WhatsApp to order!',
+            title: 'Customized Theme Cakes & Birthday Cakes in Karachi',
+            metaTitle: 'Customized Cakes Karachi | Birthday Cakes | Creations by H&I',
+            metaDesc: 'Order customized theme cakes & bento cakes in Karachi. Freshly baked fondant birthday cakes with doorstep delivery across Karachi. Chat on WhatsApp!',
             desc: 'Celebrate special milestones with handcrafted theme cakes in Karachi. From whimsical birthday designs and elegant bridal shower bento cakes to multi-tier wedding cakes, each creation is baked fresh with premium chocolate fudge or vanilla flavors. Custom cake toppers and personal messages are designed on WhatsApp.'
         },
         'baskets': {
@@ -50,10 +50,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             desc: 'Send heartfelt love with customized gift baskets in Karachi. We curate luxury gift hampers featuring chocolates from Godiva or Lindt, scented candles, fresh flowers, and personal keepsakes. Perfect for birthdays, weddings, Eid, and overseas surprises sent from Dubai and Jeddah to families across Pakistan.'
         },
         'balloon_boxes': {
-            title: 'Customized Balloon Boxes in Karachi',
-            metaTitle: 'Custom Balloon Boxes Karachi | Creations by H&I',
-            metaDesc: 'Transparent balloon boxes with LED lights, mini balloons, and personalized name vinyl. Delivery in Karachi and nationwide.',
-            desc: 'Make celebrations unforgettable with our customized balloon boxes. Each transparent display box features color-coordinated mini balloons, warm LED fairy lights, and personalized vinyl lettering. Add hidden gifts like perfumes, chocolates, or jewelry inside for an interactive surprise delivery in Karachi and courier gifts nationwide.'
+            title: 'Customized Balloon Boxes & Hampers in Karachi',
+            metaTitle: 'Balloon Hampers & Bobo Balloons Karachi | Creations by H&I',
+            metaDesc: 'Order customized Bobo balloon hampers & balloon baskets in Karachi. Clear balloons with chocolates, snacks & LED lights. Same day delivery on WhatsApp!',
+            desc: 'Make celebrations unforgettable with our customized balloon boxes and hot air Bobo balloon hampers. Each clear display box features color-coordinated balloons, warm fairy lights, and custom name lettering, packed with chocolates, snacks, or flowers for surprise doorstep delivery across Karachi.'
         },
         'crates': {
             title: 'Handcrafted Wooden Gift Crates in Pakistan',
