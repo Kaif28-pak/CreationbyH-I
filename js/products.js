@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const categoryMap = {
         'flower_bouquets': {
             title: 'Fresh Flower Bouquets in Karachi',
-            metaTitle: 'Fresh Flower Bouquets Karachi | Creations by H&I',
-            metaDesc: 'Hand-tied fresh flower bouquets and imported rose arrangements in Karachi. Same-day surprise delivery. Order on WhatsApp!',
+            metaTitle: 'Send Flowers to Karachi | Flower Delivery | Creations by H&I',
+            metaDesc: 'Send fresh flowers to Karachi with same day surprise delivery. Velvet roses, lilies & flower combo hampers. Order on WhatsApp!',
             desc: 'Surprise your loved ones in Karachi with hand-tied fresh flower bouquets. Our florists arrange velvety roses, lilies, and baby’s breath wrapped in pastel Korean paper and satin ribbons. Ideal for birthdays, anniversaries, and bridal showers, with prompt doorstep delivery across Karachi and personalized hamper combos.'
         },
         'cakes': {
@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         },
         'baskets': {
             title: 'Luxury Gift Baskets & Hampers in Karachi',
-            metaTitle: 'Custom Gift Baskets Karachi | Creations by H&I',
-            metaDesc: 'Curated gift baskets in Karachi with Godiva chocolates, perfumes & fresh flowers. Surprise delivery to Lahore, Islamabad & Gulf.',
+            metaTitle: 'Gift Baskets Karachi | Luxury Hampers | Creations by H&I',
+            metaDesc: 'Order custom gift baskets in Karachi. Premium chocolate hampers, perfumes & floral gifts with same day surprise delivery in Karachi. Chat on WhatsApp!',
             desc: 'Send heartfelt love with customized gift baskets in Karachi. We curate luxury gift hampers featuring chocolates from Godiva or Lindt, scented candles, fresh flowers, and personal keepsakes. Perfect for birthdays, weddings, Eid, and overseas surprises sent from Dubai and Jeddah to families across Pakistan.'
         },
         'balloon_boxes': {
