@@ -46,14 +46,17 @@ window.CreationsFirebase = {
     async getProductsByCategory(categoryId) {
         if (db && isFirebaseConfigured()) {
             try {
+                // Query by single field to avoid requiring custom composite indexes in Firebase Console
                 const snapshot = await db.collection('products')
                     .where('category', '==', categoryId)
-                    .where('active', '!=', false)
                     .get();
 
                 const products = [];
                 snapshot.forEach(doc => {
-                    products.push({ id: doc.id, ...doc.data() });
+                    const data = doc.data();
+                    if (data && data.active !== false) {
+                        products.push({ id: doc.id, ...data });
+                    }
                 });
                 products.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
                 return products; // Return exact products (empty array if user deleted/has none)
@@ -70,15 +73,17 @@ window.CreationsFirebase = {
             try {
                 const snapshot = await db.collection('products')
                     .where('featured', '==', true)
-                    .where('active', '!=', false)
-                    .limit(6)
                     .get();
 
                 const featured = [];
                 snapshot.forEach(doc => {
-                    featured.push({ id: doc.id, ...doc.data() });
+                    const data = doc.data();
+                    if (data && data.active !== false) {
+                        featured.push({ id: doc.id, ...data });
+                    }
                 });
-                return featured;
+                featured.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
+                return featured.slice(0, 6);
             } catch (err) {
                 console.warn('[Firebase] Firestore featured fetch failed:', err);
             }
@@ -92,22 +97,23 @@ window.CreationsFirebase = {
             try {
                 const snapshot = await db.collection('products')
                     .where('category', '==', slug)
-                    .where('active', '!=', false)
                     .get();
 
                 const media = [];
                 snapshot.forEach(doc => {
                     const data = doc.data();
-                    media.push({
-                        id: doc.id,
-                        title: data.title || '',
-                        description: data.description || '',
-                        media_type: data.video ? 'video' : 'photo',
-                        file_url: data.video || data.image || '',
-                        thumbnail_url: data.image || '',
-                        order: Number(data.order) || 1,
-                        is_active: data.active !== false
-                    });
+                    if (data && data.active !== false) {
+                        media.push({
+                            id: doc.id,
+                            title: data.title || '',
+                            description: data.description || '',
+                            media_type: data.video ? 'video' : 'photo',
+                            file_url: data.video || data.image || '',
+                            thumbnail_url: data.image || '',
+                            order: Number(data.order) || 1,
+                            is_active: true
+                        });
+                    }
                 });
                 media.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
                 return media;

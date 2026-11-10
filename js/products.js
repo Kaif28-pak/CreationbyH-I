@@ -9,10 +9,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Get category ID from URL query or path slug
     function getCategoryIdFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('id')) return urlParams.get('id').trim();
-        if (urlParams.get('category')) return urlParams.get('category').trim();
+        const queryVal = (urlParams.get('id') || urlParams.get('category') || urlParams.get('cat') || urlParams.get('slug') || '').trim();
 
-        const path = window.location.pathname.replace(/^\/|\/$/g, '');
         const slugMap = {
             'flower-bouquets-karachi': 'flower_bouquets',
             'customized-theme-cakes-karachi': 'cakes',
@@ -23,7 +21,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             'personalized-gifts-pakistan': 'customized_items',
             'wedding-trousseau-packing-karachi': 'trousseau_packing'
         };
+
+        if (queryVal) {
+            if (slugMap[queryVal]) return slugMap[queryVal];
+            return queryVal;
+        }
+
+        const path = window.location.pathname.replace(/^\/|\/$/g, '').replace(/\.html$/, '');
         if (slugMap[path]) return slugMap[path];
+        if (path && Object.values(slugMap).includes(path)) return path;
         return null;
     }
 
