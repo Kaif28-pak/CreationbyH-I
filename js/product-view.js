@@ -247,10 +247,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         contentArea.innerHTML = `
             <div class="product-detail-layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(24px, 4vw, 48px); margin-top: 20px; align-items: start;">
                 
-                <!-- Left: Media Showcase -->
-                <div class="media-showcase-box" style="background: #FFF9FB; border-radius: 18px; padding: 16px; border: 1px solid rgba(227, 153, 182, 0.3);">
-                    <div class="media-display-viewport" style="border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; background: #FFF5F8; display: flex; align-items: center; justify-content: center;">
-                        <img src="${activeImg}" alt="${product.alt || product.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='assets/images/category-baskets.jpg';">
+                <!-- Left: Media Showcase (Full Aspect-Preserving Viewer) -->
+                <div class="media-showcase-box" style="background: #ffffff; border-radius: 18px; padding: 18px; border: 1px solid rgba(227, 153, 182, 0.3); box-shadow: 0 10px 32px rgba(58, 43, 50, 0.06);">
+                    <div class="media-display-viewport" id="product-img-viewport" style="border-radius: 14px; overflow: hidden; min-height: 420px; max-height: 600px; background: #FFF8FA; display: flex; align-items: center; justify-content: center; position: relative; cursor: zoom-in; padding: 12px; border: 1px solid rgba(227, 153, 182, 0.2);">
+                        <img id="main-product-img" src="${activeImg}" alt="${product.alt || product.title}" style="max-width: 100%; max-height: 560px; width: auto; height: auto; object-fit: contain; display: block; transition: transform 0.3s ease;" onerror="this.src='assets/images/category-baskets.jpg';">
+                        <span class="zoom-hint-badge" style="position: absolute; bottom: 12px; right: 12px; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 20px; font-size: 0.76rem; font-weight: 600; color: #2c2523; border: 1px solid rgba(227, 153, 182, 0.4); box-shadow: 0 4px 12px rgba(0,0,0,0.08); pointer-events: none;">🔍 Click to Zoom</span>
                     </div>
                     ${hasVideo ? `
                         <div style="margin-top: 14px;">
@@ -309,6 +310,33 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             </div>
         `;
+
+        // Wire up Fullscreen Lightbox Zoom
+        const imgViewport = document.getElementById('product-img-viewport');
+        const mainImg = document.getElementById('main-product-img');
+        if (imgViewport && mainImg && lightboxModal && lightboxContent) {
+            imgViewport.addEventListener('click', () => {
+                lightboxContent.innerHTML = `<img src="${mainImg.src}" alt="${product.title}" style="max-width: 92vw; max-height: 88vh; object-fit: contain; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">`;
+                lightboxModal.classList.add('active');
+                lightboxModal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        if (lightboxClose && lightboxModal) {
+            lightboxClose.addEventListener('click', () => {
+                lightboxModal.classList.remove('active');
+                lightboxModal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            });
+            lightboxModal.addEventListener('click', (e) => {
+                if (e.target === lightboxModal || e.target.classList.contains('lightbox-content-wrap')) {
+                    lightboxModal.classList.remove('active');
+                    lightboxModal.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
 
     } catch (err) {
         console.error('Error loading product details:', err);
