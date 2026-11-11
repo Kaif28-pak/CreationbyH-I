@@ -1065,51 +1065,52 @@ footer {
 }
 .product-card-actions {
     display: flex;
+    flex-direction: row;
     gap: 8px;
     align-items: center;
     margin-top: auto;
+    width: 100%;
 }
-.btn-card-view {
-    flex: 1;
-    padding: 8px 10px;
-    border-radius: 20px;
-    font-size: 0.76rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    text-align: center;
-    border: 1.5px solid var(--primary);
-    color: var(--primary-dark);
-    background: transparent;
-    text-decoration: none;
-    transition: all 0.25s ease;
-}
-.btn-card-view:hover {
-    background: var(--primary);
-    color: var(--white);
-}
+.btn-card-view,
 .btn-card-wa {
-    flex: 1.25;
-    padding: 8px 10px;
-    border-radius: 20px;
-    font-size: 0.76rem;
+    min-height: 34px;
+    padding: 6px 10px;
+    border-radius: 18px;
+    font-size: 0.74rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.35px;
     text-align: center;
-    background: #25D366;
-    color: var(--white);
     text-decoration: none;
-    transition: all 0.25s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    border: 1.5px solid #25D366;
+    box-sizing: border-box;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+}
+.btn-card-view {
+    flex: 1;
+    background: #FDF1F5;
+    color: var(--text-dark) !important;
+    border: 1px solid rgba(227, 153, 182, 0.45);
+}
+.btn-card-view:hover {
+    background: var(--accent-pink);
+    color: var(--white) !important;
+    border-color: var(--accent-pink);
+    transform: translateY(-1px);
+}
+.btn-card-wa {
+    flex: 1.25;
+    background: #25D366;
+    color: var(--white) !important;
+    border: 1px solid #25D366;
 }
 .btn-card-wa:hover {
-    background: #1ebc59;
-    border-color: #1ebc59;
+    background: #1eb956;
+    border-color: #1eb956;
+    transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
 }
 
@@ -3396,11 +3397,13 @@ html, body {
     .product-card-actions {
         display: flex;
         flex-direction: row;
-        gap: 10px;
+        gap: 6px;
+        width: 100%;
     }
     .btn-card-view, .btn-card-wa {
-        padding: 12px 10px;
-        font-size: 0.8rem;
+        min-height: 34px;
+        padding: 6px 8px;
+        font-size: 0.73rem;
     }
 
     /* Product Detail & Media Showcase (product-view.html) */
@@ -3558,11 +3561,20 @@ html, body {
         gap: 18px;
     }
     .product-card-actions {
-        flex-direction: column;
-        gap: 8px;
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+        width: 100%;
     }
     .btn-card-view, .btn-card-wa {
-        width: 100%;
+        min-height: 33px;
+        padding: 6px 8px;
+        font-size: 0.72rem;
+        flex: 1;
+        width: auto;
+    }
+    .btn-card-wa {
+        flex: 1.25;
     }
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -4334,49 +4346,58 @@ nav {
 
 .product-card-actions {
     display: flex;
+    flex-direction: row;
     gap: 8px;
-    flex-wrap: wrap;
+    align-items: center;
     margin-top: auto;
+    width: 100%;
 }
 
 .product-card-actions a, .product-card-actions button {
-    flex: 1 1 120px;
-    min-height: 44px;
+    min-height: 34px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 14px;
-    border-radius: 25px;
-    font-size: 0.88rem;
+    padding: 6px 10px;
+    border-radius: 18px;
+    font-size: 0.74rem;
     font-weight: 600;
     text-align: center;
     text-decoration: none;
+    letter-spacing: 0.35px;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    white-space: nowrap;
     touch-action: manipulation;
+    transition: all 0.25s ease;
 }
 
 .btn-card-wa {
+    flex: 1.25;
     background: #25D366;
     color: #FFFFFF !important;
-    border: none;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #25D366;
 }
 
 .btn-card-wa:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    background: #1eb956;
+    border-color: #1eb956;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
 }
 
 .btn-card-view {
+    flex: 1;
     background: #FDF1F5;
     color: var(--text-dark) !important;
-    border: 1px solid rgba(227, 153, 182, 0.5);
-    transition: background 0.2s, border-color 0.2s;
+    border: 1px solid rgba(227, 153, 182, 0.45);
 }
 
 .btn-card-view:hover {
     background: var(--accent-pink);
     color: #FFFFFF !important;
     border-color: var(--accent-pink);
+    transform: translateY(-1px);
 }
 
 /* Event Filter Chips Upgrades */
