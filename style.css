@@ -13,7 +13,9 @@ html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     width: 100%;
+    height: 100%;
     overflow-x: hidden;
+    background-color: #1b1618; /* Luxury dark tone matches footer, completely eliminates pink bottom gap */
 }
 
 * { 
@@ -25,13 +27,28 @@ html {
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: var(--primary-pink);
+    background-color: #ffffff;
     color: var(--text-dark);
     line-height: 1.6;
     width: 100%;
     max-width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     overflow-x: hidden;
     position: relative;
+}
+
+/* Ensure Page Content Fills Viewport so Sticky Footer Locks to Bottom */
+main,
+.products-container,
+.product-view-main,
+.about-us-container,
+.contact-home-section,
+.event-view-main,
+.events-hub-section,
+.error-page-container {
+    flex: 1 0 auto;
 }
 
 img, video {
@@ -166,30 +183,37 @@ nav {
 .nav-links { 
     display: flex; 
     align-items: center;
-    gap: 26px; 
+    gap: clamp(8px, 1.3vw, 20px);
+    flex-wrap: nowrap;
+}
+.nav-links li {
+    flex-shrink: 0;
 }
 .nav-links a {
     font-weight: 500;
-    font-size: 13px;
+    font-size: clamp(11px, 0.82vw, 13px);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.35px;
     transition: color 0.3s ease;
     color: var(--text-dark);
+    white-space: nowrap;
 }
 .nav-links a:hover { color: var(--accent-pink); }
 .nav-links .nav-cta-item .nav-btn-order {
     background: var(--text-dark);
     color: var(--white);
-    padding: 8px 18px;
+    padding: 7px clamp(12px, 1.1vw, 16px);
     border-radius: 25px;
-    font-size: 12px;
+    font-size: clamp(11px, 0.78vw, 12px);
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.35px;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     text-transform: none;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 .nav-links .nav-cta-item .nav-btn-order:hover {
     background: #25D366;
@@ -3011,8 +3035,8 @@ html, body {
     }
 }
 
-/* Mobile Devices (<= 768px) */
-@media (max-width: 768px) {
+/* Tablet & Mobile Navigation Drawer (<= 1080px) */
+@media (max-width: 1080px) {
     /* Header & Navigation Bar */
     nav {
         padding: 0 5%;
@@ -3169,7 +3193,10 @@ html, body {
         color: var(--white);
         transform: translateY(-2px);
     }
+}
 
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
     /* Hero Section */
     .hero {
         padding: 95px 5% 45px;
@@ -4163,7 +4190,7 @@ nav {
     min-height: 38px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
     .nav-actions-mobile {
         display: flex;
     }
@@ -4526,6 +4553,7 @@ footer {
     width: 100%;
     box-sizing: border-box;
     border-top: 2px solid rgba(227, 153, 182, 0.25);
+    margin-top: auto;
 }
 
 /* 1. Value Pillars / Trust Highlights */

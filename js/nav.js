@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Close on resize if resizing beyond mobile breakpoint
+    // Close on resize if resizing beyond mobile/tablet drawer breakpoint
     window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
+        if (window.innerWidth > 1080) {
             navLinks.classList.remove('nav-active');
             menuBtn.classList.remove('open');
             menuBtn.setAttribute('aria-expanded', 'false');
