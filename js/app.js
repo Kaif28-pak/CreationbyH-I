@@ -277,14 +277,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             const encodedTitle = encodeURIComponent(`Hi! I want to order "${product.title}" from your website.`);
             const waLink = `https://wa.me/${WA_PHONE}?text=${encodedTitle}`;
             const fallbackImg = 'assets/images/category-baskets.jpg';
-            const imgSrc = product.image || fallbackImg;
+            const hasImage = !!(product.image && product.image.trim().length > 0);
+            const hasVideo = !!(product.video && product.video.trim().length > 0);
+            const videoPoster = (hasVideo && product.video.includes('res.cloudinary.com'))
+                ? `poster="${product.video.replace(/\.(mp4|mov|webm|mkv)(\?.*)?$/i, '.jpg')}"`
+                : '';
+            const featuredMediaHtml = hasImage
+                ? `<img src="${product.image}" alt="${product.title}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';">`
+                : hasVideo
+                    ? `<video src="${product.video}" ${videoPoster} muted loop playsinline autoplay preload="metadata" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block;"></video>`
+                    : `<img src="${fallbackImg}" alt="${product.title}" loading="lazy">`;
 
             const card = document.createElement('div');
             card.className = 'product-card reveal active';
             card.innerHTML = `
                 <a href="${detailUrl}" class="product-card-link-wrap">
                     <div class="product-media">
-                        <img src="${imgSrc}" alt="${product.title}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';">
+                        ${hasVideo ? `<div class="product-media-badge">🎬 ${hasImage ? 'Video' : 'Video Reel'}</div>` : ''}
+                        ${featuredMediaHtml}
                         <div class="product-media-overlay">
                             <span class="overlay-view-badge">View Details &rarr;</span>
                         </div>

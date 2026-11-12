@@ -240,24 +240,35 @@ document.addEventListener('DOMContentLoaded', async () => {
         );
         const waShareLink = `https://api.whatsapp.com/send?text=${encodedShareMessage}`;
 
-        const hasImage = !!product.image;
-        const hasVideo = !!product.video;
-        const activeImg = product.image || 'assets/images/category-baskets.jpg';
+        const hasImage = !!(product.image && product.image.trim().length > 0);
+        const hasVideo = !!(product.video && product.video.trim().length > 0);
+        const videoPosterUrl = (hasVideo && product.video.includes('res.cloudinary.com'))
+            ? product.video.replace(/\.(mp4|mov|webm|mkv)(\?.*)?$/i, '.jpg')
+            : '';
+        const activeImg = hasImage ? product.image : (videoPosterUrl || 'assets/images/category-baskets.jpg');
 
-        contentArea.innerHTML = `
-            <div class="product-detail-layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(24px, 4vw, 48px); margin-top: 20px; align-items: start;">
-                
-                <!-- Left: Media Showcase (Full Aspect-Preserving Viewer) -->
-                <div class="media-showcase-box" style="background: #ffffff; border-radius: 18px; padding: 18px; border: 1px solid rgba(227, 153, 182, 0.3); box-shadow: 0 10px 32px rgba(58, 43, 50, 0.06);">
+        const primaryMediaHtml = (!hasImage && hasVideo) ? `
+                    <div class="media-display-viewport" style="border-radius: 14px; overflow: hidden; min-height: 360px; max-height: 600px; background: #FFF8FA; display: flex; align-items: center; justify-content: center; position: relative; padding: 12px; border: 1px solid rgba(227, 153, 182, 0.2);">
+                        <video src="${product.video}" ${videoPosterUrl ? `poster="${videoPosterUrl}"` : ''} controls autoplay muted loop playsinline style="max-width: 100%; max-height: 560px; width: auto; height: auto; border-radius: 10px; object-fit: contain; display: block;"></video>
+                    </div>
+        ` : `
                     <div class="media-display-viewport" id="product-img-viewport" style="border-radius: 14px; overflow: hidden; min-height: 420px; max-height: 600px; background: #FFF8FA; display: flex; align-items: center; justify-content: center; position: relative; cursor: zoom-in; padding: 12px; border: 1px solid rgba(227, 153, 182, 0.2);">
                         <img id="main-product-img" src="${activeImg}" alt="${product.alt || product.title}" style="max-width: 100%; max-height: 560px; width: auto; height: auto; object-fit: contain; display: block; transition: transform 0.3s ease;" onerror="this.src='assets/images/category-baskets.jpg';">
                         <span class="zoom-hint-badge" style="position: absolute; bottom: 12px; right: 12px; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 20px; font-size: 0.76rem; font-weight: 600; color: #2c2523; border: 1px solid rgba(227, 153, 182, 0.4); box-shadow: 0 4px 12px rgba(0,0,0,0.08); pointer-events: none;">🔍 Click to Zoom</span>
                     </div>
                     ${hasVideo ? `
                         <div style="margin-top: 14px;">
-                            <video src="${product.video}" controls playsinline style="width: 100%; border-radius: 12px; max-height: 300px;"></video>
+                            <video src="${product.video}" ${videoPosterUrl ? `poster="${videoPosterUrl}"` : ''} controls playsinline style="width: 100%; border-radius: 12px; max-height: 300px;"></video>
                         </div>
                     ` : ''}
+        `;
+
+        contentArea.innerHTML = `
+            <div class="product-detail-layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(24px, 4vw, 48px); margin-top: 20px; align-items: start;">
+                
+                <!-- Left: Media Showcase (Full Aspect-Preserving Viewer) -->
+                <div class="media-showcase-box" style="background: #ffffff; border-radius: 18px; padding: 18px; border: 1px solid rgba(227, 153, 182, 0.3); box-shadow: 0 10px 32px rgba(58, 43, 50, 0.06);">
+                    ${primaryMediaHtml}
                 </div>
 
                 <!-- Right: Product Information & Action Buttons -->

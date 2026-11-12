@@ -246,13 +246,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const encodedTitle = encodeURIComponent(`Hi! I want to order "${product.title}" from ${currentCat.title} on your website.`);
                 const waLink = `https://wa.me/${WA_PHONE}?text=${encodedTitle}`;
                 
-                const hasVideo = !!product.video;
-                const videoBadge = hasVideo ? `<div class="product-media-badge">🎬 Video Available</div>` : '';
+                const hasVideo = !!(product.video && product.video.trim().length > 0);
+                const hasImage = !!(product.image && product.image.trim().length > 0);
+                const videoBadge = hasVideo ? `<div class="product-media-badge">🎬 ${hasImage ? 'Video Available' : 'Video Reel'}</div>` : '';
+                const videoPoster = (hasVideo && product.video.includes('res.cloudinary.com'))
+                    ? `poster="${product.video.replace(/\.(mp4|mov|webm|mkv)(\?.*)?$/i, '.jpg')}"`
+                    : '';
 
-                // Elegant fallback: neutral placeholder instead of broken image
-                const hasImage = product.image && product.image.trim().length > 0;
+                // Support image, video-only reel, or neutral fallback placeholder
                 const mediaContent = hasImage ? `
                     <img src="${product.image}" alt="${product.alt || product.title}" loading="lazy" width="400" height="400" onerror="this.parentElement.innerHTML='<div class=\\'media-placeholder-block\\'><span class=\\'ph-icon\\'>🎀</span><p class=\\'ph-text\\'>Photo Coming Soon</p></div>';">
+                ` : hasVideo ? `
+                    <video src="${product.video}" ${videoPoster} muted loop playsinline autoplay preload="metadata" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block;"></video>
                 ` : `
                     <div class="media-placeholder-block">
                         <span class="ph-icon">🎀</span>
