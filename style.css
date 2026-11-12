@@ -4114,7 +4114,7 @@ html, body {
 }
 
 body {
-    padding-bottom: clamp(70px, 10vw, 95px); /* Prevents floating WhatsApp from covering content */
+    padding-bottom: 0;
     font-size: 1rem;
     line-height: 1.6;
 }
@@ -4546,7 +4546,7 @@ nav {
 footer {
     background: #1b1618;
     color: #F8D9E3;
-    padding: clamp(40px, 6vw, 65px) clamp(16px, 6vw, 8%) 30px;
+    padding: clamp(40px, 6vw, 65px) clamp(16px, 6vw, 8%) clamp(76px, 9vw, 90px);
     display: grid;
     grid-template-columns: 1.35fr 1fr 1.05fr 1.15fr;
     gap: clamp(24px, 3.5vw, 40px);
