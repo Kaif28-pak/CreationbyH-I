@@ -97,6 +97,48 @@
             }
         }
 
+        /* Admin Navigation Tabs */
+        .admin-nav-tabs {
+            max-width: 1200px;
+            margin: 15px auto 0;
+            padding: 0 16px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 2px solid #ecd3dc;
+        }
+
+        .admin-nav-tab {
+            background: #fdf8f9;
+            border: 1px solid #ecd3dc;
+            border-bottom: none;
+            padding: 10px 22px;
+            border-radius: 12px 12px 0 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #6d5b62;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+
+        .admin-nav-tab:hover {
+            background: #fff;
+            color: var(--primary);
+        }
+
+        .admin-nav-tab.active {
+            background: #fff;
+            color: var(--primary);
+            border-color: #ecd3dc;
+            border-bottom: 2px solid #fff;
+            margin-bottom: -2px;
+            font-weight: 700;
+            box-shadow: 0 -4px 12px rgba(196, 139, 159, 0.1);
+        }
+
         .panel-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -386,7 +428,18 @@
         </div>
     </div>
 
-    <div class="admin-container">
+    <!-- Admin Navigation Tabs -->
+    <div class="admin-nav-tabs">
+        <button type="button" class="admin-nav-tab active" id="tab-btn-products">
+            📦 Products Catalog
+        </button>
+        <button type="button" class="admin-nav-tab" id="tab-btn-deals">
+            🔥 Special Deals & Bundles
+        </button>
+    </div>
+
+    <!-- TAB 1: PRODUCTS CATALOG -->
+    <div class="admin-container" id="products-tab-content">
         
         <!-- Left Column: Add / Edit Product Form -->
         <div class="panel-card">
@@ -519,6 +572,124 @@
             <div id="product-list" class="product-list">
                 <div style="text-align: center; padding: 40px; color: var(--text-muted);">
                     Loading products...
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TAB 2: SPECIAL DEALS & COMBOS MANAGER -->
+    <div class="admin-container" id="deals-tab-content" style="display: none;">
+        
+        <!-- Left Column: Add / Edit Deal Form -->
+        <div class="panel-card">
+            <h2 id="deal-form-heading" class="panel-title">Add / Edit Special Deal</h2>
+            
+            <form id="deal-form">
+                <input type="hidden" id="edit-deal-id" value="">
+
+                <div class="form-group">
+                    <label for="deal-type">Deal Type</label>
+                    <select id="deal-type" required>
+                        <option value="active">Active Deal (Photo + Price + Countdown Timer)</option>
+                        <option value="teaser">Coming Soon / Teaser Drop (Mystery Box)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="deal-title">Deal Title *</label>
+                    <input type="text" id="deal-title" required placeholder="e.g. Sweet Celebration Cake & Rose Bouquet">
+                </div>
+
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label for="deal-ribbon">Badge Ribbon</label>
+                        <input type="text" id="deal-ribbon" placeholder="e.g. 🔥 SAVE 18% or ⚡ BESTSELLER COMBO">
+                    </div>
+                    <div class="form-group">
+                        <label for="deal-slot">Guarantee / Slot Tag</label>
+                        <input type="text" id="deal-slot" placeholder="e.g. ⚡ Limited Karachi Slots">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="deal-category">Occasion / Category Tag</label>
+                    <input type="text" id="deal-category" placeholder="e.g. 🎂 Birthday & Surprise Combo">
+                </div>
+
+                <!-- Pricing (Shown for active deals) -->
+                <div id="deal-pricing-fields" class="form-row" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label for="deal-old-price">Original Price (Rs.)</label>
+                        <input type="number" id="deal-old-price" placeholder="4800">
+                    </div>
+                    <div class="form-group">
+                        <label for="deal-new-price">Deal Price (Rs.)</label>
+                        <input type="number" id="deal-new-price" placeholder="3950">
+                    </div>
+                    <div class="form-group">
+                        <label for="deal-save-amount">Savings Badge</label>
+                        <input type="text" id="deal-save-amount" placeholder="Save Rs. 850">
+                    </div>
+                </div>
+
+                <!-- Photo Upload via Cloudinary -->
+                <div class="form-group" id="deal-image-group">
+                    <label for="deal-image">Deal Photo (Cloudinary)</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="deal-image" placeholder="Image URL or upload via Cloudinary">
+                        <button type="button" id="upload-deal-image-btn" class="btn btn-secondary" style="white-space: nowrap; font-size: 0.8rem; padding: 8px 14px;">
+                            📸 Upload Image
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="deal-desc">Short Description</label>
+                    <textarea id="deal-desc" rows="2" placeholder="Brief summary of what makes this bundle special..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="deal-items">Included Items (1 per line)</label>
+                    <textarea id="deal-items" rows="4" placeholder="1/2 lb Fresh Cream Cake with Golden Candle&#10;Hand-Tied Fresh Red Roses & KitKat Bouquet&#10;Plush Cuddly Teddy Bear&#10;Personalized Handwritten Message Card"></textarea>
+                </div>
+
+                <div class="form-group" id="deal-teaser-time-group" style="display: none;">
+                    <label for="deal-teaser-time">Teaser Drop Schedule</label>
+                    <input type="text" id="deal-teaser-time" placeholder="e.g. 🔒 Drops This Friday 8:00 PM">
+                </div>
+
+                <div class="form-group">
+                    <label for="deal-wa-msg">WhatsApp Custom Message</label>
+                    <input type="text" id="deal-wa-msg" placeholder="Hi Creations by H&I! I want to claim the deal...">
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="deal-active" checked>
+                        <span>Active on Website</span>
+                    </label>
+                </div>
+
+                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                    <button type="submit" id="save-deal-btn" class="btn btn-primary">💾 Save Deal</button>
+                    <button type="button" id="cancel-deal-btn" class="btn btn-secondary" style="display: none;">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right Column: Current Deals List -->
+        <div class="panel-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+                <h2 class="panel-title" style="margin-bottom: 0; border: none; padding: 0;">Live Deals on Website</h2>
+                <button type="button" id="export-deals-backup-btn" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 6px;">
+                    📥 Download Deals Backup
+                </button>
+            </div>
+            <p style="font-size: 0.82rem; color: #777; margin-bottom: 15px;">Edit any deal below to change price, items, banner ribbon, or photo in real-time.</p>
+            <div id="deals-list" class="product-list">
+                <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    Loading deals...
                 </div>
             </div>
         </div>

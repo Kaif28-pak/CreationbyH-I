@@ -554,7 +554,154 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // =========================================================================
-    // 2.5 LIVE DEALS COUNTDOWN TIMERS
+    // 2.5 DYNAMIC DEALS & VALUE BUNDLES LOADER
+    // =========================================================================
+    async function loadDeals() {
+        const dealsGrid = document.getElementById('deals-grid');
+        if (!dealsGrid) return;
+
+        let dealsList = [];
+
+        // 1. Try Firebase Cloud Firestore
+        if (window.CreationsFirebase && window.CreationsFirebase.isConfigured()) {
+            try {
+                const fbDeals = await window.CreationsFirebase.getDeals();
+                if (Array.isArray(fbDeals) && fbDeals.length > 0) {
+                    dealsList = fbDeals;
+                }
+            } catch (e) {
+                console.warn('[Deals] Firebase fetch fallback:', e);
+            }
+        }
+
+        // 2. Local JSON fallback
+        if (dealsList.length === 0) {
+            try {
+                const res = await fetch(`data/deals.json?t=${Date.now()}`, { cache: 'no-store' });
+                if (res.ok) {
+                    const data = await res.json();
+                    dealsList = data.deals || (Array.isArray(data) ? data : []);
+                }
+            } catch (e) {}
+        }
+
+        if (!dealsList || dealsList.length === 0) return;
+
+        dealsList.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
+
+        let html = '';
+        dealsList.forEach(deal => {
+            if (deal.active === false) return;
+
+            const isTeaser = deal.type === 'teaser';
+            const ribbon = deal.ribbon || (isTeaser ? '🔒 DROPPING SOON' : '🔥 SPECIAL DEAL');
+            const slotTag = deal.slotTag || (isTeaser ? '✨ VIP Early Access' : '⚡ Limited Slots');
+            const category = deal.category || (isTeaser ? '🎉 Weekend Mystery Drop' : '🎂 Celebration Combo');
+            const title = deal.title || 'Exclusive Value Bundle';
+            const description = deal.description || '';
+            const items = Array.isArray(deal.items) ? deal.items : [];
+            const waPhone = '923096708144';
+            const waMsg = encodeURIComponent(deal.waMessage || `Hi Creations by H&I! I want to inquire about the deal: ${title}`);
+            const waUrl = `https://wa.me/${waPhone}?text=${waMsg}`;
+
+            if (isTeaser) {
+                const teaserIcon = deal.teaserIcon || '🎁';
+                const teaserDropTime = deal.teaserDropTime || '🔒 Drops This Weekend';
+                const perkTitle = deal.perkTitle || '🎁 VIP WhatsApp Subscriber Perk:';
+                const perkDesc = deal.perkDesc || 'Get the private reveal photo & book before it sells out.';
+
+                const itemsHtml = items.map(it => `<li><span class="deal-check">✨</span> ${it}</li>`).join('');
+
+                html += `
+                <article class="deal-card deal-card-teaser reveal active">
+                    <div class="deal-badge-ribbon" style="background: #2c2527;">${ribbon}</div>
+                    <div class="deal-slot-tag" style="background: #FFF9FB; color: #8b3a58;">${slotTag}</div>
+                    
+                    <div class="deal-teaser-media">
+                        <div class="teaser-mystery-icon">${teaserIcon}</div>
+                        <div class="teaser-lock-badge">${teaserDropTime}</div>
+                    </div>
+
+                    <div class="deal-body">
+                        <div class="deal-category-tag" style="background: #FCE8EE; color: #8b3a58;">${category}</div>
+                        <h3 class="deal-title">${title}</h3>
+                        <p class="deal-desc">${description}</p>
+                        
+                        <ul class="deal-items-list">
+                            ${itemsHtml}
+                        </ul>
+
+                        <div class="deal-teaser-perk-box">
+                            <span class="teaser-perk-title">${perkTitle}</span>
+                            <span class="teaser-perk-desc">${perkDesc}</span>
+                        </div>
+
+                        <a href="${waUrl}" class="deal-claim-btn teaser-claim-btn" target="_blank" rel="noopener noreferrer">
+                            🔔 Notify Me First on WhatsApp
+                        </a>
+                    </div>
+                </article>
+                `;
+            } else {
+                const oldPriceText = deal.oldPrice ? `Rs. ${Number(deal.oldPrice).toLocaleString()}` : '';
+                const newPriceText = deal.newPrice ? `Rs. ${Number(deal.newPrice).toLocaleString()}` : '';
+                const saveBadge = deal.saveAmount ? `<span class="deal-save-badge">${deal.saveAmount}</span>` : '';
+                const itemsHtml = items.map(it => `<li><span class="deal-check">✔</span> ${it}</li>`).join('');
+                const imgUrl = deal.image || 'assets/images/category-flower-bouquet.jpg';
+
+                html += `
+                <article class="deal-card reveal active">
+                    <div class="deal-badge-ribbon">${ribbon}</div>
+                    <div class="deal-slot-tag">${slotTag}</div>
+                    <div class="deal-media">
+                        <img src="${imgUrl}" alt="${title}" loading="lazy" width="400" height="260" onerror="this.src='assets/images/category-flower-bouquet.jpg'">
+                        <div class="deal-media-overlay"></div>
+                    </div>
+                    <div class="deal-body">
+                        <div class="deal-category-tag">${category}</div>
+                        <h3 class="deal-title">${title}</h3>
+                        <p class="deal-desc">${description}</p>
+                        
+                        <ul class="deal-items-list">
+                            ${itemsHtml}
+                        </ul>
+
+                        <div class="deal-pricing-row">
+                            <div class="deal-price-box">
+                                ${oldPriceText ? `<span class="deal-old-price">${oldPriceText}</span>` : ''}
+                                ${newPriceText ? `<span class="deal-new-price">${newPriceText}</span>` : ''}
+                            </div>
+                            ${saveBadge}
+                        </div>
+
+                        <div class="deal-countdown-box deal-countdown" data-target-hours="${deal.targetHours || 24}">
+                            <span class="countdown-label">⏰ Deal Ends In:</span>
+                            <div class="countdown-timer">
+                                <span class="timer-unit"><strong class="t-hours">11</strong>h</span>
+                                <span class="timer-colon">:</span>
+                                <span class="timer-unit"><strong class="t-mins">42</strong>m</span>
+                                <span class="timer-colon">:</span>
+                                <span class="timer-unit"><strong class="t-secs">18</strong>s</span>
+                            </div>
+                        </div>
+
+                        <a href="${waUrl}" class="deal-claim-btn" target="_blank" rel="noopener noreferrer">
+                            💬 Claim Deal on WhatsApp
+                        </a>
+                    </div>
+                </article>
+                `;
+            }
+        });
+
+        if (html) {
+            dealsGrid.innerHTML = html;
+            initDealTimers();
+        }
+    }
+
+    // =========================================================================
+    // 2.6 LIVE DEALS COUNTDOWN TIMERS
     // =========================================================================
     function initDealTimers() {
         const timerBoxes = document.querySelectorAll('.deal-countdown');
@@ -588,6 +735,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Initialize all sections
+    loadDeals();
     initDealTimers();
     loadServices();
     loadFeaturedProducts();

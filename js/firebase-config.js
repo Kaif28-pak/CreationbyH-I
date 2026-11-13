@@ -137,5 +137,28 @@ window.CreationsFirebase = {
             }
         }
         return null;
+    },
+
+    // Fetch special deals for homepage
+    async getDeals() {
+        if (db && isFirebaseConfigured()) {
+            try {
+                const snapshot = await db.collection('deals').get();
+                const deals = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (data && data.active !== false) {
+                        deals.push({ id: doc.id, ...data });
+                    }
+                });
+                if (deals.length > 0) {
+                    deals.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
+                    return deals;
+                }
+            } catch (err) {
+                console.warn('[Firebase] Firestore deals fetch error:', err);
+            }
+        }
+        return null;
     }
 };

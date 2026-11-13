@@ -444,4 +444,317 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert(`Delete failed: ${err.message}`);
         }
     }
+
+    // =========================================================================
+    // 5. TABS SWITCHING (PRODUCTS vs DEALS)
+    // =========================================================================
+    const tabBtnProducts = document.getElementById('tab-btn-products');
+    const tabBtnDeals = document.getElementById('tab-btn-deals');
+    const productsTabContent = document.getElementById('products-tab-content');
+    const dealsTabContent = document.getElementById('deals-tab-content');
+
+    if (tabBtnProducts && tabBtnDeals) {
+        tabBtnProducts.addEventListener('click', () => {
+            tabBtnProducts.classList.add('active');
+            tabBtnDeals.classList.remove('active');
+            if (productsTabContent) productsTabContent.style.display = 'grid';
+            if (dealsTabContent) dealsTabContent.style.display = 'none';
+        });
+
+        tabBtnDeals.addEventListener('click', () => {
+            tabBtnDeals.classList.add('active');
+            tabBtnProducts.classList.remove('active');
+            if (productsTabContent) productsTabContent.style.display = 'none';
+            if (dealsTabContent) dealsTabContent.style.display = 'grid';
+            loadAllDeals();
+        });
+    }
+
+    // =========================================================================
+    // 6. DEALS MANAGER CRUD & CLOUDINARY
+    // =========================================================================
+    const dealForm = document.getElementById('deal-form');
+    const dealFormHeading = document.getElementById('deal-form-heading');
+    const editDealId = document.getElementById('edit-deal-id');
+    const dealType = document.getElementById('deal-type');
+    const dealTitle = document.getElementById('deal-title');
+    const dealRibbon = document.getElementById('deal-ribbon');
+    const dealSlot = document.getElementById('deal-slot');
+    const dealCategory = document.getElementById('deal-category');
+    const dealOldPrice = document.getElementById('deal-old-price');
+    const dealNewPrice = document.getElementById('deal-new-price');
+    const dealSaveAmount = document.getElementById('deal-save-amount');
+    const dealPricingFields = document.getElementById('deal-pricing-fields');
+    const dealImage = document.getElementById('deal-image');
+    const dealImageGroup = document.getElementById('deal-image-group');
+    const uploadDealImageBtn = document.getElementById('upload-deal-image-btn');
+    const dealDesc = document.getElementById('deal-desc');
+    const dealItems = document.getElementById('deal-items');
+    const dealTeaserTime = document.getElementById('deal-teaser-time');
+    const dealTeaserTimeGroup = document.getElementById('deal-teaser-time-group');
+    const dealWaMsg = document.getElementById('deal-wa-msg');
+    const dealActive = document.getElementById('deal-active');
+    const saveDealBtn = document.getElementById('save-deal-btn');
+    const cancelDealBtn = document.getElementById('cancel-deal-btn');
+    const dealsListEl = document.getElementById('deals-list');
+    const exportDealsBackupBtn = document.getElementById('export-deals-backup-btn');
+
+    let cachedDeals = [];
+
+    // Toggle fields based on type
+    if (dealType) {
+        dealType.addEventListener('change', () => {
+            const isTeaser = dealType.value === 'teaser';
+            if (dealPricingFields) dealPricingFields.style.display = isTeaser ? 'none' : 'grid';
+            if (dealImageGroup) dealImageGroup.style.display = isTeaser ? 'none' : 'block';
+            if (dealTeaserTimeGroup) dealTeaserTimeGroup.style.display = isTeaser ? 'block' : 'none';
+        });
+    }
+
+    // Cloudinary upload for deal image
+    if (uploadDealImageBtn) {
+        uploadDealImageBtn.addEventListener('click', () => {
+            if (!window.cloudinary) {
+                alert('Cloudinary is loading. Please check internet connection.');
+                return;
+            }
+            window.cloudinary.openUploadWidget({
+                cloudName: 'djjvgubrk',
+                uploadPreset: 'ml_default',
+                sources: ['local', 'camera', 'url'],
+                multiple: false,
+                resourceType: 'image',
+                clientAllowedFormats: ['png', 'jpeg', 'jpg', 'webp'],
+                maxFileSize: 10000000
+            }, (error, result) => {
+                if (!error && result && result.event === 'success') {
+                    dealImage.value = result.info.secure_url;
+                    alert('Deal photo uploaded to Cloudinary successfully!');
+                }
+            });
+        });
+    }
+
+    async function loadAllDeals() {
+        if (!dealsListEl) return;
+        dealsListEl.innerHTML = '<div style="text-align: center; padding: 30px;">Loading deals...</div>';
+        cachedDeals = [];
+
+        if (window.CreationsFirebase && window.CreationsFirebase.isConfigured()) {
+            try {
+                const db = window.CreationsFirebase.getDb();
+                const snapshot = await db.collection('deals').get();
+                snapshot.forEach(doc => {
+                    cachedDeals.push({ id: doc.id, ...doc.data() });
+                });
+            } catch (err) {
+                console.error('Error reading deals from Firestore:', err);
+            }
+        }
+
+        // If no deals in Firestore yet, fetch default template from data/deals.json
+        if (cachedDeals.length === 0) {
+            try {
+                const res = await fetch(`data/deals.json?t=${Date.now()}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    cachedDeals = data.deals || [];
+                }
+            } catch (e) {}
+        }
+
+        renderDealsList();
+    }
+
+    function renderDealsList() {
+        if (!dealsListEl) return;
+        dealsListEl.innerHTML = '';
+
+        if (cachedDeals.length === 0) {
+            dealsListEl.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted);">No deals found. Fill the form to create your first deal!</div>';
+            return;
+        }
+
+        cachedDeals.sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99));
+
+        cachedDeals.forEach(d => {
+            const row = document.createElement('div');
+            row.className = 'product-row';
+
+            const isTeaser = d.type === 'teaser';
+            const fallbackImg = '/assets/images/category-flower-bouquet.jpg';
+            const imgSrc = isTeaser ? '' : (d.image || fallbackImg);
+            const priceText = isTeaser ? 'Coming Soon Drop' : (d.newPrice ? `Rs. ${Number(d.newPrice).toLocaleString()}` : 'Price on Inquiry');
+            const ribbonTag = d.ribbon ? `<span style="background: #fce8ee; color: #8b3a58; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;">${d.ribbon}</span>` : '';
+            const statusTag = d.active === false ? '<span style="color: var(--danger);">[Inactive]</span>' : '<span style="color: var(--success);">[Active]</span>';
+
+            const mediaHtml = isTeaser 
+                ? `<div style="width: 70px; height: 70px; background: #fdf0f4; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">🎁</div>`
+                : `<img src="${imgSrc}" class="product-thumb" alt="${d.title}" onerror="this.src='${fallbackImg}'">`;
+
+            row.innerHTML = `
+                ${mediaHtml}
+                <div class="product-info">
+                    <div class="product-row-title">${d.title || 'Untitled Deal'}</div>
+                    <div class="product-row-desc">${d.description || 'No description provided.'}</div>
+                    <div class="product-row-meta">
+                        <span>Type: <strong>${d.type || 'active'}</strong></span>
+                        <span>${priceText}</span>
+                        ${ribbonTag}
+                        ${statusTag}
+                    </div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-edit edit-deal-btn" data-id="${d.id}">Edit</button>
+                    <button class="btn btn-danger delete-deal-btn" data-id="${d.id}">Delete</button>
+                </div>
+            `;
+
+            row.querySelector('.edit-deal-btn').addEventListener('click', () => editDeal(d));
+            row.querySelector('.delete-deal-btn').addEventListener('click', () => deleteDeal(d.id, d.title));
+
+            dealsListEl.appendChild(row);
+        });
+    }
+
+    function editDeal(d) {
+        editDealId.value = d.id;
+        dealType.value = d.type || 'active';
+        dealType.dispatchEvent(new Event('change'));
+
+        dealTitle.value = d.title || '';
+        dealRibbon.value = d.ribbon || '';
+        dealSlot.value = d.slotTag || '';
+        dealCategory.value = d.category || '';
+        dealOldPrice.value = d.oldPrice || '';
+        dealNewPrice.value = d.newPrice || '';
+        dealSaveAmount.value = d.saveAmount || '';
+        dealImage.value = d.image || '';
+        dealDesc.value = d.description || '';
+        dealItems.value = Array.isArray(d.items) ? d.items.join('\n') : (d.items || '');
+        dealTeaserTime.value = d.teaserDropTime || '';
+        dealWaMsg.value = d.waMessage || '';
+        dealActive.checked = d.active !== false;
+
+        dealFormHeading.textContent = `Edit Deal: ${d.title}`;
+        saveDealBtn.textContent = '💾 Update Deal';
+        if (cancelDealBtn) cancelDealBtn.style.display = 'inline-flex';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetDealForm() {
+        if (!dealForm) return;
+        dealForm.reset();
+        editDealId.value = '';
+        dealFormHeading.textContent = 'Add / Edit Special Deal';
+        saveDealBtn.textContent = '💾 Save Deal';
+        if (cancelDealBtn) cancelDealBtn.style.display = 'none';
+        dealActive.checked = true;
+        if (dealType) dealType.dispatchEvent(new Event('change'));
+    }
+
+    if (cancelDealBtn) {
+        cancelDealBtn.addEventListener('click', resetDealForm);
+    }
+
+    if (dealForm) {
+        dealForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const user = firebase.auth().currentUser;
+            if (!user) {
+                alert('Security Error: You must be signed in as Admin to save deals.');
+                return;
+            }
+
+            if (!window.CreationsFirebase || !window.CreationsFirebase.isConfigured()) {
+                alert('Firebase credentials not configured.');
+                return;
+            }
+
+            saveDealBtn.disabled = true;
+            saveDealBtn.textContent = 'Saving Deal...';
+
+            try {
+                const db = window.CreationsFirebase.getDb();
+                const docId = editDealId.value.trim();
+
+                const itemsArr = dealItems.value
+                    .split('\n')
+                    .map(it => it.trim())
+                    .filter(it => it.length > 0);
+
+                const dealData = {
+                    type: dealType.value,
+                    title: dealTitle.value.trim(),
+                    ribbon: dealRibbon.value.trim(),
+                    slotTag: dealSlot.value.trim(),
+                    category: dealCategory.value.trim(),
+                    oldPrice: dealOldPrice.value ? Number(dealOldPrice.value) : null,
+                    newPrice: dealNewPrice.value ? Number(dealNewPrice.value) : null,
+                    saveAmount: dealSaveAmount.value.trim(),
+                    image: dealImage.value.trim(),
+                    description: dealDesc.value.trim(),
+                    items: itemsArr,
+                    teaserIcon: '🎁',
+                    teaserDropTime: dealTeaserTime.value.trim(),
+                    waMessage: dealWaMsg.value.trim(),
+                    active: dealActive.checked,
+                    updatedAt: new Date().toISOString()
+                };
+
+                if (docId && !docId.startsWith('local_')) {
+                    await db.collection('deals').doc(docId).set(dealData, { merge: true });
+                    alert(`Deal "${dealData.title}" updated successfully in Firestore!`);
+                } else {
+                    const newDoc = await db.collection('deals').add(dealData);
+                    alert(`Deal "${dealData.title}" added successfully! ID: ${newDoc.id}`);
+                }
+
+                resetDealForm();
+                await loadAllDeals();
+            } catch (err) {
+                console.error('Error saving deal:', err);
+                alert(`Error saving deal: ${err.message}`);
+            } finally {
+                saveDealBtn.disabled = false;
+            }
+        });
+    }
+
+    async function deleteDeal(id, title) {
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            alert('Security Error: You must be signed in to delete deals.');
+            return;
+        }
+
+        if (!confirm(`Are you sure you want to delete deal "${title}"?`)) return;
+
+        try {
+            const db = window.CreationsFirebase.getDb();
+            await db.collection('deals').doc(id).delete();
+            alert(`Deal "${title}" deleted from Firestore.`);
+            await loadAllDeals();
+        } catch (err) {
+            alert(`Delete failed: ${err.message}`);
+        }
+    }
+
+    if (exportDealsBackupBtn) {
+        exportDealsBackupBtn.addEventListener('click', () => {
+            if (!cachedDeals || cachedDeals.length === 0) {
+                alert('No deals loaded to export.');
+                return;
+            }
+            const blob = new Blob([JSON.stringify({ deals: cachedDeals }, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `deals-backup-${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    }
 });

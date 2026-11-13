@@ -1,0 +1,76 @@
+{
+  "deals": [
+    {
+      "id": "deal-sweet-celebration",
+      "type": "active",
+      "ribbon": "🔥 SAVE 18%",
+      "slotTag": "⚡ Limited Karachi Slots",
+      "category": "🎂 Birthday & Surprise Combo",
+      "title": "Sweet Celebration Cake, Teddy & Rose Bouquet Bundle",
+      "description": "The ultimate all-in-one birthday surprise delivered across Karachi with fresh florals, artisan cake, and keepsakes.",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794486483/503953560_1289670856496925_7324048888329419005_n.jpg",
+      "items": [
+        "1/2 lb Fresh Cream Cake with Golden Candle",
+        "Hand-Tied Fresh Red Roses & KitKat Chocolate Bouquet",
+        "Plush Cuddly Teddy Bear & Silver Foil Star Balloons",
+        "Personalized Handwritten Message Card"
+      ],
+      "oldPrice": 4800,
+      "newPrice": 3950,
+      "saveAmount": "Save Rs. 850",
+      "targetHours": 24,
+      "waMessage": "Hi Creations by H&I! I want to claim the Special Deal: Sweet Celebration Cake, Teddy & Rose Bouquet Bundle (Rs. 3,950).",
+      "order": 1,
+      "active": true
+    },
+    {
+      "id": "deal-led-acrylic-box",
+      "type": "active",
+      "ribbon": "⚡ BESTSELLER COMBO",
+      "slotTag": "🌟 Free Fragile Handling",
+      "category": "🎈 Midnight & Milestone Surprise",
+      "title": "Illuminated LED Acrylic Cake & Balloon Hamper",
+      "description": "Luxury clear display hamper glowing with warm fairy lights and premium balloons, designed for unforgettable milestone reveals.",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794484622/485793776_1215798923884119_1212444277415867197_n.jpg",
+      "items": [
+        "Crystal Clear Acrylic Keepsake Box with Ribbon",
+        "Warm Ambient LED Fairy Lights (Battery Included)",
+        "Custom Celebration Cake & Treat Display Space",
+        "Coordinated Gold & White Metallic Balloon Bunch"
+      ],
+      "oldPrice": 5500,
+      "newPrice": 4500,
+      "saveAmount": "Save Rs. 1,000",
+      "targetHours": 24,
+      "waMessage": "Hi Creations by H&I! I want to claim the Special Deal: Illuminated LED Acrylic Cake & Balloon Hamper (Rs. 4,500).",
+      "order": 2,
+      "active": true
+    },
+    {
+      "id": "deal-weekend-teaser",
+      "type": "teaser",
+      "ribbon": "🔒 DROPPING SOON",
+      "slotTag": "✨ VIP Early Access",
+      "category": "🎉 Weekend Mystery Drop",
+      "title": "Weekend Exclusive Mystery Gifting Drop",
+      "description": "Our secret luxury surprise package dropping this weekend. Only 10 slots available with private pre-booking rates in Karachi.",
+      "image": "",
+      "teaserIcon": "🎁",
+      "teaserDropTime": "🔒 Drops This Friday 8:00 PM",
+      "items": [
+        "Secret Limited-Edition Custom Theme Creation",
+        "Premium Sweet Treats & Fresh Florals Pairing",
+        "Flat 25% Off VIP Early-Bird Discount Rate",
+        "Priority Doorstep Delivery Slot in Karachi"
+      ],
+      "oldPrice": null,
+      "newPrice": null,
+      "saveAmount": "",
+      "perkTitle": "🎁 VIP WhatsApp Subscriber Perk:",
+      "perkDesc": "Get the private reveal photo & book before it sells out.",
+      "waMessage": "Hi Creations by H&I! Please add me to the VIP list for the Weekend Mystery Drop.",
+      "order": 3,
+      "active": true
+    }
+  ]
+}
