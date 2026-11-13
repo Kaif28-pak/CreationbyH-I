@@ -1,3 +1,18 @@
 {
-  "products": []
+  "products": [
+    {
+      "id": "9D5d61zQHn2dAxSg6mSR",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794486483/503953560_1289670856496925_7324048888329419005_n.jpg",
+      "price": null,
+      "category": "flower_bouquets",
+      "featured": false,
+      "description": "Send this complete birthday surprise in Karachi with a red roses KitKat bouquet, custom cream cake, red teddy bear, and silver star balloons.",
+      "video": "",
+      "shortDescription": "Send this complete birthday surprise in Karachi with a red roses KitKat bouquet, custom cream cake, red teddy bear, and silver star balloons.",
+      "updatedAt": "2026-11-12T12:30:42.015Z",
+      "order": 1,
+      "title": "Birthday Flowers Cake Teddy Combo in Karachi",
+      "active": true
+    }
+  ]
 }

@@ -1,3 +1,32 @@
 {
-  "products": []
+  "products": [
+    {
+      "id": "MlXcsGaFlrWlKt7xxxi3",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794320128/813243760_1737758645021475_4814378826434421674_n.jpg",
+      "category": "baskets",
+      "price": null,
+      "featured": true,
+      "shortDescription": "Celebrate weddings and Eid with this luxury gift basket featuring designer embroidered suits, premium pistachios, and elegant netted packing in Karachi.",
+      "description": "Celebrate weddings and Eid with this luxury gift basket featuring designer embroidered suits, premium pistachios, and elegant netted packing in Karachi.",
+      "order": 1,
+      "title": "Luxury Embroidered Suit & Dry Fruit Gift Basket",
+      "video": "",
+      "active": true,
+      "updatedAt": "2026-11-10T14:15:49.100Z"
+    },
+    {
+      "id": "rYGeQOo8eJxgPWr7c21m",
+      "video": "",
+      "active": true,
+      "order": 1,
+      "title": "Newborn Baby Girl Wooden Crate Gift Hamper",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794403326/528631684_1349292707201406_4209963753944712930_n.jpg",
+      "price": null,
+      "shortDescription": "Adorable newborn baby girl wooden crate hamper featuring custom clothes rack, floral canopy, soft baby suits, booties, and heartfelt celebration keepsake.",
+      "updatedAt": "2026-11-11T13:22:19.575Z",
+      "featured": true,
+      "category": "baskets",
+      "description": "Adorable newborn baby girl wooden crate hamper featuring custom clothes rack, floral canopy, soft baby suits, booties, and heartfelt celebration keepsake."
+    }
+  ]
 }

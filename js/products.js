@@ -117,12 +117,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         let rawProducts = [];
         let isFirebaseActive = false;
 
-        // 1. Cloud Firestore is the SOLE authority when configured
+        // 1. Cloud Firestore is the primary live database
         if (window.CreationsFirebase && window.CreationsFirebase.isConfigured()) {
-            isFirebaseActive = true;
             try {
                 const fbProducts = await window.CreationsFirebase.getProductsByCategory(categoryId);
-                if (Array.isArray(fbProducts)) {
+                if (Array.isArray(fbProducts) && fbProducts.length > 0) {
                     rawProducts = fbProducts;
                     console.log(`[Products] Loaded ${rawProducts.length} items from Cloud Firestore.`);
                 }
@@ -131,8 +130,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
 
-        // 2. Fallback only if Firebase is not active
-        if (!isFirebaseActive) {
+        // 2. Local JSON fallback if Firebase is inactive, slow, or returned 0 items
+        if (rawProducts.length === 0) {
             try {
                 const localResponse = await fetch(`data/${categoryId}.json?t=${Date.now()}`, {
                     cache: 'no-store'
@@ -140,8 +139,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (localResponse.ok) {
                     const localData = await localResponse.json();
                     rawProducts = (localData && localData.products) ? localData.products : (Array.isArray(localData) ? localData : []);
+                    if (rawProducts.length > 0) {
+                        console.log(`[Products] Loaded ${rawProducts.length} items from local JSON backup.`);
+                    }
                 }
-            } catch (localErr) {}
+            } catch (localErr) {
+                console.warn('[Products] Local fallback fetch error:', localErr);
+            }
         }
 
         // Filter active products with titles

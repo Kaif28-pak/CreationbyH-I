@@ -1,3 +1,60 @@
 {
-  "products": []
+  "products": [
+    {
+      "id": "Bj50wAOMsLQKiU4ItGDP",
+      "updatedAt": "2026-11-12T11:59:49.471Z",
+      "featured": true,
+      "price": null,
+      "active": true,
+      "description": "Welcome a baby girl in Karachi with this hot air Bobo balloon basket packed with newborn outfits, plush teddy bear, chocolates, and cozy blankets.",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794484786/490346548_1240357751428236_5719000671128713380_n.jpg",
+      "category": "balloon_boxes",
+      "title": "Newborn Baby Girl Bobo Balloon Gift Basket",
+      "shortDescription": "Welcome a baby girl in Karachi with this hot air Bobo balloon basket packed with newborn outfits, plush teddy bear, chocolates, and cozy blankets.",
+      "order": 1,
+      "video": ""
+    },
+    {
+      "id": "ImJmUibu58ZNGa5WbjUa",
+      "order": 1,
+      "title": "Mother's Day Bobo Balloon and Flower Bouquet",
+      "video": "",
+      "active": true,
+      "description": "Celebrate Ammi in Karachi with this hot air Bobo balloon and fresh flower bouquet featuring red roses, white blooms, and sleek satin ribbons.",
+      "shortDescription": "Celebrate Ammi in Karachi with this hot air Bobo balloon and fresh flower bouquet featuring red roses, white blooms, and sleek satin ribbons.",
+      "category": "balloon_boxes",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794485508/694735536_18229689004310790_6784370952301293534_n.jpg",
+      "updatedAt": "2026-11-12T12:19:35.928Z",
+      "featured": true,
+      "price": null
+    },
+    {
+      "id": "SHqhznxqGwqlqOjXgokJ",
+      "updatedAt": "2026-11-12T11:57:20.825Z",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794484622/485793776_1215798923884119_1212444277415867197_n.jpg",
+      "description": "Surprise loved ones in Karachi with this clear acrylic birthday cake box glowing with warm LED fairy lights, satin ribbon, and gold balloons.",
+      "price": null,
+      "shortDescription": "Surprise loved ones in Karachi with this clear acrylic birthday cake box glowing with warm LED fairy lights, satin ribbon, and gold balloons.",
+      "order": 1,
+      "category": "balloon_boxes",
+      "title": "LED Acrylic Birthday Cake Balloon Gift Box",
+      "featured": true,
+      "active": true,
+      "video": ""
+    },
+    {
+      "id": "f7mcxwWvW1tm3gbhiI5f",
+      "description": "Celebrate birthdays in Karachi with this LED acrylic gift box featuring a chocolate cake, Snickers, Bounty chocolates, and red, silver, black balloon bunch.",
+      "price": null,
+      "updatedAt": "2026-11-13T11:02:28.446Z",
+      "shortDescription": "Celebrate birthdays in Karachi with this LED acrylic gift box featuring a chocolate cake, Snickers, Bounty chocolates, and red, silver, black balloon bunch.",
+      "image": "",
+      "title": "Acrylic Birthday Cake Box and Balloon Bouquet",
+      "order": 1,
+      "category": "balloon_boxes",
+      "active": true,
+      "video": "https://res.cloudinary.com/djjvgubrk/video/upload/v1794567730/AQNIzikb3igXKa5dUUs4wrzxDhiOcnFzSENdcokXh_H1xRkKgSP6qNOIhskiMQ9saWtVb3k6bOUcXgEYscthS-i5Dy0DG3N3t8JcctM_GQ.mp4",
+      "featured": false
+    }
+  ]
 }

@@ -1,3 +1,60 @@
 {
-  "products": []
+  "products": [
+    {
+      "id": "NaMOZQTLg8oBvj0UCn5u",
+      "price": null,
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794408120/5fc3640f-b40b-4fa8-aa50-1793c184b4a1.jpg",
+      "updatedAt": "2026-11-11T14:42:27.073Z",
+      "active": true,
+      "shortDescription": "Order this elegant birthday cake in Karachi featuring artistic pink palette knife buttercream textures, real blooming roses, chrysanthemums, and personalized name lettering.",
+      "featured": true,
+      "video": "",
+      "category": "cakes",
+      "description": "Order this elegant birthday cake in Karachi featuring artistic pink palette knife buttercream textures, real blooming roses, chrysanthemums, and personalized name lettering.",
+      "title": "Fresh Flower Palette Knife Birthday Cake Karachi",
+      "order": 1
+    },
+    {
+      "id": "SNZ7vP3BsKU6vXZljaL3",
+      "price": null,
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794404865/d16825f5-4759-435c-adab-1916bb8b6728.jpg",
+      "description": "Surprise parents with this luxury anniversary bento cake and cupcake box featuring red buttercream rosettes, custom calendar date, and delicate butterfly toppers in Karachi.",
+      "active": true,
+      "updatedAt": "2026-11-11T13:48:49.260Z",
+      "category": "cakes",
+      "video": "",
+      "featured": true,
+      "title": "Anniversary Bento Cake and Cupcakes Box Karachi",
+      "order": 1,
+      "shortDescription": "Surprise parents with this luxury anniversary bento cake and cupcake box featuring red buttercream rosettes, custom calendar date, and delicate butterfly toppers in Karachi."
+    },
+    {
+      "id": "vj0cyQDNYph5XLowFNXa",
+      "featured": true,
+      "category": "cakes",
+      "updatedAt": "2026-11-11T14:45:50.487Z",
+      "video": "",
+      "active": true,
+      "title": "Vintage Heart Lambeth Buttercream Birthday Cake",
+      "description": "Celebrate milestone 18th birthdays with this trendy vintage heart cake in Karachi, styled with intricate Lambeth ruffles, pastel pink frosting, and edible pearls.",
+      "order": 1,
+      "price": null,
+      "shortDescription": "Celebrate milestone 18th birthdays with this trendy vintage heart cake in Karachi, styled with intricate Lambeth ruffles, pastel pink frosting, and edible pearls.",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794408340/4c377acb-ce5a-4391-88b8-686820ff07a8.jpg"
+    },
+    {
+      "id": "wrqDqM7AkafQCYaxegzm",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794405617/486612286_1219016500229028_573772425067326357_n.jpg",
+      "active": true,
+      "price": null,
+      "shortDescription": "Celebrate your Baat Pakki and engagement in Karachi with this chic fondant cake featuring a designer handbag topper, bold black bow, and golden calligraphy.",
+      "order": 1,
+      "featured": true,
+      "title": "Customized Baat Pakki Handbag Fondant Theme Cake",
+      "description": "Celebrate your Baat Pakki and engagement in Karachi with this chic fondant cake featuring a designer handbag topper, bold black bow, and golden calligraphy.",
+      "category": "cakes",
+      "video": "",
+      "updatedAt": "2026-11-11T14:00:27.856Z"
+    }
+  ]
 }

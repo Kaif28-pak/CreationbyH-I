@@ -301,6 +301,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     filterCategory.addEventListener('change', renderFilteredList);
 
+    // Export Offline JSON Backup
+    const exportBtn = document.getElementById('export-backup-btn');
+    if (exportBtn) {
+        exportBtn.addEventListener('click', () => {
+            if (!cachedProducts || cachedProducts.length === 0) {
+                alert('No products loaded yet to export.');
+                return;
+            }
+            const blob = new Blob([JSON.stringify({ products: cachedProducts }, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `products-backup-${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    }
+
     // =========================================================================
     // 4. FORM CRUD HANDLERS
     // =========================================================================
