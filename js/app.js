@@ -553,7 +553,42 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    // =========================================================================
+    // 2.5 LIVE DEALS COUNTDOWN TIMERS
+    // =========================================================================
+    function initDealTimers() {
+        const timerBoxes = document.querySelectorAll('.deal-countdown');
+        if (!timerBoxes.length) return;
+
+        function updateTimers() {
+            const now = new Date();
+            // Calculate remaining time till midnight (Karachi / local)
+            const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+            let diffMs = endOfDay - now;
+            if (diffMs <= 0) diffMs = 1000 * 60 * 60 * 12; // Safety loop
+
+            const totalSecs = Math.floor(diffMs / 1000);
+            const hrs = Math.floor(totalSecs / 3600);
+            const mins = Math.floor((totalSecs % 3600) / 60);
+            const secs = totalSecs % 60;
+
+            timerBoxes.forEach(box => {
+                const hrsEl = box.querySelector('.t-hours');
+                const minsEl = box.querySelector('.t-mins');
+                const secsEl = box.querySelector('.t-secs');
+
+                if (hrsEl) hrsEl.textContent = String(hrs).padStart(2, '0');
+                if (minsEl) minsEl.textContent = String(mins).padStart(2, '0');
+                if (secsEl) secsEl.textContent = String(secs).padStart(2, '0');
+            });
+        }
+
+        updateTimers();
+        setInterval(updateTimers, 1000);
+    }
+
     // Initialize all sections
+    initDealTimers();
     loadServices();
     loadFeaturedProducts();
 
