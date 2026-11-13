@@ -2,17 +2,59 @@
   "products": [
     {
       "id": "9D5d61zQHn2dAxSg6mSR",
+      "order": 1,
+      "category": "flower_bouquets",
+      "active": true,
+      "title": "Birthday Flowers Cake Teddy Combo in Karachi",
       "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794486483/503953560_1289670856496925_7324048888329419005_n.jpg",
       "price": null,
-      "category": "flower_bouquets",
-      "featured": false,
-      "description": "Send this complete birthday surprise in Karachi with a red roses KitKat bouquet, custom cream cake, red teddy bear, and silver star balloons.",
-      "video": "",
       "shortDescription": "Send this complete birthday surprise in Karachi with a red roses KitKat bouquet, custom cream cake, red teddy bear, and silver star balloons.",
       "updatedAt": "2026-11-12T12:30:42.015Z",
+      "featured": false,
+      "description": "Send this complete birthday surprise in Karachi with a red roses KitKat bouquet, custom cream cake, red teddy bear, and silver star balloons.",
+      "video": ""
+    },
+    {
+      "id": "HUYGuiWTIQssl0QvWKsF",
+      "video": "",
+      "updatedAt": "2026-11-13T14:15:03.046Z",
+      "shortDescription": "Surprise her in Karachi with this dreamy pink flower bouquet paired with metallic foil heart balloons and a Happy Birthday balloon bunch.",
+      "category": "flower_bouquets",
+      "active": true,
       "order": 1,
-      "title": "Birthday Flowers Cake Teddy Combo in Karachi",
-      "active": true
+      "featured": false,
+      "title": "Pink Flowers and Heart Balloon Bouquet Karachi",
+      "description": "Surprise her in Karachi with this dreamy pink flower bouquet paired with metallic foil heart balloons and a Happy Birthday balloon bunch.",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794579289/509419218_1305239864940024_1019644222027115648_n.jpg",
+      "price": null
+    },
+    {
+      "id": "Pi1ocKjYJJ6hpW4oWifj",
+      "featured": true,
+      "video": "",
+      "updatedAt": "2026-11-13T14:17:03.774Z",
+      "description": "Celebrate in Karachi with this luxury money bouquet featuring real currency notes elegantly fanned above freshly bloomed red velvet roses and baby's breath.",
+      "title": "Luxury Money Bouquet with Fresh Red Roses Karachi",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794579414/500764627_1283290443801633_4241533242905161282_n.jpg",
+      "price": null,
+      "shortDescription": "Celebrate in Karachi with this luxury money bouquet featuring real currency notes elegantly fanned above freshly bloomed red velvet roses and baby's breath.",
+      "category": "flower_bouquets",
+      "active": true,
+      "order": 1
+    },
+    {
+      "id": "pVTL1B1ZSHshkCzTM2Ow",
+      "shortDescription": "Send warm wishes in Karachi with this grand fresh floral bouquet featuring tall gladioli spikes, soft pink roses, and blooming chrysanthemums.",
+      "image": "https://res.cloudinary.com/djjvgubrk/image/upload/v1794579373/497590582_1270664628397548_4557554480916494034_n.jpg",
+      "price": null,
+      "title": "Grand Pink Roses and Gladioli Fresh Flower Bouquet",
+      "category": "flower_bouquets",
+      "order": 1,
+      "active": true,
+      "description": "Send warm wishes in Karachi with this grand fresh floral bouquet featuring tall gladioli spikes, soft pink roses, and blooming chrysanthemums.",
+      "video": "",
+      "updatedAt": "2026-11-13T14:20:25.716Z",
+      "featured": false
     }
   ]
 }
