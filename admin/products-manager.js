@@ -161,26 +161,51 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
+    function slugifyTitle(title) {
+        if (!title || typeof title !== 'string') return '';
+        return title
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)/g, '')
+            .slice(0, 80);
+    }
+
     if (uploadImageBtn) {
         uploadImageBtn.addEventListener('click', () => {
             if (!window.cloudinary) {
                 alert('Cloudinary is loading. Please check your internet connection.');
                 return;
             }
-            window.cloudinary.openUploadWidget({
+
+            const currentTitle = prodTitle.value.trim();
+            if (!currentTitle) {
+                alert('⚠️ Pehle "Product Title" likhein taake Cloudinary par photo ka naam SEO Title ke mutabiq save ho sakay!');
+                prodTitle.focus();
+                return;
+            }
+
+            const seoSlug = slugifyTitle(currentTitle);
+            const widgetOptions = {
                 cloudName: 'djjvgubrk',
                 uploadPreset: 'ml_default',
                 sources: ['local', 'camera', 'url'],
                 multiple: false,
                 resourceType: 'image',
                 clientAllowedFormats: ['webp', 'jpg', 'jpeg', 'png']
-            }, (error, result) => {
+            };
+
+            if (seoSlug) {
+                widgetOptions.publicId = seoSlug;
+            }
+
+            window.cloudinary.openUploadWidget(widgetOptions, (error, result) => {
                 if (!error && result && result.event === 'success') {
                     prodImage.value = result.info.secure_url;
                     if (imagePreview && imagePreviewThumb) {
                         imagePreviewThumb.src = result.info.secure_url;
                         imagePreview.style.display = 'block';
                     }
+                    alert(`✔ Photo uploaded with SEO filename:\n${result.info.secure_url.split('/').pop()}`);
                 }
             });
         });
@@ -192,17 +217,32 @@ document.addEventListener('DOMContentLoaded', async () => {
                 alert('Cloudinary is loading. Please check your internet connection.');
                 return;
             }
-            window.cloudinary.openUploadWidget({
+
+            const currentTitle = prodTitle.value.trim();
+            if (!currentTitle) {
+                alert('⚠️ Pehle "Product Title" likhein taake Cloudinary par video reel ka naam SEO Title ke mutabiq save ho sakay!');
+                prodTitle.focus();
+                return;
+            }
+
+            const seoSlug = `${slugifyTitle(currentTitle)}-reel`;
+            const widgetOptions = {
                 cloudName: 'djjvgubrk',
                 uploadPreset: 'ml_default',
                 sources: ['local', 'camera', 'url'],
                 multiple: false,
                 resourceType: 'video',
                 clientAllowedFormats: ['mp4', 'mov']
-            }, (error, result) => {
+            };
+
+            if (seoSlug) {
+                widgetOptions.publicId = seoSlug;
+            }
+
+            window.cloudinary.openUploadWidget(widgetOptions, (error, result) => {
                 if (!error && result && result.event === 'success') {
                     prodVideo.value = result.info.secure_url;
-                    alert('Video reel uploaded to Cloudinary successfully!');
+                    alert(`✔ Video reel uploaded with SEO filename:\n${result.info.secure_url.split('/').pop()}`);
                 }
             });
         });
@@ -518,7 +558,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 alert('Cloudinary is loading. Please check internet connection.');
                 return;
             }
-            window.cloudinary.openUploadWidget({
+
+            const currentTitle = dealTitle.value.trim();
+            if (!currentTitle) {
+                alert('⚠️ Pehle "Deal Title" likhein taake Cloudinary par photo ka naam SEO Title ke mutabiq save ho sakay!');
+                dealTitle.focus();
+                return;
+            }
+
+            const seoSlug = `deal-${slugifyTitle(currentTitle)}`;
+            const widgetOptions = {
                 cloudName: 'djjvgubrk',
                 uploadPreset: 'ml_default',
                 sources: ['local', 'camera', 'url'],
@@ -526,10 +575,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 resourceType: 'image',
                 clientAllowedFormats: ['png', 'jpeg', 'jpg', 'webp'],
                 maxFileSize: 10000000
-            }, (error, result) => {
+            };
+
+            if (seoSlug) {
+                widgetOptions.publicId = seoSlug;
+            }
+
+            window.cloudinary.openUploadWidget(widgetOptions, (error, result) => {
                 if (!error && result && result.event === 'success') {
                     dealImage.value = result.info.secure_url;
-                    alert('Deal photo uploaded to Cloudinary successfully!');
+                    alert(`✔ Deal photo uploaded with SEO filename:\n${result.info.secure_url.split('/').pop()}`);
                 }
             });
         });
